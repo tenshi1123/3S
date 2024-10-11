@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:three_s/modules/roll%20call/list_class.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../utils/constants/color.dart';
@@ -156,10 +158,20 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(
-                  'assets/images/follow_class.png',
-                  width: 164.w,
-                  height: 116.h,
+                GestureDetector(
+                  onTap: () {
+                    pushWithoutNavBar(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ListClass(),
+                      ),
+                    );
+                  },
+                  child: Image.asset(
+                    'assets/images/follow_class.png',
+                    width: 164.w,
+                    height: 116.h,
+                  ),
                 ),
                 Image.asset(
                   'assets/images/monthly_summary.png',

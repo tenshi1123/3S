@@ -251,7 +251,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 10.h,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => const BottomNavBar()),
+                      ),
+                    );
+                  },
                   child: Container(
                     height: 48.h,
                     width: 340.w,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:three_s/modules/roll%20call/list_class.dart';
+import 'package:three_s/modules/monthly_summary/monthly_summary.dart';
+import 'package:three_s/modules/roll_call/list_class.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../utils/constants/color.dart';
@@ -20,7 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
   final controller = PageController(viewportFraction: 1, keepPage: true);
   @override
   Widget build(BuildContext context) {
-    final pages = List.generate(3, (index) => const NotificationItem());
+    final pages = List.generate(
+        3,
+        (index) => NotificationItem(
+              index: index,
+            ));
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -173,10 +178,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 116.h,
                   ),
                 ),
-                Image.asset(
-                  'assets/images/monthly_summary.png',
-                  width: 164.w,
-                  height: 116.h,
+                GestureDetector(
+                  onTap: () {
+                    pushWithoutNavBar(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MonthlySummary(),
+                      ),
+                    );
+                  },
+                  child: Image.asset(
+                    'assets/images/monthly_summary.png',
+                    width: 164.w,
+                    height: 116.h,
+                  ),
                 ),
               ],
             ),
@@ -250,8 +265,8 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class NotificationItem extends StatelessWidget {
-  const NotificationItem({super.key});
-
+  const NotificationItem({super.key, required this.index});
+  final int index;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -286,7 +301,7 @@ class NotificationItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    ' ',
+                    'Đây là slide ${index + 1}',
                     style: defaultBoldText.copyWith(
                       color: keyBlack,
                     ),

@@ -70,153 +70,141 @@ class _OnbondingState extends State<Onbonding> {
         child: Stack(
           children: [
             Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                    color: Colors.white,
-                    height: height,
-                    child: PageView(
-                      physics: const ClampingScrollPhysics(),
-                      controller: _pageController,
-                      onPageChanged: (int page) {
-                        setState(() {
-                          _currentPage = page;
-                        });
-                      },
+              color: Colors.white,
+              height: height,
+              child: PageView(
+                physics: const ClampingScrollPhysics(),
+                controller: _pageController,
+                onPageChanged: (int page) {
+                  setState(() {
+                    _currentPage = page;
+                  });
+                },
+                children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SingleChildScrollView(
+                        Center(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Center(
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: 124.h),
-                                    Image.asset(
-                                      "assets/images/onboard1.png",
-                                      width: 359.w,
-                                      height: 342.h,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    SizedBox(height: 5.h),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 18.w),
-                                      child: Text(
-                                        'Đồng hành cùng con mọi lúc, mọi nơi',
-                                        style: TextStyle(
-                                          color: keyBlack,
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: height / 40),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 20.w),
-                                      child: Text(
-                                        VnString.itisrecommended,
-                                        textAlign: TextAlign.center,
-                                        style: defaultText16.copyWith(
-                                          color: subBlack,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              SizedBox(height: 124.h),
+                              Image.asset(
+                                "assets/images/onboard1.png",
+                                width: 359.w,
+                                height: 342.h,
+                                fit: BoxFit.fill,
+                              ),
+                              SizedBox(height: 5.h),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 18.w),
+                                child: Text(
+                                  'Đồng hành cùng con mọi lúc, mọi nơi',
+                                  style: TextStyle(
+                                    color: keyBlack,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              )
+                              ),
+                              SizedBox(height: height / 40),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                child: Text(
+                                  VnString.itisrecommended,
+                                  textAlign: TextAlign.center,
+                                  style: defaultText16.copyWith(
+                                    color: subBlack,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-                        ),
-                        SingleChildScrollView(
+                        )
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Center(
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: 124.h),
-                                    Image.asset(
-                                      "assets/images/onboard2.png",
-                                      width: 375.w,
-                                      height: 334.h,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    SizedBox(height: 5.h),
-                                    Text(
-                                      'Lộ trình khóa học đa dạng',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: keyBlack,
-                                        fontSize: 18.sp,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: height / 40),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 20.w,
-                                      ),
-                                      child: Text(
-                                        VnString.thaksforfunevent,
-                                        textAlign: TextAlign.center,
-                                        style: defaultText16.copyWith(
-                                          color: subBlack,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            SizedBox(height: 124.h),
-                            Image.asset(
-                              "assets/images/onboard3.png",
-                              width: 342.w,
-                              height: 342.h,
-                              fit: BoxFit.fill,
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 18.w),
-                              child: Text(
-                                'Phương pháp học hiệu quả',
+                              SizedBox(height: 124.h),
+                              Image.asset(
+                                "assets/images/onboard2.png",
+                                width: 375.w,
+                                height: 334.h,
+                                fit: BoxFit.fill,
+                              ),
+                              SizedBox(height: 5.h),
+                              Text(
+                                'Lộ trình khóa học đa dạng',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: keyBlack,
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
-                            SizedBox(height: height / 40),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                VnString.withtimelynotification,
-                                textAlign: TextAlign.center,
-                                style: defaultText16.copyWith(
-                                  color: subBlack,
-                                  fontWeight: FontWeight.w400,
+                              SizedBox(height: height / 40),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 20.w,
+                                ),
+                                child: Text(
+                                  VnString.thaksforfunevent,
+                                  textAlign: TextAlign.center,
+                                  style: defaultText16.copyWith(
+                                    color: subBlack,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(height: 124.h),
+                      Image.asset(
+                        "assets/images/onboard3.png",
+                        width: 342.w,
+                        height: 342.h,
+                        fit: BoxFit.fill,
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 18.w),
+                        child: Text(
+                          'Phương pháp học hiệu quả',
+                          style: TextStyle(
+                            color: keyBlack,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: height / 40),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          VnString.withtimelynotification,
+                          textAlign: TextAlign.center,
+                          style: defaultText16.copyWith(
+                            color: subBlack,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -275,7 +263,7 @@ class _OnbondingState extends State<Onbonding> {
             Column(
               children: [
                 SizedBox(
-                  height: 68.h,
+                  height: 60.h,
                 ),
                 Row(
                   children: [

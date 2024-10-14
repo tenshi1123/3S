@@ -3,7 +3,6 @@ import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart";
 import "package:three_s/utils/constants/color.dart";
 import "home_screen.dart";
-import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({
@@ -53,9 +52,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
           item: ItemConfig(
             icon: const Icon(Icons.home),
             title: "Trang chủ",
-            activeForegroundColor: key1Color,
-            inactiveForegroundColor: Colors.white,
-            activeColorSecondary: Colors.white,
+            activeForegroundColor: Colors.white,
+            inactiveForegroundColor: const Color(0xffBABABA),
+            activeColorSecondary: key1Color,
             inactiveBackgroundColor: Colors.white.withOpacity(0.2),
           ),
         ),
@@ -63,21 +62,22 @@ class _BottomNavBarState extends State<BottomNavBar> {
           screen: const HomeScreen(),
           item: ItemConfig(
             icon: const Icon(Icons.book),
+            //icon: SvgPicture.asset('assets/icons/nav_bar2.svg'),
             title: "Môn học",
-            activeForegroundColor: key1Color,
-            inactiveForegroundColor: Colors.white,
-            activeColorSecondary: Colors.white,
+            activeForegroundColor: Colors.white,
+            inactiveForegroundColor: const Color(0xffBABABA),
+            activeColorSecondary: key1Color,
             inactiveBackgroundColor: Colors.white.withOpacity(0.2),
           ),
         ),
         PersistentTabConfig(
           screen: const HomeScreen(),
           item: ItemConfig(
-            icon: SvgPicture.asset('assets/icons/nav_bar2.svg'),
+            icon: const Icon(Icons.person),
             title: "Hồ sơ",
-            activeForegroundColor: key1Color,
-            inactiveForegroundColor: Colors.white,
-            activeColorSecondary: Colors.white,
+            activeForegroundColor: Colors.white,
+            inactiveForegroundColor: const Color(0xffBABABA),
+            activeColorSecondary: key1Color,
             inactiveBackgroundColor: Colors.white.withOpacity(0.2),
           ),
         ),
@@ -88,12 +88,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return PersistentTabView(
         controller: _controller,
         tabs: _tabs(),
-        navBarBuilder: (navBarConfig) => Style2BottomNavBar(
+        navBarBuilder: (navBarConfig) => Style8BottomNavBar(
               itemPadding: EdgeInsets.all(5.h),
               navBarConfig: navBarConfig,
-              navBarDecoration: NavBarDecoration(
-                color: const Color(0xff4659B9),
-                borderRadius: BorderRadius.circular(25.r),
+              navBarDecoration: const NavBarDecoration(
+                color: Colors.white,
               ),
               //itemAnimationProperties: const ItemAnimation(),
             ),

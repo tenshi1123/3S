@@ -153,7 +153,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 200.h,
+                  height: 100.h,
                 ),
                 GestureDetector(
                   onTap: () {

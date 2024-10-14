@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:three_s/modules/roll%20call/info_class.dart';
+import 'package:three_s/modules/roll_call/info_class.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -158,13 +158,13 @@ class _ClassItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '28 buổi ',
+                            '2 buổi ',
                             style: defaultText14.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           Text(
-                            'Đã hoàn thành',
+                            'Vắng mặt',
                             style: defaultText12,
                           ),
                         ],

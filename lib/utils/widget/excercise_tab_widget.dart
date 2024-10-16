@@ -1,9 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:d_chart/d_chart.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+
+import '../untils.dart';
 
 class ExcerciseTabBar extends StatefulWidget {
   const ExcerciseTabBar(this.outerTab, {super.key});
@@ -117,19 +123,54 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
               Card(
                 margin: const EdgeInsets.all(16.0),
                 child: Center(
-                  child: Text(
-                    'Không có bài tập nào',
-                    style: defaultText14,
+                  child: SleekCircularSlider(
+                    onChangeStart: (double value) {},
+                    onChangeEnd: (double value) {},
+                    appearance: CircularSliderAppearance(
+                        customWidths: CustomSliderWidths(
+                            trackWidth: 22,
+                            progressBarWidth: 20,
+                            shadowWidth: 50),
+                        customColors: CustomSliderColors(
+                            trackColors: [
+                              HexColor('#FFF8CB'),
+                              HexColor('#B9FFFF')
+                            ],
+                            progressBarColors: [
+                              HexColor('#FFC84B'),
+                              HexColor('#00BFD5')
+                            ],
+                            shadowColor: HexColor('#5FC7B0'),
+                            dynamicGradient: true,
+                            shadowMaxOpacity: 0.05),
+                        infoProperties: InfoProperties(
+                            bottomLabelStyle: TextStyle(
+                                color: HexColor('#002D43'),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700),
+                            bottomLabelText: '6 Tháng',
+                            mainLabelStyle: const TextStyle(
+                                color: Color.fromRGBO(97, 169, 210, 1),
+                                fontSize: 30.0,
+                                fontWeight: FontWeight.w200),
+                            modifier: (double value) {
+                              final kcal = value.toInt();
+                              return '$kcal K';
+                            }),
+                        size: 200.0,
+                        startAngle: 180,
+                        angleRange: 180),
+                    min: 500,
+                    max: 20000,
+                    initialValue: 2000,
                   ),
                 ),
               ),
-              Card(
-                margin: const EdgeInsets.all(16.0),
+              const Card(
+                margin: EdgeInsets.all(16.0),
+                color: Colors.white,
                 child: Center(
-                  child: Text(
-                    'Không có bài tập nào',
-                    style: defaultText14,
-                  ),
+                  child: PieChart(),
                 ),
               ),
             ],
@@ -239,6 +280,70 @@ class ClassItem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class PieChart extends StatelessWidget {
+  const PieChart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    List<OrdinalData> ordinalDataList = [
+      OrdinalData(domain: '1', measure: 90, color: const Color(0xff3A7DD4)),
+      OrdinalData(domain: '2', measure: 10, color: const Color(0xffd9d9d9)),
+      OrdinalData(domain: '3', measure: 33, color: Colors.white),
+    ];
+    return Stack(
+      children: [
+        AspectRatio(
+          aspectRatio: 30 / 25,
+          child: DChartPieO(
+            data: ordinalDataList,
+            customLabel: (ordinalData, index) {
+              return "";
+            },
+            configRenderPie: ConfigRenderPie(
+              arcLabelDecorator: ArcLabelDecorator(
+                labelPosition: ArcLabelPosition.auto,
+                leaderLineStyle: const ArcLabelLeaderLineStyle(
+                  color: Colors.transparent,
+                  length: 30,
+                  thickness: 0,
+                ),
+                showLeaderLines: true,
+              ),
+              arcLength: 2 * pi,
+              arcRatio: 0.2,
+              //arcWidth: 10,
+              startAngle: pi * 3 / 4,
+              strokeWidthPx: 0,
+            ),
+          ),
+        ),
+        Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '9',
+                style: defaultText16.copyWith(
+                  fontSize: 48.sp,
+                  fontWeight: FontWeight.bold,
+                  color: primary500,
+                ),
+              ),
+              Text(
+                'Điểm trung bình\n  của cả tháng',
+                style: defaultText16.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: primary500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

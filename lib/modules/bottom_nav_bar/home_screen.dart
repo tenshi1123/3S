@@ -111,14 +111,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(
-              height: 170.h,
+              height: 10.h,
+            ),
+            SizedBox(
+              height: 188.h,
               width: 375.w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
-                    height: 138.h,
-                    width: 390.w,
+                    height: 168.h,
+                    width: 343.w,
                     child: PageView.builder(
                       padEnds: false,
                       controller: controller,
@@ -251,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(
               height: 400.h,
-              width: 390.w,
+              width: 375.w,
               child: const ExcerciseTabBar(''),
             ),
             SizedBox(
@@ -272,46 +275,58 @@ class NotificationItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
-        width: 390.w,
-        height: 200.h,
+        //margin: EdgeInsets.symmetric(horizontal: 20.w),
+        width: 343.w,
+        height: 170.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8.r)),
-          color: const Color(0xffDADEF1),
-        ),
-        child: Row(
-          children: [
-            Container(
-              height: 76.h,
-              width: 76.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8.r),
-                ),
-                color: const Color(0xff6B7AC7),
-              ),
-            ),
-            SizedBox(
-              width: 10.w,
-            ),
-            Flexible(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Đây là slide ${index + 1}',
-                    style: defaultBoldText.copyWith(
-                      color: keyBlack,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
+          color: Colors.blue.shade100,
+          image: const DecorationImage(
+            image: AssetImage('assets/images/slide1.png'),
+            fit: BoxFit.fill,
+          ),
         ),
       ),
+      // Container(
+      //   margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+      //   padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
+      //   width: 390.w,
+      //   height: 200.h,
+      //   decoration: BoxDecoration(
+      //     borderRadius: BorderRadius.all(Radius.circular(8.r)),
+      //     color: const Color(0xffDADEF1),
+      //   ),
+      //   child: Row(
+      //     children: [
+      //       Container(
+      //         height: 76.h,
+      //         width: 76.w,
+      //         decoration: BoxDecoration(
+      //           borderRadius: BorderRadius.all(
+      //             Radius.circular(8.r),
+      //           ),
+      //           color: const Color(0xff6B7AC7),
+      //         ),
+      //       ),
+      //       SizedBox(
+      //         width: 10.w,
+      //       ),
+      //       Flexible(
+      //         child: Column(
+      //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //           crossAxisAlignment: CrossAxisAlignment.start,
+      //           children: [
+      //             Text(
+      //               'Đây là slide ${index + 1}',
+      //               style: defaultBoldText.copyWith(
+      //                 color: keyBlack,
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //       )
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

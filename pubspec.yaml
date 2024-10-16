@@ -21,6 +21,8 @@ dependencies:
   flutter_bloc: ^8.1.6
   persistent_bottom_nav_bar_v2: ^5.3.1
   smooth_page_indicator: ^1.2.0+3
+  d_chart: ^2.6.9
+  sleek_circular_slider: ^2.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

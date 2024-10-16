@@ -3,6 +3,7 @@ import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart";
 import "package:three_s/utils/constants/color.dart";
 import "home_screen.dart";
+import "personer_screen.dart";
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({
@@ -61,9 +62,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
         PersistentTabConfig(
           screen: const HomeScreen(),
           item: ItemConfig(
-            icon: const Icon(Icons.book),
+            icon: const Icon(
+              Icons.bookmark_border,
+            ),
             //icon: SvgPicture.asset('assets/icons/nav_bar2.svg'),
-            title: "Môn học",
+            title: "Khóa học",
             activeForegroundColor: Colors.white,
             inactiveForegroundColor: const Color(0xffBABABA),
             activeColorSecondary: key1Color,
@@ -71,10 +74,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
         PersistentTabConfig(
-          screen: const HomeScreen(),
+          screen: const PersonerScreen(),
           item: ItemConfig(
-            icon: const Icon(Icons.person),
-            title: "Hồ sơ",
+            icon: const Icon(Icons.person_2_outlined),
+            title: "Cá nhân",
             activeForegroundColor: Colors.white,
             inactiveForegroundColor: const Color(0xffBABABA),
             activeColorSecondary: key1Color,

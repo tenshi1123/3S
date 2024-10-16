@@ -1,0 +1,184 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:three_s/utils/constants/color.dart';
+import 'package:three_s/utils/constants/styles.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../login/login_screen.dart';
+
+class PersonerScreen extends StatelessWidget {
+  const PersonerScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    Future<void> makePhoneCall(String phoneNumber) async {
+      final Uri launchUri = Uri(
+        scheme: 'tel',
+        path: phoneNumber,
+      );
+      await launchUrl(launchUri);
+    }
+
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Center(child: Text('Cá nhân')),
+          backgroundColor: Colors.white,
+        ),
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            const Divider(),
+            SizedBox(
+              width: 343.w,
+              height: 60.h,
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 26.r,
+                    backgroundColor: Colors.grey,
+                    backgroundImage:
+                        const NetworkImage('https://i.imgur.com/nhETfUw.png'),
+                    //child: const Text('AH'),
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Phạm Thế Anh',
+                        style: defaultText18.copyWith(
+                          color: primary500,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18.sp,
+                        ),
+                      ),
+                      Text(
+                        '097 111 6262',
+                        style: defaultText14.copyWith(
+                            color: const Color(
+                          0xff8A8A8A,
+                        )),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                ],
+              ),
+            ),
+            Divider(
+              thickness: 6.h,
+              height: 30.h,
+            ),
+            GestureDetector(
+              onTap: () {
+                makePhoneCall('19008978');
+              },
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                  const Icon(
+                    Icons.headphones,
+                    color: Color(0xff3C3C3C),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    'Hotline',
+                    style:
+                        defaultText16.copyWith(color: const Color(0xff3C3C3C)),
+                  ),
+                  const Spacer(),
+                  Text(
+                    '1900 6262',
+                    style:
+                        defaultText16.copyWith(color: const Color(0xFFDF1111)),
+                  ),
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              thickness: 6.h,
+              height: 30.h,
+            ),
+            GestureDetector(
+              onTap: () => _dialogBuilder(context),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                  const Icon(
+                    Icons.exit_to_app,
+                    color: Color(0xFFDF1111),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    'Đăng xuất',
+                    style:
+                        defaultText16.copyWith(color: const Color(0xFFDF1111)),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> _dialogBuilder(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Đăng xuất',
+          style: defaultText14,
+        ),
+        content: Text(
+          'Bạn có chắc muốn đăng xuất ?',
+          style: defaultText14,
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Hủy'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Xác nhận'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => const LoginScreen()),
+                ),
+              );
+            },
+          ),
+        ],
+      );
+    },
+  );
+}

@@ -44,13 +44,25 @@ class InfoClass extends StatelessWidget {
             thickness: 6.h,
             color: const Color(0xffF0F0F0),
           ),
-          ListView.builder(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              itemCount: 1,
-              itemBuilder: (BuildContext context, int index) {
-                return const _ClassItem();
-              }),
+          const _ClassItem(
+            index: 1,
+            time1: '07:56',
+            time2: '10:05',
+            day: '   09/12/2024',
+          ),
+          const _ClassItem(
+            index: 2,
+            time1: '---',
+            time2: '---',
+            day: '   19/12/2024',
+          ),
+          // ListView.builder(
+          //     shrinkWrap: true,
+          //     physics: const ClampingScrollPhysics(),
+          //     itemCount: 1,
+          //     itemBuilder: (BuildContext context, int index) {
+          //       return const _ClassItem();
+          //     }),
         ],
       ),
     );
@@ -58,8 +70,16 @@ class InfoClass extends StatelessWidget {
 }
 
 class _ClassItem extends StatelessWidget {
-  const _ClassItem({super.key});
-
+  const _ClassItem(
+      {super.key,
+      required this.index,
+      required this.time1,
+      required this.time2,
+      required this.day});
+  final int index;
+  final String day;
+  final String time1;
+  final String time2;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -73,9 +93,11 @@ class _ClassItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset('assets/images/tick.png'),
+                (index == 1)
+                    ? Image.asset('assets/images/tick.png')
+                    : Image.asset('assets/images/cancle.png'),
                 Text(
-                  '   09/12/2024',
+                  day,
                   style: defaultText16.copyWith(
                     color: keyBlack,
                     fontWeight: FontWeight.w600,
@@ -120,14 +142,14 @@ class _ClassItem extends StatelessWidget {
                           height: 1.8.h),
                     ),
                     Text(
-                      '07:56',
+                      time1,
                       style: defaultText14.copyWith(
                           fontWeight: FontWeight.w600,
                           color: primary500,
                           height: 1.8.h),
                     ),
                     Text(
-                      '10:05',
+                      time2,
                       style: defaultText14.copyWith(
                           fontWeight: FontWeight.w600,
                           color: primary500,
@@ -142,6 +164,24 @@ class _ClassItem extends StatelessWidget {
                     ),
                   ],
                 ),
+                (index == 1)
+                    ? const SizedBox()
+                    : Container(
+                        width: 64.w,
+                        height: 28.h,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Nghỉ',
+                            style: defaultText12.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
               ],
             ),
             const Divider(),

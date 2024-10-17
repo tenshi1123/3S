@@ -9,6 +9,7 @@ import '../../utils/constants/color.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utils/widget/excercise_tab_widget.dart';
+import 'search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -87,24 +88,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 20.h,
                   ),
-                  Container(
-                    width: 343.w,
-                    height: 44.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      color: Colors.white,
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10.w,
+                  GestureDetector(
+                    onTap: () {
+                      pushWithoutNavBar(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SearchScreen(),
                         ),
-                        const Icon(Icons.search),
-                        Text(
-                          '  Bạn muốn tìm kiếm gì nào?',
-                          style: defaultText16.copyWith(color: subBlack),
-                        )
-                      ],
+                      );
+                    },
+                    child: Container(
+                      width: 343.w,
+                      height: 44.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.r),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          const Icon(Icons.search),
+                          Text(
+                            '  Bạn muốn tìm kiếm gì nào?',
+                            style: defaultText16.copyWith(color: subBlack),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ],

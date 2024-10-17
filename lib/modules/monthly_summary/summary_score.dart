@@ -71,6 +71,9 @@ class SummaryScore extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return const ClassItem();
                 }),
+            SizedBox(
+              height: 20.h,
+            ),
           ],
         ),
       ),

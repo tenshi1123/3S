@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/login/otp_screen.dart';
+import 'package:three_s/utils/constants/styles.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -101,8 +102,9 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                     color: const Color(0xffF4F1F3),
                   ),
                   child: TextField(
-                    keyboardType: const TextInputType.numberWithOptions(),
+                    //keyboardType: const TextInputType.numberWithOptions(),
                     controller: studenIdController,
+                    style: defaultText16,
                     focusNode: _focusNode1,
                     scrollPadding: EdgeInsets.symmetric(
                         vertical: MediaQuery.of(context).viewInsets.bottom),

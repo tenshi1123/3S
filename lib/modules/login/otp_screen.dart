@@ -175,25 +175,26 @@ class _OtpScreenState extends State<OtpScreen> {
 
   //Method for verify otp entered by user
   Future<void> verifyOtp() async {
-    if (smsOTP.isEmpty || smsOTP == '') {
-      showAlertDialog(context, 'xin mời nhập mã otp');
-      return;
-    }
-    try {
-      // final AuthCredential credential = PhoneAuthProvider.credential(
-      //   verificationId: verificationId,
-      //   smsCode: smsOTP,
-      // );
-      // final UserCredential user = await _auth.signInWithCredential(credential);
-      // final User? currentUser = _auth.currentUser;
-      // assert(user.user?.uid == currentUser?.uid);
-    } on PlatformException catch (e) {
-      handleError(e);
-    } catch (e) {
-      if (kDebugMode) {
-        print('error $e');
-      }
-    }
+    return showAlertDialog(context, 'Sai mã xác minh');
+    // if (smsOTP.isEmpty || smsOTP == '') {
+    //   showAlertDialog(context, 'xin mời nhập mã otp');
+    //   return;
+    // }
+    // try {
+    //   // final AuthCredential credential = PhoneAuthProvider.credential(
+    //   //   verificationId: verificationId,
+    //   //   smsCode: smsOTP,
+    //   // );
+    //   // final UserCredential user = await _auth.signInWithCredential(credential);
+    //   // final User? currentUser = _auth.currentUser;
+    //   // assert(user.user?.uid == currentUser?.uid);
+    // } on PlatformException catch (e) {
+    //   handleError(e);
+    // } catch (e) {
+    //   if (kDebugMode) {
+    //     print('error $e');
+    //   }
+    // }
   }
 
   //Method for handle the errors

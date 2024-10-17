@@ -96,81 +96,33 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
               ListView.builder(
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
-                  itemCount: 4,
+                  itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 66.h,
-                          width: 350.w,
-                          margin: EdgeInsets.only(
-                              bottom: 10.h, right: 10.w, left: 10.w, top: 10.h),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(
-                                    0, 1), // changes position of shadow
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ));
+                    return const ClassItem();
                   }),
               Card(
                 margin: const EdgeInsets.all(16.0),
                 child: Center(
-                  child: SleekCircularSlider(
-                    onChangeStart: (double value) {},
-                    onChangeEnd: (double value) {},
-                    appearance: CircularSliderAppearance(
-                        customWidths: CustomSliderWidths(
-                            trackWidth: 22,
-                            progressBarWidth: 20,
-                            shadowWidth: 50),
-                        customColors: CustomSliderColors(
-                            trackColors: [
-                              HexColor('#FFF8CB'),
-                              HexColor('#B9FFFF')
-                            ],
-                            progressBarColors: [
-                              HexColor('#FFC84B'),
-                              HexColor('#00BFD5')
-                            ],
-                            shadowColor: HexColor('#5FC7B0'),
-                            dynamicGradient: true,
-                            shadowMaxOpacity: 0.05),
-                        infoProperties: InfoProperties(
-                            bottomLabelStyle: TextStyle(
-                                color: HexColor('#002D43'),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700),
-                            bottomLabelText: '6 Tháng',
-                            mainLabelStyle: const TextStyle(
-                                color: Color.fromRGBO(97, 169, 210, 1),
-                                fontSize: 30.0,
-                                fontWeight: FontWeight.w200),
-                            modifier: (double value) {
-                              final kcal = value.toInt();
-                              return '$kcal K';
-                            }),
-                        size: 200.0,
-                        startAngle: 180,
-                        angleRange: 180),
-                    min: 500,
-                    max: 20000,
-                    initialValue: 2000,
+                  child: Text(
+                    'Không có khóa học nào',
+                    style: defaultText16.copyWith(
+                      color: keyBlack,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
-              const Card(
-                margin: EdgeInsets.all(16.0),
+              Card(
+                margin: const EdgeInsets.all(16.0),
                 color: Colors.white,
                 child: Center(
-                  child: PieChart(),
+                  child: Text(
+                    'Không có khóa học nào',
+                    style: defaultText16.copyWith(
+                      color: keyBlack,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
             ],

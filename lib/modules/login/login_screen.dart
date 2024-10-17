@@ -105,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     //keyboardType: const TextInputType.numberWithOptions(),
                     controller: studenIdController,
                     focusNode: _focusNode1,
+                    style: defaultText16,
                     scrollPadding: EdgeInsets.symmetric(
                         vertical: MediaQuery.of(context).viewInsets.bottom),
                     decoration: InputDecoration(
@@ -151,6 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: TextField(
                     obscureText: _isObscure,
                     obscuringCharacter: "*",
+                    style: defaultText16,
                     controller: passController,
                     focusNode: _focusNode,
                     scrollPadding: EdgeInsets.symmetric(

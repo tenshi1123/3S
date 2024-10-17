@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart";
 import "package:three_s/utils/constants/color.dart";
+import "course_screen.dart";
 import "home_screen.dart";
 import "personer_screen.dart";
 
@@ -60,7 +61,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
         PersistentTabConfig(
-          screen: const HomeScreen(),
+          screen: const CourseScreen(),
           item: ItemConfig(
             icon: const Icon(
               Icons.bookmark_border,

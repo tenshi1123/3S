@@ -234,6 +234,32 @@ class _HomeScreenState extends State<HomeScreen> {
                         fit: BoxFit.fill,
                       ),
                     ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Spacer(),
+                        Text(
+                          '    Lớp ôn thi DGNL 2025',
+                          style: defaultText16.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Text(
+                          '    21/05/2024 (08:00 - 11:00)',
+                          style: defaultText14.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        )
+                      ],
+                    ),
                   );
                 },
               ),

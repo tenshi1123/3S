@@ -5,14 +5,15 @@ import 'package:three_s/modules/monthly_summary/monthly_summary.dart';
 import 'package:three_s/modules/roll_call/list_class.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../utils/constants/color.dart';
+import '../../../utils/constants/color.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../utils/widget/excercise_tab_widget.dart';
+import '../../../utils/widget/excercise_tab_widget.dart';
 import 'search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.type});
+  final int type;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -20,6 +21,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final controller = PageController(viewportFraction: 1, keepPage: true);
+  late final int type;
+  @override
+  void initState() {
+    // TODO: implement initState
+    type = widget.type;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final pages = List.generate(
@@ -53,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         CircleAvatar(
                           radius: 26.r,
                           backgroundColor: Colors.white,
-                          child: const Text('AH'),
+                          child: Text((type == 0) ? 'TA' : ''),
                         ),
                         SizedBox(
                           width: 5.w,
@@ -63,13 +72,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Chào buổi sáng!',
+                              (type == 0) ? 'Chào buổi sáng!' : 'Xin Chào',
                               style: defaultText14.copyWith(
                                 color: Colors.white,
                               ),
                             ),
                             Text(
-                              'Phạm Thế Anh',
+                              (type == 0)
+                                  ? 'Phạm Thế Anh'
+                                  : 'Chưa có tài khoản',
                               style: defaultText20.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
@@ -224,51 +235,74 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             SizedBox(
-              width: 380.w,
+              width: 375.w,
               height: 166.h,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
-                //itemExtent: 390.0.w,
-                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                itemCount: 5,
+                itemExtent: 278.0.w,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                itemCount: 3,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20.w),
-                    width: 246.w,
-                    height: 166.h,
-                    decoration: BoxDecoration(
-                      color: Colors.blue.shade100,
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/class1.png'),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Stack(
                       children: [
-                        const Spacer(),
-                        Text(
-                          '    Lớp ôn thi DGNL 2025',
-                          style: defaultText16.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
+                        Container(
+                          width: 246.w,
+                          height: 166.h,
+                          decoration: BoxDecoration(
+                            color: Colors.blue.shade100,
+                            image: const DecorationImage(
+                              image: AssetImage('assets/images/class1.png'),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          height: 5.h,
+                        Container(
+                          height: 246.w,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              gradient: LinearGradient(
+                                  begin: FractionalOffset.topCenter,
+                                  end: FractionalOffset.bottomCenter,
+                                  colors: [
+                                    Colors.grey.withOpacity(0.0),
+                                    Colors.black,
+                                  ],
+                                  stops: const [
+                                    0.0,
+                                    1.0
+                                  ])),
                         ),
-                        Text(
-                          '    21/05/2024 (08:00 - 11:00)',
-                          style: defaultText14.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Spacer(),
+                            Text(
+                              '    Lớp ôn thi DGNL 2025',
+                              style: defaultText16.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            Text(
+                              '    21/05/2024 (08:00 - 11:00)',
+                              style: defaultText14.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.h,
+                            )
+                          ],
                         ),
-                        SizedBox(
-                          height: 10.h,
-                        )
                       ],
                     ),
                   );
@@ -315,10 +349,10 @@ class NotificationItem extends StatelessWidget {
         //margin: EdgeInsets.symmetric(horizontal: 20.w),
         width: 343.w,
         height: 170.h,
-        decoration: BoxDecoration(
-          color: Colors.blue.shade100,
-          image: const DecorationImage(
-            image: AssetImage('assets/images/slide1.png'),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+            image: AssetImage('assets/images/banner.png'),
             fit: BoxFit.fill,
           ),
         ),

@@ -1,15 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:d_chart/d_chart.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
-
-import '../untils.dart';
 
 class ExcerciseTabBar extends StatefulWidget {
   const ExcerciseTabBar(this.outerTab, {super.key});

@@ -11,19 +11,21 @@ class RegisterSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           SizedBox(height: 124.h),
           Image.asset(
             "assets/images/register_success.png",
-            width: 359.w,
-            height: 342.h,
+            width: 254.w,
+            height: 270.h,
             fit: BoxFit.fill,
           ),
+          SizedBox(height: 20.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
             child: Text(
-              'Chào mừng bạn đến với trung tâm',
+              'Gửi thông tin thành công!',
               style: TextStyle(
                 color: keyBlack,
                 fontSize: 18.sp,
@@ -34,7 +36,7 @@ class RegisterSuccess extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Text(
-              'LUYỆN THI 3S là trung tâm dạy và luyện thi được xây dựng với sứ mệnh giúp học sinh đạt được những mục tiêu và kêt quả cao trên con đường học tập.',
+              'Yay! Bạn đã gửi thông tin thành công, chúng tôi sẽ liên hệ lại với bạn sớm nhất!',
               textAlign: TextAlign.center,
               style: defaultText16.copyWith(
                 color: subBlack,

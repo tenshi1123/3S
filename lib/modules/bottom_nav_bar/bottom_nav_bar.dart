@@ -3,14 +3,16 @@ import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart";
 import "package:three_s/utils/constants/color.dart";
 import "course_screen.dart";
-import "home_screen.dart";
+import "home/guess_screen.dart";
+import "home/home_screen.dart";
 import "personer_screen.dart";
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({
     super.key,
+    required this.type,
   });
-
+  final int type;
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -50,7 +52,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<PersistentTabConfig> _tabs() => [
         PersistentTabConfig(
-          screen: const HomeScreen(),
+          screen: HomeScreen(
+            type: widget.type,
+          ),
           item: ItemConfig(
             icon: const Icon(Icons.home),
             title: "Trang chủ",
@@ -75,7 +79,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
         PersistentTabConfig(
-          screen: const PersonerScreen(),
+          screen:
+              (widget.type == 0) ? const PersonerScreen() : const GuessScreen(),
           item: ItemConfig(
             icon: const Icon(Icons.person_2_outlined),
             title: "Cá nhân",

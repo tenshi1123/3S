@@ -227,7 +227,9 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: ((context) => const BottomNavBar()),
+                        builder: ((context) => const BottomNavBar(
+                              type: 0,
+                            )),
                       ),
                     );
                   },
@@ -259,7 +261,9 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: ((context) => const BottomNavBar()),
+                        builder: ((context) => const BottomNavBar(
+                              type: 0,
+                            )),
                       ),
                     );
                   },

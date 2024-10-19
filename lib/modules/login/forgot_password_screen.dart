@@ -81,7 +81,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 Row(
                   children: [
                     Text(
-                      'Nhập email',
+                      'Số điện thoại',
                       style: TextStyle(
                         color: key1Color,
                         fontSize: 14.sp,

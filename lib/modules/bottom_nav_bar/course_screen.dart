@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/utils/constants/styles.dart';
-import '../../utils/constants/color.dart';
 
 class CourseScreen extends StatelessWidget {
   const CourseScreen({super.key});

@@ -1,0 +1,81 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:three_s/modules/login/login_screen.dart';
+import 'package:three_s/utils/constants/styles.dart';
+import '../../utils/constants/color.dart';
+
+class ChangePassSucess extends StatelessWidget {
+  const ChangePassSucess({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          SizedBox(height: 124.h),
+          Image.asset(
+            "assets/images/register_success.png",
+            width: 254.w,
+            height: 270.h,
+            fit: BoxFit.fill,
+          ),
+          SizedBox(height: 20.h),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
+            child: Text(
+              'Gửi thông tin thành công!',
+              style: TextStyle(
+                color: keyBlack,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Text(
+              'Yay! Bạn đã gửi thông tin thành công, chúng tôi sẽ liên hệ lại với bạn sớm nhất!',
+              textAlign: TextAlign.center,
+              style: defaultText16.copyWith(
+                color: subBlack,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20.h,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => const LoginScreen()),
+                ),
+              );
+            },
+            child: Container(
+              height: 48.h,
+              width: 340.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(9.r),
+                color: key1Color,
+              ),
+              child: Center(
+                child: Text(
+                  'Tiếp tục   ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

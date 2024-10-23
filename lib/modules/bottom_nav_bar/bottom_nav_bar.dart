@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart";
+import "package:three_s/modules/bottom_nav_bar/calender.dart";
 import "package:three_s/utils/constants/color.dart";
 import "course_screen.dart";
 import "home/guess_screen.dart";
@@ -72,6 +73,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
             ),
             //icon: SvgPicture.asset('assets/icons/nav_bar2.svg'),
             title: "Khóa học",
+            activeForegroundColor: Colors.white,
+            inactiveForegroundColor: const Color(0xffBABABA),
+            activeColorSecondary: key1Color,
+            inactiveBackgroundColor: Colors.white.withOpacity(0.2),
+          ),
+        ),
+        PersistentTabConfig(
+          screen: const Calender(),
+          item: ItemConfig(
+            icon: const Icon(
+              Icons.calendar_today,
+            ),
+            //icon: SvgPicture.asset('assets/icons/nav_bar2.svg'),
+            title: "Lịch học",
             activeForegroundColor: Colors.white,
             inactiveForegroundColor: const Color(0xffBABABA),
             activeColorSecondary: key1Color,

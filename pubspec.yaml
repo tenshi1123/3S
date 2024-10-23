@@ -4,7 +4,7 @@ description: "Application for students of 3s exam preparation center"
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.0.6+6
+version: 0.0.3+4
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -23,6 +23,8 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   d_chart: ^2.6.9
   sleek_circular_slider: ^2.0.1
+  easy_date_timeline: ^1.1.3
+  onesignal_flutter: ^5.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

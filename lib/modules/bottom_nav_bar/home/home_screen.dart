@@ -5,6 +5,7 @@ import 'package:three_s/modules/monthly_summary/monthly_summary.dart';
 import 'package:three_s/modules/roll_call/list_class.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:three_s/utils/widget/not_student_yet.dart';
 import '../../../utils/constants/color.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -24,7 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   late final int type;
   @override
   void initState() {
-    // TODO: implement initState
     type = widget.type;
     super.initState();
   }
@@ -190,12 +190,19 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    pushWithoutNavBar(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ListClass(),
-                      ),
-                    );
+                    (type == 0)
+                        ? pushWithoutNavBar(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ListClass(),
+                            ),
+                          )
+                        : pushWithoutNavBar(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NotStudentYet(),
+                            ),
+                          );
                   },
                   child: Image.asset(
                     'assets/images/follow_class.png',
@@ -205,12 +212,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    pushWithoutNavBar(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MonthlySummary(),
-                      ),
-                    );
+                    (type == 0)
+                        ? pushWithoutNavBar(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MonthlySummary(),
+                            ),
+                          )
+                        : pushWithoutNavBar(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const NotStudentYet(),
+                            ),
+                          );
                   },
                   child: Image.asset(
                     'assets/images/monthly_summary.png',

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
-import 'package:three_s/register/register.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
-import 'forgot_password_screen.dart';
 
 class ChangePassScreen extends StatefulWidget {
   const ChangePassScreen({super.key});
@@ -16,305 +12,256 @@ class ChangePassScreen extends StatefulWidget {
 }
 
 class _ChangePassScreenState extends State<ChangePassScreen> {
-  bool _isObscure = true;
-  final _focusNode = FocusNode();
-  final _focusNode1 = FocusNode();
-  TextEditingController? passController = TextEditingController();
-  TextEditingController? studenIdController = TextEditingController();
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
-  }
-
+  bool _isObscure1 = true;
+  bool _isObscure2 = true;
+  bool _isObscure3 = true;
+  TextEditingController? passController1 = TextEditingController();
+  TextEditingController? passController2 = TextEditingController();
+  TextEditingController? passController3 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
-      body: GestureDetector(
-        onTap: () {
-          _focusNode.unfocus();
-        },
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 20.w,
-            right: 20.w,
-
-            //bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 60.h),
-                Row(
-                  children: [
-                    Text(
-                      'Xin chào!',
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(
-                        fontSize: 24.sp,
-                        color: keyBlack,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'Chào mừng đã trở lại, hãy đăng nhập',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        color: subBlack,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.normal,
-                      ),
-                      overflow: TextOverflow.clip,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'Tài khoản',
-                      style: TextStyle(
-                        color: key1Color,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const Spacer()
-                  ],
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Container(
-                  width: 350.w,
-                  height: 58.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8.r)),
-                    color: const Color(0xffF4F1F3),
+      body: Padding(
+        padding: EdgeInsets.only(
+          left: 20.w,
+          right: 20.w,
+          //bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 40.h),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_back_ios_new),
                   ),
-                  child: TextField(
-                    //keyboardType: const TextInputType.numberWithOptions(),
-                    controller: studenIdController,
-                    focusNode: _focusNode1,
-                    style: defaultText16,
-                    scrollPadding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).viewInsets.bottom),
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.person_2_outlined,
-                        color: subBlack,
-                      ),
-                      hintText: 'Số điện thoại phụ huynh/học sinh',
-                      border:
-                          const OutlineInputBorder(borderSide: BorderSide.none),
-                      hintStyle: TextStyle(
-                        fontSize: 16.sp,
-                        color: subBlack,
-                      ),
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Thay đổi mật khẩu',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      color: keyBlack,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
+                ],
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              // Row(
+              //   children: [
+              //     Text(
+              //       'Cùng bạn xóa bỏ mọi rào cản trong học tập!',
+              //       textAlign: TextAlign.right,
+              //       style: TextStyle(
+              //         color: subBlack,
+              //         fontSize: 16.sp,
+              //         fontWeight: FontWeight.normal,
+              //       ),
+              //       overflow: TextOverflow.clip,
+              //     ),
+              //   ],
+              // ),
+              Container(
+                width: 350.w,
+                height: 58.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8.r)),
+                  color: const Color(0xffF4F1F3),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      'Mật khẩu',
-                      style: TextStyle(
-                        color: key1Color,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
+                child: TextField(
+                  //keyboardType: const TextInputType.numberWithOptions(),
+                  controller: passController1,
+                  obscureText: _isObscure1,
+                  obscuringCharacter: "*",
+                  style: defaultText16,
+                  scrollPadding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).viewInsets.bottom),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.lock_outlined,
+                      color: subBlack,
                     ),
-                    const Spacer()
-                  ],
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Container(
-                  width: 350.w,
-                  height: 58.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(8.r)),
-                    color: const Color(0xffF4F1F3),
-                  ),
-                  child: TextField(
-                    obscureText: _isObscure,
-                    obscuringCharacter: "*",
-                    style: defaultText16,
-                    controller: passController,
-                    focusNode: _focusNode,
-                    scrollPadding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).viewInsets.bottom),
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: subBlack,
-                      ),
-                      hintText: 'Mật khẩu',
-                      border:
-                          const OutlineInputBorder(borderSide: BorderSide.none),
-                      hintStyle: TextStyle(
-                        fontSize: 16.sp,
-                        color: subBlack,
-                      ),
-                      suffix: IconButton(
-                        padding: const EdgeInsets.all(0),
-                        iconSize: 20.0,
-                        icon: _isObscure
-                            ? const Icon(
-                                Icons.visibility_off,
-                                color: Colors.grey,
-                              )
-                            : const Icon(
-                                Icons.visibility,
-                                color: Colors.black,
-                              ),
-                        onPressed: () {
-                          setState(() {
-                            _isObscure = !_isObscure;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 25.h,
-                ),
-                Row(
-                  children: [
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: ((context) => const ForgotPassScreen()),
-                          ),
-                        );
+                    suffix: IconButton(
+                      padding: const EdgeInsets.all(0),
+                      iconSize: 20.0,
+                      icon: _isObscure1
+                          ? const Icon(
+                              Icons.visibility_off,
+                              color: Colors.grey,
+                            )
+                          : const Icon(
+                              Icons.visibility,
+                              color: Colors.black,
+                            ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscure1 = !_isObscure1;
+                        });
                       },
-                      child: Text(
-                        'Quên mật khẩu',
-                        style: TextStyle(
-                          color: key1Color,
-                          fontSize: 14.sp,
-                          //decoration: TextDecoration.underline,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 140.h,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => const BottomNavBar(
-                              type: 0,
-                            )),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 48.h,
-                    width: 340.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9.r),
-                      color: key1Color,
+                    hintText: 'Nhập mật khẩu hiện tại',
+                    border:
+                        const OutlineInputBorder(borderSide: BorderSide.none),
+                    hintStyle: TextStyle(
+                      fontSize: 16.sp,
+                      color: subBlack,
                     ),
-                    child: Center(
-                      child: Text(
-                        'Đăng nhập',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Container(
+                width: 350.w,
+                height: 58.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8.r)),
+                  color: const Color(0xffF4F1F3),
+                ),
+                child: TextField(
+                  //keyboardType: const TextInputType.numberWithOptions(),
+                  controller: passController2,
+                  obscureText: _isObscure2,
+                  obscuringCharacter: "*",
+                  style: defaultText16,
+                  scrollPadding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).viewInsets.bottom),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.lock_outlined,
+                      color: subBlack,
+                    ),
+                    suffix: IconButton(
+                      padding: const EdgeInsets.all(0),
+                      iconSize: 20.0,
+                      icon: _isObscure2
+                          ? const Icon(
+                              Icons.visibility_off,
+                              color: Colors.grey,
+                            )
+                          : const Icon(
+                              Icons.visibility,
+                              color: Colors.black,
+                            ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscure2 = !_isObscure2;
+                        });
+                      },
+                    ),
+                    hintText: 'Nhập mật khẩu mới',
+                    border:
+                        const OutlineInputBorder(borderSide: BorderSide.none),
+                    hintStyle: TextStyle(
+                      fontSize: 16.sp,
+                      color: subBlack,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Container(
+                width: 350.w,
+                height: 58.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(8.r)),
+                  color: const Color(0xffF4F1F3),
+                ),
+                child: TextField(
+                  obscureText: _isObscure3,
+                  obscuringCharacter: "*",
+                  style: defaultText16,
+                  controller: passController3,
+                  scrollPadding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).viewInsets.bottom),
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: subBlack,
+                    ),
+                    hintText: 'Nhập lại mật khẩu',
+                    border:
+                        const OutlineInputBorder(borderSide: BorderSide.none),
+                    hintStyle: TextStyle(
+                      fontSize: 16.sp,
+                      color: subBlack,
+                    ),
+                    suffix: IconButton(
+                      padding: const EdgeInsets.all(0),
+                      iconSize: 20.0,
+                      icon: _isObscure3
+                          ? const Icon(
+                              Icons.visibility_off,
+                              color: Colors.grey,
+                            )
+                          : const Icon(
+                              Icons.visibility,
+                              color: Colors.black,
+                            ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscure3 = !_isObscure3;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 25.h,
+              ),
+              SizedBox(
+                height: 140.h,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => const BottomNavBar(
+                            type: 0,
+                          )),
+                    ),
+                  );
+                },
+                child: Container(
+                  height: 48.h,
+                  width: 340.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(9.r),
+                    color: key1Color,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Đổi mật khẩu',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => const BottomNavBar(
-                              type: 0,
-                            )),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 48.h,
-                    width: 340.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9.r),
-                      color: Colors.white,
-                      border: Border.all(),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Đăng nhập với tư cách khách',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: key1Color,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 60.h,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => const RegisterScreen()),
-                      ),
-                    );
-                  },
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'Chưa có tài khoản ?',
-                      style: defaultText16,
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: ' Đăng ký',
-                          style: defaultText16.copyWith(color: main1Color),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+            ],
           ),
         ),
       ),

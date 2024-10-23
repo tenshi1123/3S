@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:three_s/modules/login/change_pass_screen.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -73,38 +75,45 @@ class PersonerScreen extends StatelessWidget {
               thickness: 6.h,
               height: 30.h,
             ),
-            // GestureDetector(
-            //   onTap: () {},
-            //   child: Row(
-            //     children: [
-            //       SizedBox(
-            //         width: 16.w,
-            //       ),
-            //       const Icon(
-            //         Icons.lock_outline_sharp,
-            //         color: Color(0xff3C3C3C),
-            //       ),
-            //       SizedBox(
-            //         width: 10.w,
-            //       ),
-            //       Text(
-            //         'Thay đổi mật khẩu',
-            //         style:
-            //             defaultText16.copyWith(color: const Color(0xff3C3C3C)),
-            //       ),
-            //       const Spacer(),
-            //       const Icon(Icons.keyboard_arrow_right_outlined),
-            //       SizedBox(
-            //         width: 16.w,
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            // Divider(
-            //   thickness: 1.h,
-            //   indent: 16.w,
-            //   endIndent: 16.w,
-            // ),
+            GestureDetector(
+              onTap: () {
+                pushWithoutNavBar(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => const ChangePassScreen()),
+                  ),
+                );
+              },
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                  const Icon(
+                    Icons.lock_outline_sharp,
+                    color: Color(0xff3C3C3C),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    'Thay đổi mật khẩu',
+                    style:
+                        defaultText16.copyWith(color: const Color(0xff3C3C3C)),
+                  ),
+                  const Spacer(),
+                  const Icon(Icons.keyboard_arrow_right_outlined),
+                  SizedBox(
+                    width: 16.w,
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              thickness: 1.h,
+              indent: 16.w,
+              endIndent: 16.w,
+            ),
             GestureDetector(
               onTap: () {
                 makePhoneCall('19008978');

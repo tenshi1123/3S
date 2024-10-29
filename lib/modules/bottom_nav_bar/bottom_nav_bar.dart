@@ -80,7 +80,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
         PersistentTabConfig(
-          screen: const Calender(),
+          screen: (widget.type == 0)
+              ? const Calender()
+              : const GuessScreen(
+                  title: 'Lịch học',
+                ),
           item: ItemConfig(
             icon: const Icon(
               Icons.calendar_today,
@@ -94,8 +98,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
         PersistentTabConfig(
-          screen:
-              (widget.type == 0) ? const PersonerScreen() : const GuessScreen(),
+          screen: (widget.type == 0)
+              ? const PersonerScreen()
+              : const GuessScreen(
+                  title: 'Cá nhân',
+                ),
           item: ItemConfig(
             icon: const Icon(Icons.person_2_outlined),
             title: "Cá nhân",

@@ -2,16 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:d_chart/d_chart.dart';
 
+import '../../modules/course/coure_screen.dart';
+
 class ExcerciseTabBar extends StatefulWidget {
   const ExcerciseTabBar(this.outerTab, {super.key});
-
   final String outerTab;
-
   @override
   State<ExcerciseTabBar> createState() => _ExcerciseTabBarState();
 }
@@ -98,6 +99,7 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
                   }),
               Card(
                 margin: const EdgeInsets.all(16.0),
+                color: Colors.white,
                 child: Center(
                   child: Text(
                     'Không có khóa học nào',
@@ -134,8 +136,15 @@ class ClassItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
+    return InkWell(
+      onTap: () {
+        pushWithoutNavBar(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CoureScreen(),
+          ),
+        );
+      },
       child: SizedBox(
         width: 375.w,
         height: 132.h,

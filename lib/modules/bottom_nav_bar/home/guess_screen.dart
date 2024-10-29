@@ -9,8 +9,8 @@ import '../../../register/register.dart';
 import '../../login/login_screen.dart';
 
 class GuessScreen extends StatelessWidget {
-  const GuessScreen({super.key});
-
+  const GuessScreen({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context) {
     Future<void> makePhoneCall(String phoneNumber) async {
@@ -24,7 +24,7 @@ class GuessScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text('Cá nhân')),
+          title: Center(child: Text(title)),
           backgroundColor: Colors.white,
         ),
         backgroundColor: Colors.white,
@@ -35,6 +35,12 @@ class GuessScreen extends StatelessWidget {
               'Bạn chưa có tài khoản',
               style: defaultText16,
             ),
+            (title == 'Cá nhân')
+                ? const SizedBox()
+                : Text(
+                    'Bạn không có lịch học để hiển thị',
+                    style: defaultText16,
+                  ),
             SizedBox(
               height: 10.h,
             ),

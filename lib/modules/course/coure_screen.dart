@@ -126,16 +126,34 @@ class CoureScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 50.h,
-              width: 343.w,
+              height: 98.h,
+              width: 375.w,
               decoration: BoxDecoration(
-                  color: primary500, borderRadius: BorderRadius.circular(12.r)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+                color: Colors.white,
+              ),
               child: Center(
-                child: Text(
-                  'Mua Khóa Học',
-                  style: defaultText14.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
+                child: Container(
+                  height: 50.h,
+                  width: 343.w,
+                  decoration: BoxDecoration(
+                      color: primary500,
+                      borderRadius: BorderRadius.circular(12.r)),
+                  child: Center(
+                    child: Text(
+                      'Mua Khóa Học',
+                      style: defaultText14.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ),

@@ -1,16 +1,12 @@
 import 'dart:core';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:d_chart/d_chart.dart';
 
-import '../../modules/course/coure_screen.dart';
+import '../../utils/widget/custom_widget.dart';
 
 class CourseTabbar extends StatefulWidget {
   const CourseTabbar(this.outerTab, {super.key});
@@ -117,6 +113,9 @@ class _CourseTabbarState extends State<CourseTabbar>
                   Text(
                     '    Nội dung',
                     style: defaultText16.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    height: 5.h,
                   ),
                   ListView.builder(
                       shrinkWrap: true,
@@ -267,12 +266,7 @@ class LessonItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // pushWithoutNavBar(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const CoureScreen(),
-        //   ),
-        // );
+        commingSoonDialog(context);
       },
       child: SizedBox(
         width: 375.w,
@@ -398,57 +392,6 @@ class PieChart extends StatelessWidget {
             ],
           ),
         ),
-      ],
-    );
-  }
-}
-
-class UnorderedList extends StatelessWidget {
-  const UnorderedList(this.texts, {super.key, required this.icon});
-  final List<String> texts;
-  final int icon;
-  @override
-  Widget build(BuildContext context) {
-    var widgetList = <Widget>[];
-    for (var text in texts) {
-      // Add list item
-      widgetList.add(UnorderedListItem(
-        text,
-        icon: icon,
-      ));
-      // Add space between items
-      widgetList.add(const SizedBox(height: 5.0));
-    }
-
-    return Column(children: widgetList);
-  }
-}
-
-class UnorderedListItem extends StatelessWidget {
-  const UnorderedListItem(this.text, {super.key, required this.icon});
-  final String text;
-  final int icon;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          "• ",
-          style: defaultText14,
-        ),
-        Expanded(
-          child: Text(
-            text,
-            style: defaultText14,
-          ),
-        ),
-        (icon == 1)
-            ? const Icon(
-                Icons.done,
-                color: Colors.green,
-              )
-            : const SizedBox()
       ],
     );
   }

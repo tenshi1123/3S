@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
@@ -6,6 +7,9 @@ import 'package:three_s/utils/constants/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
+import 'repo/login_repo.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -102,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: const Color(0xffF4F1F3),
                   ),
                   child: TextField(
-                    //keyboardType: const TextInputType.numberWithOptions(),
+                    keyboardType: const TextInputType.numberWithOptions(),
                     controller: studenIdController,
                     focusNode: _focusNode1,
                     style: defaultText16,
@@ -221,7 +225,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 140.h,
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    // bool loged = await LoginRepo().login(
+                    //   studenIdController?.text ?? '',
+                    //   passController?.text ?? '',
+                    // );
+                    //if (loged == true) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -230,6 +239,36 @@ class _LoginScreenState extends State<LoginScreen> {
                             )),
                       ),
                     );
+                    // } else {
+                    //   showDialog(
+                    //     context: context,
+                    //     builder: (BuildContext context) {
+                    //       return CupertinoAlertDialog(
+                    //         title: const Text('Vui lòng thử lại'),
+                    //         content: const Text(
+                    //             'Vui lòng kiểm tra lại mã học sinh và mật khẩu của bạn'),
+                    //         actions: <Widget>[
+                    //           CupertinoDialogAction(
+                    //             isDefaultAction: true,
+                    //             child: Text(
+                    //               'Yes',
+                    //               style: TextStyle(
+                    //                 fontSize: 20,
+                    //                 color: primary500,
+                    //               ),
+                    //             ),
+                    //             onPressed: () {
+                    //               Navigator.of(context, rootNavigator: true)
+                    //                   .pop(
+                    //                 (_) => false,
+                    //               );
+                    //             },
+                    //           )
+                    //         ],
+                    //       );
+                    //     },
+                    //   );
+                    // }
                   },
                   child: Container(
                     height: 48.h,

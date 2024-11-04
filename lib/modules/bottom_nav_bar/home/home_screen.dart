@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(
                     width: 343.w,
-                    height: 52.h,
+                    height: 66.h,
                     child: Row(
                       children: [
                         CircleAvatar(
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: defaultText20.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 24.sp),
+                                  fontSize: 22.sp),
                             ),
                           ],
                         ),
@@ -92,6 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         SvgPicture.asset(
                           'assets/icons/bell_icon.svg',
                           color: Colors.white,
+                          height: 24.h,
+                          width: 24.w,
                         ),
                       ],
                     ),

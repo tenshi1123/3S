@@ -3,17 +3,26 @@ import 'package:three_s/modules/models/course_model.dart';
 import '../../../utils/constants/api_path.dart';
 
 class CourseRepo {
-  Future<List<CourseModel>> getAllNotification() async {
-    Dio dio = Dio();
-    dio.options.headers['Authorization'] =
-        'Bearer MDZhNzk1MzktYmRlZS00M2RhLWFjOTctZTlhMDFmNzJlYTYx';
+  Dio dio = Dio();
+  Future<List<CourseModel>> getListCourse() async {
     Response response;
     response = await dio.get(
       ApiPath.course,
-      queryParameters: {'app_id': '1f643336-9d73-4c65-ac00-38d499b8c462'},
+      queryParameters: {'limit': 8, 'page': 1, 'category_id': '1'},
     );
-    List<CourseModel> result = ((response.data)['notifications'] as List)
+    List<CourseModel> result = ((response.data)['courses'] as List)
         .map((e) => CourseModel.fromJson(e))
+        .toList();
+    return result;
+  }
+
+  Future<List<CategoryModel>> getListCategory() async {
+    Response response;
+    response = await dio.get(
+      ApiPath.category,
+    );
+    List<CategoryModel> result = ((response.data)['data'] as List)
+        .map((e) => CategoryModel.fromJson(e))
         .toList();
     return result;
   }

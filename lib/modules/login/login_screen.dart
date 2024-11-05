@@ -7,6 +7,8 @@ import 'package:three_s/utils/constants/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
+import '../course/coure_repo.dart';
+import '../models/course_model.dart';
 import 'repo/login_repo.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
@@ -230,7 +232,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   studenIdController?.text ?? '',
                     //   passController?.text ?? '',
                     // );
-                    //if (loged == true) {
+                    // if (loged == true) {
+                    List<CategoryModel> test =
+                        await CourseRepo().getListCategory();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

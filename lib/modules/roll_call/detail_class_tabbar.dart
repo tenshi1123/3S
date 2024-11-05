@@ -7,6 +7,7 @@ import 'package:three_s/utils/constants/styles.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:three_s/utils/widget/custom_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailClassTabbar extends StatefulWidget {
   const DetailClassTabbar(this.outerTab, {super.key});
@@ -285,7 +286,11 @@ class DocumentItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => commingSoonDialog(context),
+      onTap: () async {
+        if (!await launchUrl(Uri.parse('https://flutter.dev'))) {
+          throw Exception('Could not launch ');
+        }
+      },
       child: Container(
         width: 343.w,
         height: 80.h,

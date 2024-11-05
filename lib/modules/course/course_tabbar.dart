@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:d_chart/d_chart.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/widget/custom_widget.dart';
 
@@ -265,8 +266,10 @@ class LessonItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        commingSoonDialog(context);
+      onTap: () async {
+        if (!await launchUrl(Uri.parse('https://flutter.dev'))) {
+          throw Exception('Could not launch ');
+        }
       },
       child: SizedBox(
         width: 375.w,

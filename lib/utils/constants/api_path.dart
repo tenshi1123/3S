@@ -7,6 +7,8 @@ class ApiPath {
   static const String register = '$baseUrl/register';
   static const String forgotPassword = '$baseUrl/forgot-password';
 
+  // danh sách danh mục
+  static const String category = '$baseUrl/category';
   // danh sách khóa học
   static const String course = '$baseUrl/course';
 
@@ -23,5 +25,5 @@ class ApiPath {
   static const String detailHomework = '$baseUrl/detail/class';
 
   // thông tin tài khoản
-  static const String user = '$baseUrl/user';
+  static const String user = '$baseUrl/user/info';
 }

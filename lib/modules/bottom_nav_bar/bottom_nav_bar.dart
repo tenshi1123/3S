@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart";
 import "package:three_s/modules/bottom_nav_bar/calender.dart";
+import "package:three_s/modules/models/course_model.dart";
 import "package:three_s/utils/constants/color.dart";
 import "course_screen.dart";
 import "home/guess_screen.dart";
@@ -12,8 +13,10 @@ class BottomNavBar extends StatefulWidget {
   const BottomNavBar({
     super.key,
     required this.type,
+    required this.categories,
   });
   final int type;
+  final List<CategoryModel> categories;
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -55,6 +58,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         PersistentTabConfig(
           screen: HomeScreen(
             type: widget.type,
+            categories: widget.categories,
           ),
           item: ItemConfig(
             icon: const Icon(Icons.home),

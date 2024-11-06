@@ -3,16 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:three_s/modules/models/course_model.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:d_chart/d_chart.dart';
-
 import '../../modules/course/coure_screen.dart';
 
 class ExcerciseTabBar extends StatefulWidget {
-  const ExcerciseTabBar(this.outerTab, {super.key});
+  const ExcerciseTabBar(this.outerTab, {super.key, required this.categories});
   final String outerTab;
+  final List<CategoryModel> categories;
   @override
   State<ExcerciseTabBar> createState() => _ExcerciseTabBarState();
 }
@@ -20,11 +21,12 @@ class ExcerciseTabBar extends StatefulWidget {
 class _ExcerciseTabBarState extends State<ExcerciseTabBar>
     with TickerProviderStateMixin {
   late final TabController _tabController;
-
+  late final List<CategoryModel> _listCategories;
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _listCategories = widget.categories;
+    _tabController = TabController(length: _listCategories.length, vsync: this);
   }
 
   @override
@@ -62,20 +64,19 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
           controller: _tabController,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.black,
-          tabs: const <Widget>[
+          tabs: [
             Tab(
-              text: '    Lớp Toán    ',
+              text: '    ${_listCategories[0].name}    ',
             ),
-
             // second tab [you can add an icon using the icon property]
             Tab(
-              text: '    Lớp Văn    ',
+              text: '    ${_listCategories[1].name}    ',
             ),
             Tab(
-              text: '    Lớp Văn    ',
+              text: '    ${_listCategories[2].name}    ',
             ),
             Tab(
-              text: '    Lớp Vật Lý    ',
+              text: '    ${_listCategories[3].name}    ',
             ),
           ],
         ),
@@ -193,7 +194,7 @@ class ClassItem extends StatelessWidget {
                               size: 24.0,
                             ),
                             Text(
-                              '4.7',
+                              '4.7 ',
                               style: defaultText14,
                             ),
                             SizedBox(
@@ -203,7 +204,7 @@ class ClassItem extends StatelessWidget {
                               'assets/icons/clock.svg',
                             ),
                             Text(
-                              '6 Tháng',
+                              ' 6 Tháng',
                               style: defaultText14,
                             ),
                           ],

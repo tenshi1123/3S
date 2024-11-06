@@ -267,7 +267,7 @@ class LessonItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        if (!await launchUrl(Uri.parse('https://flutter.dev'))) {
+        if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
           throw Exception('Could not launch ');
         }
       },

@@ -9,9 +9,6 @@ import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
 import '../course/coure_repo.dart';
 import '../models/course_model.dart';
-import 'repo/login_repo.dart';
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -235,11 +232,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     // if (loged == true) {
                     List<CategoryModel> test =
                         await CourseRepo().getListCategory();
+                    List<CourseModel> test2 =
+                        await CourseRepo().getListCourse();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: ((context) => const BottomNavBar(
+                        builder: ((context) => BottomNavBar(
                               type: 0,
+                              categories: test,
                             )),
                       ),
                     );
@@ -298,12 +298,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 10.h,
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    List<CategoryModel> test =
+                        await CourseRepo().getListCategory();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: ((context) => const BottomNavBar(
+                        builder: ((context) => BottomNavBar(
                               type: 1,
+                              categories: test,
                             )),
                       ),
                     );

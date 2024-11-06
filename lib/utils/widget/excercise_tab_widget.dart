@@ -26,7 +26,7 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
   void initState() {
     super.initState();
     _listCategories = widget.categories;
-    _tabController = TabController(length: _listCategories.length, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override

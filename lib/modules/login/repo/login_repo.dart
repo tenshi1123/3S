@@ -11,7 +11,7 @@ class LoginRepo {
     try {
       response = await dio.post(ApiPath.login,
           data: jsonEncode({
-            "phone": phone,
+            "phone": int.parse(phone),
             "password": password,
           }));
     } on DioException {

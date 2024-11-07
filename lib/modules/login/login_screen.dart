@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sp_util/sp_util.dart';
 import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:three_s/modules/login/forgot_password_screen.dart';
+import 'package:three_s/modules/login/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
+import 'package:three_s/utils/constants/string_constatns.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
@@ -43,7 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: EdgeInsets.only(
             left: 20.w,
             right: 20.w,
-
             //bottom: MediaQuery.of(context).viewInsets.bottom,
           ),
           child: SingleChildScrollView(
@@ -230,6 +232,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   passController?.text ?? '',
                     // );
                     // if (loged == true) {
+                    SpUtil.putString(ConstString.token,
+                        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzA5NjI5NTMsImV4cCI6MTczMTU2Nzc1MywidG9rZW5fdHlwZSI6IkJlYXJlciIsImRhdGEiOnsiY3VzdG9tZXJfaWQiOiI5NyIsImZ1bGxfbmFtZSI6IlBoYW4gVlx1MDEwM24gVGhcdTAwZjRuZyIsInBob25lIjoiMDg1OTM4MjMzNiIsImVtYWlsIjoidGhvbmd2aXAwMTFAZ21haWwuY29tIiwiaXNMb2dnZWRJblVzZXIiOnRydWV9fQ.vOsrAr7-N8hYLw7Mlnjp5SKOV4yxxBIoaxUrX6EAMU8');
                     List<CategoryModel> test =
                         await CourseRepo().getListCategory();
                     List<CourseModel> test2 =

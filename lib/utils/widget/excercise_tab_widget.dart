@@ -11,9 +11,11 @@ import 'package:d_chart/d_chart.dart';
 import '../../modules/course/coure_screen.dart';
 
 class ExcerciseTabBar extends StatefulWidget {
-  const ExcerciseTabBar(this.outerTab, {super.key, required this.categories});
+  const ExcerciseTabBar(this.outerTab,
+      {super.key, required this.categories, required this.courses});
   final String outerTab;
   final List<CategoryModel> categories;
+  final List<CourseModel> courses;
   @override
   State<ExcerciseTabBar> createState() => _ExcerciseTabBarState();
 }
@@ -22,10 +24,12 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
     with TickerProviderStateMixin {
   late final TabController _tabController;
   late final List<CategoryModel> _listCategories;
+  late final List<CourseModel> _listCourses;
   @override
   void initState() {
     super.initState();
     _listCategories = widget.categories;
+    _listCourses = widget.courses;
     _tabController = TabController(length: 4, vsync: this);
   }
 
@@ -89,14 +93,18 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
                   physics: const ClampingScrollPhysics(),
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
-                    return const ClassItem();
+                    return ClassItem(
+                      model: _listCourses[index],
+                    );
                   }),
               ListView.builder(
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
-                    return const ClassItem();
+                    return ClassItem(
+                      model: _listCourses[index],
+                    );
                   }),
               Card(
                 margin: const EdgeInsets.all(16.0),
@@ -133,8 +141,8 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
 }
 
 class ClassItem extends StatelessWidget {
-  const ClassItem({super.key});
-
+  const ClassItem({super.key, required this.model});
+  final CourseModel model;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -180,7 +188,7 @@ class ClassItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Lớp toán thầy Hiệp ôn luyện ĐGNL 2025  ',
+                          model.name,
                           style: defaultText16.copyWith(
                             color: keyBlack,
                             fontWeight: FontWeight.w600,
@@ -204,25 +212,26 @@ class ClassItem extends StatelessWidget {
                               'assets/icons/clock.svg',
                             ),
                             Text(
-                              ' 6 Tháng',
+                              model.duration,
                               style: defaultText14,
                             ),
                           ],
                         ),
                         RichText(
                           text: TextSpan(
-                            text: '1.499.000đ   ',
+                            text: '${model.price} d     ',
                             style: defaultText14.copyWith(
                               color: const Color(0xff2F9CD3),
                               fontWeight: FontWeight.w700,
                             ),
                             children: [
                               TextSpan(
-                                text: '1.800.000đ',
-                                style: defaultText12.copyWith(
+                                text: model.priceOld,
+                                style: defaultText14.copyWith(
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.lineThrough,
-                                  color: const Color(0xffBABABA),
+                                  color:
+                                      const Color.fromARGB(255, 170, 170, 170),
                                 ),
                               ),
                             ],

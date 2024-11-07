@@ -17,9 +17,11 @@ class HomeScreen extends StatefulWidget {
     super.key,
     required this.type,
     required this.categories,
+    required this.courses,
   });
   final int type;
   final List<CategoryModel> categories;
+  final List<CourseModel> courses;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -349,6 +351,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ExcerciseTabBar(
                 '',
                 categories: widget.categories,
+                courses: widget.courses,
               ),
             ),
             SizedBox(

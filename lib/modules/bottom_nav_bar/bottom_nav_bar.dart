@@ -14,9 +14,11 @@ class BottomNavBar extends StatefulWidget {
     super.key,
     required this.type,
     required this.categories,
+    required this.courses,
   });
   final int type;
   final List<CategoryModel> categories;
+  final List<CourseModel> courses;
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -59,6 +61,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           screen: HomeScreen(
             type: widget.type,
             categories: widget.categories,
+            courses: widget.courses,
           ),
           item: ItemConfig(
             icon: const Icon(Icons.home),

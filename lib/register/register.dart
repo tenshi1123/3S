@@ -268,7 +268,6 @@ class _RegisterScreenState extends State<RegisterScreen>
                             //keyboardType: const TextInputType.numberWithOptions(),
                             controller: name2Controller,
                             style: defaultText16,
-
                             scrollPadding: EdgeInsets.symmetric(
                                 vertical:
                                     MediaQuery.of(context).viewInsets.bottom),

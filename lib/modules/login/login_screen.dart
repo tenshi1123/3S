@@ -7,7 +7,7 @@ import 'package:three_s/utils/constants/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
-import '../course/coure_repo.dart';
+import '../course/course_repo.dart';
 import '../models/course_model.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -240,6 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: ((context) => BottomNavBar(
                               type: 0,
                               categories: test,
+                              courses: test2,
                             )),
                       ),
                     );
@@ -307,6 +308,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: ((context) => BottomNavBar(
                               type: 1,
                               categories: test,
+                              courses: const [],
                             )),
                       ),
                     );

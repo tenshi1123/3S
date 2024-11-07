@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
-import 'package:three_s/modules/course/coure_repo.dart';
+import 'package:three_s/modules/course/course_repo.dart';
 import 'package:three_s/modules/models/course_model.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
@@ -233,12 +233,14 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                 onTap: () async {
                   List<CategoryModel> test =
                       await CourseRepo().getListCategory();
+                  List<CourseModel> test2 = await CourseRepo().getListCourse();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: ((context) => BottomNavBar(
                             type: 0,
                             categories: test,
+                            courses: test2,
                           )),
                     ),
                   );

@@ -42,7 +42,7 @@ class CoureScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.h),
                 child: Text(
-                  'Lớp toán thầy Hiệp ôn luyện ĐGNL 2025',
+                  'Lớp văn cô Thủy ôn luyện ĐGNL 2025',
                   style: defaultBoldText.copyWith(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w700,

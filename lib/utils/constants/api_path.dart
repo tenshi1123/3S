@@ -7,6 +7,9 @@ class ApiPath {
   static const String register = '$baseUrl/register';
   static const String forgotPassword = '$baseUrl/forgot-password';
 
+  // đăng ký tư vấn
+  static const String learned = '$baseUrl/contact/learned/add';
+  static const String contact = '$baseUrl/contact/add';
   // danh sách danh mục
   static const String category = '$baseUrl/category';
   // danh sách khóa học

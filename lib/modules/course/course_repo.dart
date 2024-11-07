@@ -8,7 +8,7 @@ class CourseRepo {
     Response response;
     response = await dio.get(
       ApiPath.course,
-      queryParameters: {'limit': 8, 'page': 1, 'category_id': '1'},
+      queryParameters: {'limit': 8, 'page': 1, 'category_id': ''},
     );
     List<CourseModel> result = ((response.data)['courses'] as List)
         .map((e) => CourseModel.fromJson(e))

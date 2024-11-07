@@ -98,9 +98,12 @@ class _CourseTabbarState extends State<CourseTabbar>
                   SizedBox(
                     height: 10.h,
                   ),
-                  Text(
-                    '    Đây là nội dung giới thiệu về khóa học',
-                    style: defaultText14,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Text(
+                      '    2k7 không chỉ là lứa đầu tiên học chương trình GD THPT 2018 mà còn là lứa đầu tiên thi THPT QG theo phương thức mới. Sự thay đổi về chương trình học và phương thức thi sẽ kéo theo những điều chỉnh bắt buộc về việc tuyển sinh của các trường TOP. Trước những biến động này, các em HS cần có sự chuẩn bị kĩ lưỡng để tối đa hóa cơ hội trúng tuyển vào trường học mà bản thân mong muốn.',
+                      style: defaultText14,
+                    ),
                   ),
                 ],
               ),
@@ -160,7 +163,7 @@ class _CourseTabbarState extends State<CourseTabbar>
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: AssetImage('assets/images/avatar.png'),
+                                image: AssetImage('assets/images/avatarht.png'),
                                 fit: BoxFit.fill,
                               ),
                               color: Color(0xff6B7AC7),
@@ -175,14 +178,14 @@ class _CourseTabbarState extends State<CourseTabbar>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Hoàng Mạnh Hùng',
+                                  'Phạm Hồng Thủy',
                                   style: defaultText16.copyWith(
                                     color: keyBlack,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 Text(
-                                  'Giáo viên toán',
+                                  'Giáo viên Văn',
                                   style: defaultText12.copyWith(
                                     fontWeight: FontWeight.w500,
                                     color: const Color.fromARGB(
@@ -209,8 +212,8 @@ class _CourseTabbarState extends State<CourseTabbar>
                       ),
                       const UnorderedList(
                         [
-                          "Đây là thông tin giáo viên 1",
-                          "Đây là thông tin giáo viên 2",
+                          "Giải Khuyến khích Giải thưởng khoa học và công nghệ dành cho sinh viên trong các cơ sở giáo dục đại học năm 2023.",
+                          "Có kinh nghiệm luyện thi ĐGNL HSA, ĐGNL HNUE, THPT QG,... đặc biệt, với kì thi ĐGNL HSA với nhiều HS đạt 40+/50 điểm (Tư duy định tính)",
                         ],
                         icon: 0,
                       ),

@@ -15,11 +15,11 @@ class WellcomeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          SizedBox(height: 160.h),
+          SizedBox(height: 120.h),
           Image.asset(
             "assets/images/wellcome.png",
             width: 343.w,
-            height: 270.h,
+            height: 280.h,
             fit: BoxFit.fill,
           ),
           SizedBox(height: 35.h),
@@ -46,9 +46,7 @@ class WellcomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: 140.h,
-          ),
+          const Spacer(),
           GestureDetector(
             onTap: () {
               Navigator.push(
@@ -77,6 +75,9 @@ class WellcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          SizedBox(
+            height: 30.h,
           ),
         ],
       ),

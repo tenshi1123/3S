@@ -97,12 +97,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         const Spacer(),
-                        SvgPicture.asset(
-                          'assets/icons/bell_icon.svg',
-                          color: Colors.white,
-                          height: 24.h,
-                          width: 24.w,
-                        ),
+                        // SvgPicture.asset(
+                        //   'assets/icons/bell_icon.svg',
+                        //   color: Colors.white,
+                        //   height: 24.h,
+                        //   width: 24.w,
+                        // ),
                       ],
                     ),
                   ),
@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    List<ClassModel> listClass = await ClassRepo().listClass();
+                    //List<ClassModel> listClass = await ClassRepo().listClass();
                     (type == 0)
                         ? pushWithoutNavBar(
                             context,

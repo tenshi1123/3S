@@ -221,26 +221,26 @@ class ClassItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                        RichText(
-                          text: TextSpan(
-                            text: '${model.price} d     ',
-                            style: defaultText14.copyWith(
-                              color: const Color(0xff2F9CD3),
-                              fontWeight: FontWeight.w700,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: model.priceOld,
-                                style: defaultText14.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.lineThrough,
-                                  color:
-                                      const Color.fromARGB(255, 170, 170, 170),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
+                        // RichText(
+                        //   text: TextSpan(
+                        //     text: '${model.price} d     ',
+                        //     style: defaultText14.copyWith(
+                        //       color: const Color(0xff2F9CD3),
+                        //       fontWeight: FontWeight.w700,
+                        //     ),
+                        //     children: [
+                        //       TextSpan(
+                        //         text: model.priceOld,
+                        //         style: defaultText14.copyWith(
+                        //           fontWeight: FontWeight.w500,
+                        //           decoration: TextDecoration.lineThrough,
+                        //           color:
+                        //               const Color.fromARGB(255, 170, 170, 170),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // )
                       ],
                     ),
                   )

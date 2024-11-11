@@ -418,7 +418,7 @@ class CommentItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 375.w,
-      height: 100.h,
+      height: 110.h,
       child: Row(
         children: [
           SizedBox(
@@ -441,7 +441,7 @@ class CommentItem extends StatelessWidget {
           ),
           SizedBox(
             width: 270.w,
-            height: 80.h,
+            height: 100.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -6,7 +6,6 @@ import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:three_s/utils/widget/custom_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailClassTabbar extends StatefulWidget {
@@ -80,35 +79,37 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
           child: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 200.dg,
-                    width: 240.dg,
-                    child: const PieChart(),
-                  ),
-                  Text(
-                    'Thật tuyệt vời!',
-                    style: defaultText16.copyWith(
-                      color: keyBlack,
-                      fontWeight: FontWeight.w600,
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 200.dg,
+                      width: 240.dg,
+                      child: const PieChart(),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25.w),
-                    child: Text(
-                      'Chúc mừng bạn hoàn thành bài tập của buổi học',
+                    Text(
+                      'Thật tuyệt vời!',
                       style: defaultText16.copyWith(
                         color: keyBlack,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ),
-                  const DocumentItem(
-                    title: 1,
-                  ),
-                ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
+                      child: Text(
+                        'Chúc mừng bạn hoàn thành bài tập của buổi học',
+                        style: defaultText16.copyWith(
+                          color: keyBlack,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    const DocumentItem(
+                      title: 1,
+                    ),
+                  ],
+                ),
               ),
               //Giáo viên
               SizedBox(
@@ -293,7 +294,7 @@ class DocumentItem extends StatelessWidget {
       },
       child: Container(
         width: 343.w,
-        height: 80.h,
+        height: 66.h,
         margin: EdgeInsets.symmetric(vertical: 10.h),
         decoration: BoxDecoration(
           boxShadow: [

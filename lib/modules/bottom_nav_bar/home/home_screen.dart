@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/modules/models/course_model.dart';
 import 'package:three_s/modules/monthly_summary/monthly_summary.dart';
+import 'package:three_s/modules/roll_call/class_repo.dart';
 import 'package:three_s/modules/roll_call/list_class.dart';
 import 'package:three_s/utils/constants/styles.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:three_s/utils/widget/not_student_yet.dart';
 import '../../../utils/constants/color.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../utils/widget/excercise_tab_widget.dart';
-import '../../models/class_model.dart';
-import '../../roll_call/class_repo.dart';
 import 'search_screen.dart';
 
 class HomeScreen extends StatefulWidget {

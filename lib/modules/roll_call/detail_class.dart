@@ -47,7 +47,7 @@ class DetailClass extends StatelessWidget {
             color: const Color(0xffF0F0F0),
           ),
           SizedBox(
-            height: 610.h,
+            height: 660.h,
             width: 375.w,
             child: const DetailClassTabbar(''),
           ),

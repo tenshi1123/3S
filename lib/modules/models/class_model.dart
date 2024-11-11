@@ -51,3 +51,33 @@ class AttendanceModel {
     );
   }
 }
+
+class HomeWorkModel {
+  final String image;
+  final String name;
+  final String timeDeadline;
+  final String notes;
+  final String nameTeacher;
+  final String isSubmit;
+  final String id;
+  HomeWorkModel({
+    required this.image,
+    required this.name,
+    required this.timeDeadline,
+    required this.notes,
+    required this.nameTeacher,
+    required this.isSubmit,
+    required this.id,
+  });
+  factory HomeWorkModel.fromJson(Map<String, dynamic> json) {
+    return HomeWorkModel(
+      image: json['course_schedule_img'],
+      name: json['name'],
+      timeDeadline: json['time_deadline'],
+      notes: json['note'],
+      nameTeacher: json['name_teacher'],
+      isSubmit: json['is_submit_homework'],
+      id: json['class_lesson_document_customer_id'],
+    );
+  }
+}

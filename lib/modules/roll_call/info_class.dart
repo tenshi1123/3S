@@ -116,7 +116,7 @@ class _ClassItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: SizedBox(
           width: 343.w,
-          height: 160.h,
+          height: 280.h,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,

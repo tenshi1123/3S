@@ -199,12 +199,14 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    //List<ClassModel> listClass = await ClassRepo().listClass();
+                    List<ClassModel> listClass = await ClassRepo().listClass();
                     (type == 0)
                         ? pushWithoutNavBar(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ListClass(),
+                              builder: (context) => ListClass(
+                                listClasses: listClass,
+                              ),
                             ),
                           )
                         : pushWithoutNavBar(

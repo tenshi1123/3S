@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/modules/roll_call/info_class.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ListClass extends StatelessWidget {
-  const ListClass({super.key});
-
+  const ListClass({super.key, required this.listClasses});
+  final List<ClassModel> listClasses;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,26 +30,31 @@ class ListClass extends StatelessWidget {
       body: ListView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
-          itemCount: 2,
+          itemCount: listClasses.length,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) => const InfoClass()),
-                    ),
-                  );
-                },
-                child: const _ClassItem());
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => InfoClass(
+                          model: listClasses[index],
+                        )),
+                  ),
+                );
+              },
+              child: _ClassItem(
+                model: listClasses[index],
+              ),
+            );
           }),
     );
   }
 }
 
 class _ClassItem extends StatelessWidget {
-  const _ClassItem({super.key});
-
+  const _ClassItem({super.key, required this.model});
+  final ClassModel model;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -83,7 +89,7 @@ class _ClassItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Lớp toán thầy Hiệp ôn luyện ĐGNL 2025  ',
+              model.courseName,
               style: defaultText16.copyWith(
                 color: keyBlack,
                 fontWeight: FontWeight.w600,
@@ -98,7 +104,7 @@ class _ClassItem extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    text: '12/12/2024',
+                    text: model.dateOpen,
                     style: defaultText14.copyWith(
                       fontWeight: FontWeight.w600,
                       color: primary500,
@@ -125,7 +131,7 @@ class _ClassItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '28 buổi ',
+                            '${model.finished} buổi ',
                             style: defaultText14.copyWith(
                               fontWeight: FontWeight.w700,
                             ),
@@ -158,7 +164,7 @@ class _ClassItem extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '2 buổi ',
+                            '${model.missed} buổi ',
                             style: defaultText14.copyWith(
                               fontWeight: FontWeight.w700,
                             ),

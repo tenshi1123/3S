@@ -5,8 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'course_tabbar.dart';
 
 class CoureScreen extends StatelessWidget {
-  const CoureScreen({super.key});
-
+  const CoureScreen({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +42,8 @@ class CoureScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 5.h),
                 child: Text(
-                  'Lớp văn cô Thủy ôn luyện ĐGNL 2025',
+                  title,
+                  textAlign: TextAlign.left,
                   style: defaultBoldText.copyWith(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w700,

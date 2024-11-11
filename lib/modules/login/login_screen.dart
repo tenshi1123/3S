@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sp_util/sp_util.dart';
 import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:three_s/modules/login/forgot_password_screen.dart';
 import 'package:three_s/modules/login/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
-import 'package:three_s/utils/constants/string_constatns.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
@@ -232,12 +230,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     //   passController?.text ?? '',
                     // );
                     // if (loged == true) {
-                    SpUtil.putString(ConstString.token,
-                        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzEwNTQxMDcsImV4cCI6MTczMTA1NzcwNywidG9rZW5fdHlwZSI6IkJlYXJlciIsImRhdGEiOnsiY3VzdG9tZXJfaWQiOiI3MCIsImZ1bGxfbmFtZSI6IkhpXHUxZWMxbiBtaW5oIiwicGhvbmUiOiIwOTcxOTgxOTgzIiwiZW1haWwiOiJoaWVubWluaEBnbWFpbC5jb20iLCJpc0xvZ2dlZEluVXNlciI6dHJ1ZX19.MXGPO0jMxogwlKWPQiqNoLBt4E3D0c32e4IIpMBdAbg');
                     List<CategoryModel> test =
                         await CourseRepo().getListCategory();
                     List<CourseModel> test2 =
                         await CourseRepo().getListCourse();
+                    await LoginRepo().getToken();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

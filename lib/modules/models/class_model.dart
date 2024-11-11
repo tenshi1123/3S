@@ -52,6 +52,22 @@ class AttendanceModel {
   }
 }
 
+class InfoClassModel {
+  final String title;
+  final List<AttendanceModel> attributes;
+  InfoClassModel({
+    required this.title,
+    required this.attributes,
+  });
+  factory InfoClassModel.fromJson(Map<String, dynamic> json) {
+    return InfoClassModel(
+      title: json['title'],
+      attributes:
+          json['attendance'].map((e) => AttendanceModel.fromJson(e)).toList(),
+    );
+  }
+}
+
 class HomeWorkModel {
   final String image;
   final String name;

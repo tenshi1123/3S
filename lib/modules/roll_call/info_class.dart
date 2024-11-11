@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/modules/roll_call/detail_class.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoClass extends StatelessWidget {
-  const InfoClass({super.key});
-
+  const InfoClass({super.key, required this.model});
+  final ClassModel model;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -97,19 +97,15 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
                       model: _listCourses[index],
                     );
                   }),
-              Card(
-                margin: const EdgeInsets.all(16.0),
-                color: Colors.white,
-                child: Center(
-                  child: Text(
-                    'Không có khóa học nào',
-                    style: defaultText16.copyWith(
-                      color: keyBlack,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: 3,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ClassItem(
+                      model: _listCourses[index + 5],
+                    );
+                  }),
               Card(
                 margin: const EdgeInsets.all(16.0),
                 color: Colors.white,
@@ -154,7 +150,9 @@ class ClassItem extends StatelessWidget {
         pushWithoutNavBar(
           context,
           MaterialPageRoute(
-            builder: (context) => const CoureScreen(),
+            builder: (context) => CoureScreen(
+              title: model.name,
+            ),
           ),
         );
       },

@@ -113,7 +113,8 @@ class _ClassItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
+        //HomeWorkModel model = await ClassRepo().getInfoHomework('767');
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -136,7 +137,7 @@ class _ClassItem extends StatelessWidget {
                       ? Image.asset('assets/images/cancle.png')
                       : Image.asset('assets/images/tick.png'),
                   Text(
-                    day,
+                    model.createdDate,
                     style: defaultText16.copyWith(
                       color: keyBlack,
                       fontWeight: FontWeight.w600,
@@ -150,7 +151,7 @@ class _ClassItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Ca học:',
+                        'Buổi học',
                         style: defaultText14.copyWith(height: 1.8.h),
                       ),
                       Text(
@@ -174,25 +175,27 @@ class _ClassItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '08:00 - 10:00',
+                        model.buoiHoc,
                         style: defaultText14.copyWith(
                             fontWeight: FontWeight.w600,
                             color: primary500,
                             height: 1.8.h),
                       ),
                       Text(
-                        time1,
+                        model.timeStart,
                         style: defaultText14.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: primary500,
-                            height: 1.8.h),
+                          fontWeight: FontWeight.w600,
+                          color: primary500,
+                          height: 1.8.h,
+                        ),
                       ),
                       Text(
-                        time2,
+                        model.timeEnd,
                         style: defaultText14.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: primary500,
-                            height: 1.8.h),
+                          fontWeight: FontWeight.w600,
+                          color: primary500,
+                          height: 1.8.h,
+                        ),
                       ),
                       Text(
                         model.nameTeacher,

@@ -5,6 +5,7 @@ import '../../../utils/constants/api_path.dart';
 
 class ClassRepo {
   Dio dio = Dio();
+
   Future<List<ClassModel>> listClass() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -31,5 +32,19 @@ class ClassRepo {
       },
     );
     return InfoClassModel.fromJson(response.data);
+  }
+
+  Future<HomeWorkModel> getInfoHomework(String id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    Response response;
+    response = await dio.get(
+      ApiPath.detailHomework,
+      queryParameters: {
+        'event_checkin_off_id': id,
+      },
+    );
+    return HomeWorkModel.fromJson(response.data);
   }
 }

@@ -25,7 +25,7 @@ class ApiPath {
   static const String detailClass = '$baseUrl/detail/class';
 
   // chi tiết buổi điểm danh
-  static const String detailHomework = '$baseUrl/detail/class';
+  static const String detailHomework = '$baseUrl/detail/homework/class';
 
   // thông tin tài khoản
   static const String user = '$baseUrl/user/info';

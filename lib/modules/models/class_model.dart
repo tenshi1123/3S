@@ -102,3 +102,41 @@ class HomeWorkModel {
     );
   }
 }
+
+class DocumentModel {
+  final String image;
+  final String name;
+  DocumentModel({
+    required this.image,
+    required this.name,
+  });
+  factory DocumentModel.fromJson(Map<String, dynamic> json) {
+    return DocumentModel(
+      image: json['course_schedule_img'],
+      name: json['name'],
+    );
+  }
+}
+
+class InfoCheckinModel {
+  final List<HomeWorkModel> homeWork;
+  final List<DocumentModel> document;
+  InfoCheckinModel({
+    required this.homeWork,
+    required this.document,
+  });
+  factory InfoCheckinModel.fromJson(Map<String, dynamic> json) {
+    return InfoCheckinModel(
+      homeWork: List<HomeWorkModel>.from(
+        json['document'].map(
+          (e) => HomeWorkModel.fromJson(e),
+        ),
+      ),
+      document: List<DocumentModel>.from(
+        json['lesson'].map(
+          (e) => DocumentModel.fromJson(e),
+        ),
+      ),
+    );
+  }
+}

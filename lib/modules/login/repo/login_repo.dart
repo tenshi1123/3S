@@ -33,15 +33,16 @@ class LoginRepo {
     return response.data["token"] != null;
   }
 
-  Future<bool> contactAdd(String phone, String fullName) async {
+  Future<bool> contactAdd(String phone, String fullName, String className,
+      String subject, String typePerson) async {
     Response response;
     try {
       response = await dio.post(ApiPath.contact,
           data: jsonEncode({
             "full_name": fullName,
             "phone": phone,
-            "class": '',
-            "subject": '',
+            "class": className,
+            "subject": subject,
             "type_person": '',
           }));
     } on DioException {

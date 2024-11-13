@@ -251,7 +251,7 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
                         ),
                         Expanded(
                           child: Text(
-                            'The placeholder text, beginning with the line “Lorem ipsum dolor sit amet, consectetur adipiscing elit”, looks like Latin because in its youth, centuries ago, it was Latin.',
+                            'The placeholder text, beginning with the line “L dolor sit amet, consectetur adipiscing elit”, looks like Latin because in its youth, centuries ago, it was Latin.',
                             style: defaultText12.copyWith(
                               fontWeight: FontWeight.w500,
                             ),

@@ -26,28 +26,31 @@ class ClassModel {
 }
 
 class AttendanceModel {
+  final String buoiHoc;
+  final String createdDate;
+  final String timeStart;
+  final String timeEnd;
   final String id;
-  final String img;
-  final String courseName;
-  final String dateOpen;
-  final String missed;
-  final String finished;
+  final String nameTeacher;
+  final String gvStatus;
   AttendanceModel({
+    required this.buoiHoc,
+    required this.createdDate,
+    required this.timeStart,
+    required this.timeEnd,
     required this.id,
-    required this.img,
-    required this.courseName,
-    required this.dateOpen,
-    required this.missed,
-    required this.finished,
+    required this.nameTeacher,
+    required this.gvStatus,
   });
   factory AttendanceModel.fromJson(Map<String, dynamic> json) {
     return AttendanceModel(
-      id: json['course_schedule_id'] ?? '',
-      img: json['course_schedule_img'] ?? '',
-      courseName: json['course_name'] ?? '',
-      dateOpen: json['date_open'] ?? '',
-      missed: json['vang_mat'] ?? '',
-      finished: json['hoan_thanh'] ?? '',
+      buoiHoc: json['buoi_hoc'] ?? '',
+      createdDate: json['created_date'] ?? '',
+      timeStart: json['time_start'] ?? '',
+      timeEnd: json['time_end'] ?? '',
+      id: json['event_checkin_off_id'] ?? '',
+      nameTeacher: json['name_teacher'] ?? '',
+      gvStatus: json['gv_status'] ?? '',
     );
   }
 }
@@ -61,10 +64,12 @@ class InfoClassModel {
   });
   factory InfoClassModel.fromJson(Map<String, dynamic> json) {
     return InfoClassModel(
-      title: json['title'],
-      attributes:
-          json['attendance'].map((e) => AttendanceModel.fromJson(e)).toList(),
-    );
+        title: json['title'],
+        attributes: List<AttendanceModel>.from(
+          json['attendance'].map(
+            (e) => AttendanceModel.fromJson(e),
+          ),
+        ));
   }
 }
 

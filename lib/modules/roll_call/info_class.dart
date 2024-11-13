@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoClass extends StatelessWidget {
   const InfoClass({super.key, required this.model});
-  final ClassModel model;
+  final InfoClassModel model;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +37,7 @@ class InfoClass extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
               child: Text(
-                'Lớp toán thầy Hiệp ôn luyện ĐGNL 2025 ',
+                model.title,
                 style: defaultText20.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -47,43 +47,49 @@ class InfoClass extends StatelessWidget {
               thickness: 6.h,
               color: const Color(0xffF0F0F0),
             ),
-            const _ClassItem(
-              index: 1,
-              time1: '07:56',
-              time2: '10:05',
-              day: '   09/12/2024',
-            ),
-            const _ClassItem(
-              index: 2,
-              time1: '---',
-              time2: '---',
-              day: '   19/12/2024',
-            ),
-            const _ClassItem(
-              index: 3,
-              time1: '---',
-              time2: '---',
-              day: '   10/12/2024',
-            ),
-            const _ClassItem(
-              index: 4,
-              time1: '07:56',
-              time2: '10:05',
-              day: '   11/12/2024',
-            ),
-            const _ClassItem(
-              index: 1,
-              time1: '07:56',
-              time2: '10:05',
-              day: '   12/12/2024',
-            ),
-            // ListView.builder(
-            //     shrinkWrap: true,
-            //     physics: const ClampingScrollPhysics(),
-            //     itemCount: 1,
-            //     itemBuilder: (BuildContext context, int index) {
-            //       return const _ClassItem();
-            //     }),
+            // const _ClassItem(
+            //   index: 1,
+            //   time1: '07:56',
+            //   time2: '10:05',
+            //   day: '   09/12/2024',
+            // ),
+            // const _ClassItem(
+            //   index: 2,
+            //   time1: '---',
+            //   time2: '---',
+            //   day: '   19/12/2024',
+            // ),
+            // const _ClassItem(
+            //   index: 3,
+            //   time1: '---',
+            //   time2: '---',
+            //   day: '   10/12/2024',
+            // ),
+            // const _ClassItem(
+            //   index: 4,
+            //   time1: '07:56',
+            //   time2: '10:05',
+            //   day: '   11/12/2024',
+            // ),
+            // const _ClassItem(
+            //   index: 1,
+            //   time1: '07:56',
+            //   time2: '10:05',
+            //   day: '   12/12/2024',
+            // ),
+            ListView.builder(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: model.attributes.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _ClassItem(
+                    index: 1,
+                    time1: '07:56',
+                    time2: '10:05',
+                    day: '   12/12/2024',
+                    model: model.attributes[index],
+                  );
+                }),
           ],
         ),
       ),
@@ -97,11 +103,13 @@ class _ClassItem extends StatelessWidget {
       required this.index,
       required this.time1,
       required this.time2,
-      required this.day});
+      required this.day,
+      required this.model});
   final int index;
   final String day;
   final String time1;
   final String time2;
+  final AttendanceModel model;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -119,7 +127,7 @@ class _ClassItem extends StatelessWidget {
           width: 343.w,
           height: 280.h,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
@@ -187,7 +195,7 @@ class _ClassItem extends StatelessWidget {
                             height: 1.8.h),
                       ),
                       Text(
-                        'Hoàng Mạnh hùng',
+                        model.nameTeacher,
                         style: defaultText14.copyWith(
                             fontWeight: FontWeight.w600,
                             color: primary500,

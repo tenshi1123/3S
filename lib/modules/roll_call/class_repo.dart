@@ -19,13 +19,16 @@ class ClassRepo {
     return result;
   }
 
-  Future<InfoClassModel> getInfoClass() async {
+  Future<InfoClassModel> getInfoClass(String id) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     dio.options.headers['Authorization'] = 'Bearer $token';
     Response response;
     response = await dio.get(
-      ApiPath.lopHoc,
+      ApiPath.detailClass,
+      queryParameters: {
+        'course_schedule_id': id,
+      },
     );
     return InfoClassModel.fromJson(response.data);
   }

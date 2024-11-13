@@ -31,34 +31,36 @@ class DetailClass extends StatelessWidget {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-            child: Text(
-              'Lớp toán thầy Hiệp ôn luyện ĐGNL 2025 ',
-              style: defaultText20.copyWith(
-                fontWeight: FontWeight.w700,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+              child: Text(
+                'Lớp toán thầy Hiệp ôn luyện ĐGNL 2025 ',
+                style: defaultText20.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-          ),
-          Divider(
-            thickness: 6.h,
-            color: const Color(0xffF0F0F0),
-          ),
-          SizedBox(
-            height: 660.h,
-            width: 375.w,
-            child: const DetailClassTabbar(''),
-          ),
-          // ListView.builder(
-          //     shrinkWrap: true,
-          //     physics: const ClampingScrollPhysics(),
-          //     itemCount: 1,
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return const _ClassItem();
-          //     }),
-        ],
+            Divider(
+              thickness: 6.h,
+              color: const Color(0xffF0F0F0),
+            ),
+            SizedBox(
+              height: 660.h,
+              width: 375.w,
+              child: const DetailClassTabbar(''),
+            ),
+            // ListView.builder(
+            //     shrinkWrap: true,
+            //     physics: const ClampingScrollPhysics(),
+            //     itemCount: 1,
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return const _ClassItem();
+            //     }),
+          ],
+        ),
       ),
     );
   }

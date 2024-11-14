@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:three_s/modules/models/class_model.dart';
-import '../../../utils/constants/api_path.dart';
+import '../../utils/constants/api_path.dart';
 
 class ClassRepo {
   Dio dio = Dio();

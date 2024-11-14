@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:three_s/modules/login/forgot_password_screen.dart';
-import 'package:three_s/modules/login/repo/login_repo.dart';
+import 'package:three_s/repo/info_repo.dart';
+import 'package:three_s/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
-import '../course/course_repo.dart';
+import '../../repo/course_repo.dart';
 import '../models/course_model.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -235,6 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     List<CourseModel> test2 =
                         await CourseRepo().getListCourse();
                     await LoginRepo().getToken();
+                    //InfoRepo().getInfo();
                     Navigator.push(
                       context,
                       MaterialPageRoute(

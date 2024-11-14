@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/models/class_model.dart';
-import 'package:three_s/modules/roll_call/class_repo.dart';
+import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/modules/roll_call/info_class.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';

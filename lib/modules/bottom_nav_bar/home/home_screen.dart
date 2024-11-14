@@ -4,7 +4,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/modules/models/course_model.dart';
 import 'package:three_s/modules/monthly_summary/monthly_summary.dart';
-import 'package:three_s/modules/roll_call/class_repo.dart';
+import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/modules/roll_call/list_class.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:three_s/utils/widget/not_student_yet.dart';

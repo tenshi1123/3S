@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:three_s/modules/models/course_model.dart';
-import '../../../utils/constants/api_path.dart';
+import '../../utils/constants/api_path.dart';
 
 class CourseRepo {
   Dio dio = Dio();

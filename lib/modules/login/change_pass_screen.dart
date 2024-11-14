@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
-import 'package:three_s/modules/course/course_repo.dart';
+import 'package:three_s/repo/course_repo.dart';
 import 'package:three_s/modules/models/course_model.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';

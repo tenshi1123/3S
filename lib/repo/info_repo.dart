@@ -27,4 +27,15 @@ class InfoRepo {
     );
     return InfoModel.fromJson(response.data['data']);
   }
+
+  Future<InfoModel> deleteInfo() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    Response response;
+    response = await dio.post(
+      ApiPath.deleteUser,
+    );
+    return InfoModel.fromJson(response.data['data']);
+  }
 }

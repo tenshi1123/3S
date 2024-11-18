@@ -40,7 +40,7 @@ class ClassRepo {
     dio.options.headers['Authorization'] = 'Bearer $token';
     Response response;
     response = await dio.get(
-      ApiPath.detailHomework,
+      ApiPath.detailRollCall,
       queryParameters: {
         'event_checkin_off_id': id,
       },

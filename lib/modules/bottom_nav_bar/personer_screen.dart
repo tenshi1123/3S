@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:three_s/modules/login/change_pass_screen.dart';
+import 'package:three_s/modules/models/info_model.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,8 +11,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../login/login_screen.dart';
 
 class PersonerScreen extends StatelessWidget {
-  const PersonerScreen({super.key});
-
+  const PersonerScreen({super.key, this.infoModel});
+  final InfoModel? infoModel;
   @override
   Widget build(BuildContext context) {
     Future<void> makePhoneCall(String phoneNumber) async {
@@ -40,8 +41,7 @@ class PersonerScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 26.r,
                     backgroundColor: Colors.grey,
-                    backgroundImage:
-                        const NetworkImage('https://i.imgur.com/nhETfUw.png'),
+                    backgroundImage: NetworkImage(infoModel!.avatar),
                     //child: const Text('AH'),
                   ),
                   SizedBox(
@@ -52,7 +52,7 @@ class PersonerScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Phạm Thế Anh',
+                        infoModel!.fullName,
                         style: defaultText18.copyWith(
                           color: primary500,
                           fontWeight: FontWeight.w600,
@@ -60,7 +60,7 @@ class PersonerScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '097 111 6262',
+                        infoModel!.phone,
                         style: defaultText14.copyWith(
                             color: const Color(
                           0xff8A8A8A,

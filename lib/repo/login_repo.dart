@@ -7,16 +7,21 @@ class LoginRepo {
   Dio dio = Dio();
   Future<bool> login(String phone, String password) async {
     Response response;
+    var formData = FormData.fromMap({
+      'phone': phone,
+      'password': password,
+    });
     try {
-      response = await dio.post(ApiPath.login,
-          data: jsonEncode({
-            "phone": int.parse(phone),
-            "password": password,
-          }));
+      response = await dio.post(
+        ApiPath.login,
+        data: formData,
+      );
     } on DioException {
       return false;
     }
-    return response.data["token"] != null;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', response.data['data']["token"]);
+    return response.data['data']["refresh_token"] != null;
   }
 
   Future<bool> contactLearned(String phone, String fullName) async {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:three_s/modules/login/forgot_password_screen.dart';
+import 'package:three_s/modules/models/info_model.dart';
 import 'package:three_s/repo/info_repo.dart';
 import 'package:three_s/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
@@ -22,6 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isObscure = true;
   final _focusNode = FocusNode();
   final _focusNode1 = FocusNode();
+  bool isPhoneNoValid(String? phoneNo) {
+    if (phoneNo == null) return false;
+    final regExp = RegExp(r'(^(?:[+0]9)?[0-9]{8,12}$)');
+    return regExp.hasMatch(phoneNo);
+  }
+
   TextEditingController? passController = TextEditingController();
   TextEditingController? studenIdController = TextEditingController();
   Future<void> _makePhoneCall(String phoneNumber) async {
@@ -224,59 +231,96 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 140.h,
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () async {
-                    // bool loged = await LoginRepo().login(
-                    //   studenIdController?.text ?? '',
-                    //   passController?.text ?? '',
-                    // );
-                    // if (loged == true) {
-                    List<CategoryModel> test =
-                        await CourseRepo().getListCategory();
-                    List<CourseModel> test2 =
-                        await CourseRepo().getListCourse();
-                    await LoginRepo().getToken();
-                    //InfoRepo().getInfo();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => BottomNavBar(
-                              type: 0,
-                              categories: test,
-                              courses: test2,
-                            )),
-                      ),
-                    );
-                    // } else {
-                    //   showDialog(
-                    //     context: context,
-                    //     builder: (BuildContext context) {
-                    //       return CupertinoAlertDialog(
-                    //         title: const Text('Vui lòng thử lại'),
-                    //         content: const Text(
-                    //             'Vui lòng kiểm tra lại mã học sinh và mật khẩu của bạn'),
-                    //         actions: <Widget>[
-                    //           CupertinoDialogAction(
-                    //             isDefaultAction: true,
-                    //             child: Text(
-                    //               'Yes',
-                    //               style: TextStyle(
-                    //                 fontSize: 20,
-                    //                 color: primary500,
-                    //               ),
-                    //             ),
-                    //             onPressed: () {
-                    //               Navigator.of(context, rootNavigator: true)
-                    //                   .pop(
-                    //                 (_) => false,
-                    //               );
-                    //             },
-                    //           )
-                    //         ],
-                    //       );
-                    //     },
-                    //   );
-                    // }
+                    if (isPhoneNoValid(studenIdController?.text) == false) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(
+                              'Số điện thoại không đúng định dạng',
+                              style: defaultText16.copyWith(
+                                color: const Color.fromARGB(255, 29, 29, 29),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            content: Text(
+                              'Vui lòng kiểm tra lại số điện thoại đã nhập',
+                              style: defaultText16.copyWith(
+                                  color: const Color(0xff3C3C3C)),
+                            ),
+                            actionsPadding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(
+                                  'ok',
+                                  style: defaultText16.copyWith(
+                                      color: const Color(0xff3C3C3C)),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      bool loged = await LoginRepo().login(
+                        studenIdController?.text ?? '',
+                        passController?.text ?? '',
+                      );
+                      if (loged == true) {
+                        List<CategoryModel> test =
+                            await CourseRepo().getListCategory();
+                        List<CourseModel> test2 =
+                            await CourseRepo().getListCourse();
+                        //await LoginRepo().getToken();
+                        InfoModel infoModel = await InfoRepo().getInfo();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: ((context) => BottomNavBar(
+                                  type: 0,
+                                  categories: test,
+                                  courses: test2,
+                                  infoModel: infoModel,
+                                )),
+                          ),
+                        );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              title: const Text('Vui lòng thử lại'),
+                              content: const Text(
+                                  'Vui lòng kiểm tra lại mã học sinh và mật khẩu của bạn'),
+                              actions: <Widget>[
+                                CupertinoDialogAction(
+                                  isDefaultAction: true,
+                                  child: Text(
+                                    'Yes',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: primary500,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop(
+                                      (_) => false,
+                                    );
+                                  },
+                                )
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    }
                   },
                   child: Container(
                     height: 48.h,
@@ -301,7 +345,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 10.h,
                 ),
-                GestureDetector(
+                InkWell(
                   onTap: () async {
                     List<CategoryModel> test =
                         await CourseRepo().getListCategory();

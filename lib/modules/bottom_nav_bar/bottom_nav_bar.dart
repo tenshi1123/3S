@@ -3,6 +3,7 @@ import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart";
 import "package:three_s/modules/bottom_nav_bar/calender.dart";
 import "package:three_s/modules/models/course_model.dart";
+import "package:three_s/modules/models/info_model.dart";
 import "package:three_s/utils/constants/color.dart";
 import "course_screen.dart";
 import "home/guess_screen.dart";
@@ -15,10 +16,12 @@ class BottomNavBar extends StatefulWidget {
     required this.type,
     required this.categories,
     required this.courses,
+    this.infoModel,
   });
   final int type;
   final List<CategoryModel> categories;
   final List<CourseModel> courses;
+  final InfoModel? infoModel;
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -62,6 +65,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             type: widget.type,
             categories: widget.categories,
             courses: widget.courses,
+            infoModel: widget.infoModel,
           ),
           item: ItemConfig(
             icon: const Icon(Icons.home),
@@ -106,7 +110,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         PersistentTabConfig(
           screen: (widget.type == 0)
-              ? const PersonerScreen()
+              ? PersonerScreen(
+                  infoModel: widget.infoModel,
+                )
               : const GuessScreen(
                   title: 'Cá nhân',
                 ),

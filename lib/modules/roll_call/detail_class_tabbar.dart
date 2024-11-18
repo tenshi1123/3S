@@ -85,7 +85,7 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
                   children: [
                     SizedBox(
                       height: 160.dg,
-                      width: 240.dg,
+                      width: 260.dg,
                       child: const PieChart(),
                     ),
                     Text(
@@ -374,7 +374,7 @@ class PieChart extends StatelessWidget {
     return Stack(
       children: [
         AspectRatio(
-          aspectRatio: 24 / 16,
+          aspectRatio: 26 / 16,
           child: DChartPieO(
             data: ordinalDataList,
             customLabel: (ordinalData, index) {

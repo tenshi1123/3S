@@ -17,7 +17,7 @@ class InfoModel {
   });
   factory InfoModel.fromJson(Map<String, dynamic> json) {
     return InfoModel(
-      avatar: json['category_name'] ?? '',
+      avatar: json['avatar'] ?? '',
       fullName: json['full_name'] ?? '',
       id: json['id'] ?? '',
       email: json['email'] ?? '',

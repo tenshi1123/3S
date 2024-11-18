@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/modules/models/course_model.dart';
+import 'package:three_s/modules/models/info_model.dart';
 import 'package:three_s/modules/monthly_summary/monthly_summary.dart';
 import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/modules/roll_call/list_class.dart';
@@ -19,10 +20,12 @@ class HomeScreen extends StatefulWidget {
     required this.type,
     required this.categories,
     required this.courses,
+    this.infoModel,
   });
   final int type;
   final List<CategoryModel> categories;
   final List<CourseModel> courses;
+  final InfoModel? infoModel;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -69,7 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         CircleAvatar(
                           radius: 26.r,
                           backgroundColor: Colors.white,
-                          child: Text((type == 0) ? 'TA' : ''),
+                          backgroundImage:
+                              NetworkImage(widget.infoModel!.avatar),
+                          //child: Text((type == 0) ? 'TA' : ''),
                         ),
                         SizedBox(
                           width: 5.w,
@@ -85,8 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             Text(
-                              (type == 0)
-                                  ? 'Phạm Thế Anh'
+                              (widget.infoModel != null)
+                                  ? widget.infoModel!.fullName
                                   : 'Chưa có tài khoản',
                               style: defaultText20.copyWith(
                                   color: Colors.white,

@@ -25,8 +25,20 @@ class ApiPath {
   static const String detailClass = '$baseUrl/detail/class';
 
   // chi tiết buổi điểm danh
-  static const String detailHomework = '$baseUrl/detail/homework/class';
+  static const String detailRollCall = '$baseUrl/detail/homework/class';
+
+  // chi tiết homework
+  static const String detailHomework = '$baseUrl/detail/homework';
+
+  // Tổng kết tháng danh sách khóa học
+  static const String reportSchedule = '$baseUrl/report/schedule';
+
+  // Tổng kết tháng - điểm tổng trên tháng
+  static const String reportPoint = '$baseUrl/report/point';
 
   // thông tin tài khoản
   static const String user = '$baseUrl/user/info';
+
+  // xóa tài khoản
+  static const String deleteUser = '$baseUrl/user/delete';
 }

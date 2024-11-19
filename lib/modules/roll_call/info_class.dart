@@ -133,9 +133,11 @@ class _ClassItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  (index == 2)
-                      ? Image.asset('assets/images/cancle.png')
-                      : Image.asset('assets/images/tick.png'),
+                  (int.parse(model.gvStatus) == 4)
+                      ? Image.asset('assets/images/tick.png')
+                      : (int.parse(model.gvStatus) == 0)
+                          ? const SizedBox()
+                          : Image.asset('assets/images/cancle.png'),
                   Text(
                     model.createdDate,
                     style: defaultText16.copyWith(
@@ -207,9 +209,9 @@ class _ClassItem extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  (index == 1)
+                  (int.parse(model.gvStatus) == 4)
                       ? const SizedBox()
-                      : (index == 2)
+                      : (int.parse(model.gvStatus) == 2)
                           ? Container(
                               width: 64.w,
                               height: 28.h,
@@ -219,14 +221,14 @@ class _ClassItem extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Nghỉ',
+                                  'Xin nghỉ',
                                   style: defaultText12.copyWith(
                                     color: Colors.white,
                                   ),
                                 ),
                               ),
                             )
-                          : (index == 3)
+                          : (int.parse(model.gvStatus) == 3)
                               ? Container(
                                   width: 64.w,
                                   height: 28.h,
@@ -236,29 +238,48 @@ class _ClassItem extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'Đi muộn  ',
+                                      'Đi muộn',
                                       style: defaultText12.copyWith(
                                         color: Colors.white,
                                       ),
                                     ),
                                   ),
                                 )
-                              : Container(
-                                  width: 64.w,
-                                  height: 28.h,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xff2F9CD3),
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Về sớm',
-                                      style: defaultText12.copyWith(
-                                        color: Colors.white,
+                              : (int.parse(model.gvStatus) == 1)
+                                  ? Container(
+                                      width: 64.w,
+                                      height: 28.h,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xffF9A825),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Vắng mặt',
+                                          style: defaultText12.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Container(
+                                      width: 64.w,
+                                      height: 28.h,
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xff2F9CD3),
+                                        borderRadius:
+                                            BorderRadius.circular(8.r),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Chưa học',
+                                          style: defaultText12.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
                 ],
               ),
               const Divider(),

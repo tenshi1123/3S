@@ -228,7 +228,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    List<ClassModel> listClass = await ClassRepo().listClass();
                     (type == 0)
                         ? pushWithoutNavBar(
                             context,

@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:three_s/main.dart';
 import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:three_s/modules/login/forgot_password_screen.dart';
+import 'package:three_s/modules/models/course_model.dart';
 import 'package:three_s/modules/models/info_model.dart';
+import 'package:three_s/repo/course_repo.dart';
 import 'package:three_s/repo/info_repo.dart';
 import 'package:three_s/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
-import '../../repo/course_repo.dart';
-import '../models/course_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -273,20 +274,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         passController?.text ?? '',
                       );
                       if (loged == true) {
-                        List<CategoryModel> test =
-                            await CourseRepo().getListCategory();
-                        List<CourseModel> test2 =
-                            await CourseRepo().getListCourse();
                         //await LoginRepo().getToken();
                         InfoModel infoModel = await InfoRepo().getInfo();
+                        List<UpcommingModel> upcommingModel =
+                            await CourseRepo().getUpcommingClass();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: ((context) => BottomNavBar(
                                   type: 0,
-                                  categories: test,
-                                  courses: test2,
+                                  categories: listCate,
+                                  courses: listCourse,
                                   infoModel: infoModel,
+                                  upcommingModel: upcommingModel,
                                 )),
                           ),
                         );
@@ -347,15 +347,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 InkWell(
                   onTap: () async {
-                    List<CategoryModel> test =
-                        await CourseRepo().getListCategory();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: ((context) => BottomNavBar(
                               type: 1,
-                              categories: test,
-                              courses: const [],
+                              categories: listCate,
+                              courses: listCourse,
                             )),
                       ),
                     );

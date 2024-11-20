@@ -82,83 +82,83 @@ class _NewWidgetExampleState extends State<Calender> {
                   );
                 },
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const ScrollPhysics(),
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.fromLTRB(120.w, 14.h, 20.w, 30.h),
-                    padding: EdgeInsets.only(left: 15.w),
-                    width: 280.w,
-                    height: 184.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      border: Border(
-                          left: BorderSide(
-                        color: const Color(0xff6B9DDF),
-                        width: 6.w,
-                      )),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          'Thứ 4 ngày 08, tháng 12 2024',
-                          style: defaultText14.copyWith(
-                            color: const Color(0xff878787),
-                          ),
-                        ),
-                        Text(
-                          'Lớp toán ôn luyện ĐGNL 2025 ',
-                          style: defaultText16.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            const CircleAvatar(
-                              backgroundColor:
-                                  Color.fromARGB(255, 248, 248, 248),
-                              radius: 20,
-                              backgroundImage: NetworkImage(
-                                  'https://trungtam3s.vn/images/hinh-nen.jpg'),
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Hoàng Mạnh Hùng',
-                                  style: defaultText16.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  'Giáo viên toán',
-                                  style: defaultText14,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+              // ListView.builder(
+              //   shrinkWrap: true,
+              //   physics: const ScrollPhysics(),
+              //   itemCount: 3,
+              //   itemBuilder: (context, index) {
+              //     return Container(
+              //       margin: EdgeInsets.fromLTRB(120.w, 14.h, 20.w, 30.h),
+              //       padding: EdgeInsets.only(left: 15.w),
+              //       width: 280.w,
+              //       height: 184.h,
+              //       decoration: BoxDecoration(
+              //         borderRadius: BorderRadius.circular(12.0),
+              //         border: Border(
+              //             left: BorderSide(
+              //           color: const Color(0xff6B9DDF),
+              //           width: 6.w,
+              //         )),
+              //         boxShadow: [
+              //           BoxShadow(
+              //             color: Colors.grey.withOpacity(0.5),
+              //             spreadRadius: 5,
+              //             blurRadius: 7,
+              //             offset: const Offset(0, 3),
+              //           ),
+              //         ],
+              //         color: Colors.white,
+              //       ),
+              //       child: Column(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //         children: [
+              //           Text(
+              //             'Thứ 4 ngày 08, tháng 12 2024',
+              //             style: defaultText14.copyWith(
+              //               color: const Color(0xff878787),
+              //             ),
+              //           ),
+              //           Text(
+              //             'Lớp toán ôn luyện ĐGNL 2025 ',
+              //             style: defaultText16.copyWith(
+              //               fontWeight: FontWeight.w600,
+              //             ),
+              //           ),
+              //           Row(
+              //             children: [
+              //               const CircleAvatar(
+              //                 backgroundColor:
+              //                     Color.fromARGB(255, 248, 248, 248),
+              //                 radius: 20,
+              //                 backgroundImage: NetworkImage(
+              //                     'https://trungtam3s.vn/images/hinh-nen.jpg'),
+              //               ),
+              //               SizedBox(
+              //                 width: 5.w,
+              //               ),
+              //               Column(
+              //                 crossAxisAlignment: CrossAxisAlignment.start,
+              //                 children: [
+              //                   Text(
+              //                     'Hoàng Mạnh Hùng',
+              //                     style: defaultText16.copyWith(
+              //                       fontWeight: FontWeight.w600,
+              //                     ),
+              //                   ),
+              //                   Text(
+              //                     'Giáo viên toán',
+              //                     style: defaultText14,
+              //                   ),
+              //                 ],
+              //               ),
+              //             ],
+              //           ),
+              //         ],
+              //       ),
+              //     );
+              //   },
+              // ),
             ],
           ),
         ],

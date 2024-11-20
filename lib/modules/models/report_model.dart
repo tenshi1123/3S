@@ -39,18 +39,18 @@ class ListPointModel {
 
 class ScheduleModel {
   final String id;
-  final String caculatorAvg;
   final String name;
+  final String date;
   ScheduleModel({
     required this.id,
-    required this.caculatorAvg,
     required this.name,
+    required this.date,
   });
   factory ScheduleModel.fromJson(Map<String, dynamic> json) {
     return ScheduleModel(
       id: json['course_schedule_id'] ?? '',
-      caculatorAvg: json['course_name'] ?? '',
-      name: json['date_open'] ?? '',
+      name: json['course_name'] ?? '',
+      date: json['date_open'] ?? '',
     );
   }
 }

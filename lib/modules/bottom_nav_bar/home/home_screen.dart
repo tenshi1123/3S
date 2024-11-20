@@ -4,9 +4,11 @@ import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/modules/models/course_model.dart';
 import 'package:three_s/modules/models/info_model.dart';
+import 'package:three_s/modules/models/report_model.dart';
 import 'package:three_s/modules/monthly_summary/monthly_summary.dart';
 import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/modules/roll_call/list_class.dart';
+import 'package:three_s/repo/report_repo.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:three_s/utils/widget/not_student_yet.dart';
 import '../../../utils/constants/color.dart';
@@ -21,11 +23,13 @@ class HomeScreen extends StatefulWidget {
     required this.categories,
     required this.courses,
     this.infoModel,
+    this.upcommingModel,
   });
   final int type;
   final List<CategoryModel> categories;
   final List<CourseModel> courses;
   final InfoModel? infoModel;
+  final List<UpcommingModel>? upcommingModel;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -72,8 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         CircleAvatar(
                           radius: 26.r,
                           backgroundColor: Colors.white,
-                          backgroundImage:
-                              NetworkImage(widget.infoModel!.avatar),
+                          backgroundImage: NetworkImage(
+                              widget.infoModel?.avatar ??
+                                  'https://trungtam3s.vn/img/favicon.png'),
                           //child: Text((type == 0) ? 'TA' : ''),
                         ),
                         SizedBox(
@@ -229,12 +234,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    List<ClassModel> listClass = await ClassRepo().listClass();
+                    List<ScheduleModel> listSchedule =
+                        await ReportRepo().getSchedule();
                     (type == 0)
                         ? pushWithoutNavBar(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const MonthlySummary(),
+                              builder: (context) => MonthlySummary(
+                                listClasses: listSchedule,
+                              ),
                             ),
                           )
                         : pushWithoutNavBar(
@@ -266,81 +274,100 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            SizedBox(
-              width: 375.w,
-              height: 166.h,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                physics: const ScrollPhysics(),
-                itemExtent: 278.0.w,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: 246.w,
-                          height: 166.h,
-                          decoration: BoxDecoration(
-                            color: Colors.blue.shade100,
-                            image: const DecorationImage(
-                              image: AssetImage('assets/images/class1.png'),
-                              fit: BoxFit.fill,
-                            ),
+            (widget.upcommingModel?.isEmpty ?? true)
+                ? const SizedBox()
+                : SizedBox(
+                    width: 375.w,
+                    height: 166.h,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: const ScrollPhysics(),
+                      itemExtent: 278.0.w,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 0),
+                      itemCount: widget.upcommingModel?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: Stack(
+                            children: [
+                              Container(
+                                width: 246.w,
+                                height: 166.h,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue.shade100,
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: widget.upcommingModel?[index].img !=
+                                            null
+                                        ? NetworkImage(
+                                            widget.upcommingModel![index].img)
+                                        : const AssetImage(
+                                                'assets/images/class1.png')
+                                            as ImageProvider,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: 246.w,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    gradient: LinearGradient(
+                                        begin: FractionalOffset.topCenter,
+                                        end: FractionalOffset.bottomCenter,
+                                        colors: [
+                                          Colors.grey.withOpacity(0.0),
+                                          Colors.black,
+                                        ],
+                                        stops: const [
+                                          0.0,
+                                          1.0
+                                        ])),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Spacer(),
+                                  Text(
+                                    widget.upcommingModel?[index].name ?? '',
+                                    style: defaultText16.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text(
+                                    widget.upcommingModel?[index].buoiHoc ?? '',
+                                    style: defaultText16.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Text(
+                                    widget.upcommingModel?[index].createdDate ??
+                                        '',
+                                    style: defaultText14.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10.h,
+                                  )
+                                ],
+                              ),
+                            ],
                           ),
-                        ),
-                        Container(
-                          height: 246.w,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              gradient: LinearGradient(
-                                  begin: FractionalOffset.topCenter,
-                                  end: FractionalOffset.bottomCenter,
-                                  colors: [
-                                    Colors.grey.withOpacity(0.0),
-                                    Colors.black,
-                                  ],
-                                  stops: const [
-                                    0.0,
-                                    1.0
-                                  ])),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Spacer(),
-                            Text(
-                              '    Lớp ôn thi DGNL 2025',
-                              style: defaultText16.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w800,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 5.h,
-                            ),
-                            Text(
-                              '    21/05/2024 (08:00 - 11:00)',
-                              style: defaultText14.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            )
-                          ],
-                        ),
-                      ],
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
               child: Row(

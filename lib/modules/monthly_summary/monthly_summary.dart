@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/monthly_summary/summary_score.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
+import '../models/report_model.dart';
 
 class MonthlySummary extends StatelessWidget {
-  const MonthlySummary({super.key});
-
+  const MonthlySummary({super.key, required this.listClasses});
+  final List<ScheduleModel> listClasses;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +33,7 @@ class MonthlySummary extends StatelessWidget {
       body: ListView.builder(
           shrinkWrap: true,
           physics: const ClampingScrollPhysics(),
-          itemCount: 2,
+          itemCount: listClasses.length,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
                 onTap: () {
@@ -44,7 +45,7 @@ class MonthlySummary extends StatelessWidget {
                   );
                 },
                 child: _ClassItem(
-                  title: '${index + 1}',
+                  model: listClasses[index],
                 ));
           }),
     );
@@ -52,8 +53,8 @@ class MonthlySummary extends StatelessWidget {
 }
 
 class _ClassItem extends StatelessWidget {
-  const _ClassItem({super.key, required this.title});
-  final String title;
+  const _ClassItem({super.key, required this.model});
+  final ScheduleModel model;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -90,7 +91,7 @@ class _ClassItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Lớp toán $title thầy Hiệp ôn luyện ĐGNL 2025',
+              model.name,
               style: defaultText16.copyWith(
                 color: keyBlack,
                 fontWeight: FontWeight.w600,
@@ -105,7 +106,7 @@ class _ClassItem extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    text: '1$title/12/2024',
+                    text: model.date,
                     style: defaultText14.copyWith(
                       fontWeight: FontWeight.w600,
                       color: primary500,

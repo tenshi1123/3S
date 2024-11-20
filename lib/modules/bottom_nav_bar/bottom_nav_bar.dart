@@ -17,11 +17,13 @@ class BottomNavBar extends StatefulWidget {
     required this.categories,
     required this.courses,
     this.infoModel,
+    this.upcommingModel,
   });
   final int type;
   final List<CategoryModel> categories;
   final List<CourseModel> courses;
   final InfoModel? infoModel;
+  final List<UpcommingModel>? upcommingModel;
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -66,6 +68,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             categories: widget.categories,
             courses: widget.courses,
             infoModel: widget.infoModel,
+            upcommingModel: widget.upcommingModel,
           ),
           item: ItemConfig(
             icon: const Icon(Icons.home),

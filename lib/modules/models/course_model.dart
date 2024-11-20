@@ -36,3 +36,30 @@ class CourseModel {
     );
   }
 }
+
+class UpcommingModel {
+  final String img;
+  final String name;
+  final String buoiHoc;
+  final String createdDate;
+  final String timeStart;
+  final String timeEnd;
+  UpcommingModel({
+    required this.img,
+    required this.name,
+    required this.buoiHoc,
+    required this.createdDate,
+    required this.timeStart,
+    required this.timeEnd,
+  });
+  factory UpcommingModel.fromJson(Map<String, dynamic> json) {
+    return UpcommingModel(
+      img: json['course_schedule_img'] ?? '',
+      name: json['course_name'] ?? '',
+      buoiHoc: json['buoi_hoc'] ?? '',
+      createdDate: json['created_date'] ?? '',
+      timeStart: json['time_start'] ?? '',
+      timeEnd: json['time_end'] ?? '',
+    );
+  }
+}

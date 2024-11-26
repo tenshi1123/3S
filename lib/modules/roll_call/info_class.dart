@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/modules/roll_call/detail_class.dart';
+import 'package:three_s/repo/class_repo.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,46 +48,12 @@ class InfoClass extends StatelessWidget {
               thickness: 6.h,
               color: const Color(0xffF0F0F0),
             ),
-            // const _ClassItem(
-            //   index: 1,
-            //   time1: '07:56',
-            //   time2: '10:05',
-            //   day: '   09/12/2024',
-            // ),
-            // const _ClassItem(
-            //   index: 2,
-            //   time1: '---',
-            //   time2: '---',
-            //   day: '   19/12/2024',
-            // ),
-            // const _ClassItem(
-            //   index: 3,
-            //   time1: '---',
-            //   time2: '---',
-            //   day: '   10/12/2024',
-            // ),
-            // const _ClassItem(
-            //   index: 4,
-            //   time1: '07:56',
-            //   time2: '10:05',
-            //   day: '   11/12/2024',
-            // ),
-            // const _ClassItem(
-            //   index: 1,
-            //   time1: '07:56',
-            //   time2: '10:05',
-            //   day: '   12/12/2024',
-            // ),
             ListView.builder(
                 shrinkWrap: true,
                 physics: const ClampingScrollPhysics(),
                 itemCount: model.attributes.length,
                 itemBuilder: (BuildContext context, int index) {
                   return _ClassItem(
-                    index: 1,
-                    time1: '07:56',
-                    time2: '10:05',
-                    day: '   12/12/2024',
                     model: model.attributes[index],
                   );
                 }),
@@ -98,27 +65,22 @@ class InfoClass extends StatelessWidget {
 }
 
 class _ClassItem extends StatelessWidget {
-  const _ClassItem(
-      {super.key,
-      required this.index,
-      required this.time1,
-      required this.time2,
-      required this.day,
-      required this.model});
-  final int index;
-  final String day;
-  final String time1;
-  final String time2;
+  const _ClassItem({super.key, required this.model});
   final AttendanceModel model;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        //HomeWorkModel model = await ClassRepo().getInfoHomework('767');
+        InfoCheckinModel infoModel1 =
+            await ClassRepo().getInfoHomework(model.id);
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: ((context) => const DetailClass()),
+            builder: ((context) => DetailClass(
+                  infoCheckinModel: infoModel1,
+                  title1: model.buoiHoc,
+                  title2: model.buoiHoc,
+                )),
           ),
         );
       },
@@ -133,13 +95,13 @@ class _ClassItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  (int.parse(model.gvStatus) == 4)
-                      ? Image.asset('assets/images/tick.png')
+                  (int.parse(model.gvStatus) == 1)
+                      ? Image.asset('assets/images/cancle.png')
                       : (int.parse(model.gvStatus) == 0)
                           ? const SizedBox()
-                          : Image.asset('assets/images/cancle.png'),
+                          : Image.asset('assets/images/tick.png'),
                   Text(
-                    model.createdDate,
+                    ' ${model.createdDate}',
                     style: defaultText16.copyWith(
                       color: keyBlack,
                       fontWeight: FontWeight.w600,
@@ -216,7 +178,7 @@ class _ClassItem extends StatelessWidget {
                               width: 64.w,
                               height: 28.h,
                               decoration: BoxDecoration(
-                                color: Colors.red,
+                                color: const Color(0xffF9A825),
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
                               child: Center(
@@ -250,7 +212,7 @@ class _ClassItem extends StatelessWidget {
                                       width: 64.w,
                                       height: 28.h,
                                       decoration: BoxDecoration(
-                                        color: const Color(0xffF9A825),
+                                        color: Colors.red,
                                         borderRadius:
                                             BorderRadius.circular(8.r),
                                       ),

@@ -20,18 +20,35 @@ class LoginRepo {
       return false;
     }
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', response.data['data']["token"]);
+    await prefs.setString('token', response.data['data']["refresh_token"]);
     return response.data['data']["refresh_token"] != null;
+  }
+
+  Future<String> refreshToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    Response response;
+    try {
+      response = await dio.get(ApiPath.refreshToken);
+    } on DioException {
+      return '';
+    }
+    await prefs.setString('token', response.data['data']["refresh_token"]);
+    return response.data['data']["refresh_token"];
   }
 
   Future<bool> contactLearned(String phone, String fullName) async {
     Response response;
+    var formData = FormData.fromMap({
+      'phone': phone,
+      'full_name': fullName,
+    });
     try {
-      response = await dio.post(ApiPath.learned,
-          data: jsonEncode({
-            "phone": phone,
-            "full_name": fullName,
-          }));
+      response = await dio.post(
+        ApiPath.learned,
+        data: formData,
+      );
     } on DioException {
       return false;
     }
@@ -41,15 +58,18 @@ class LoginRepo {
   Future<bool> contactAdd(String phone, String fullName, String className,
       String subject, String typePerson) async {
     Response response;
+    var formData = FormData.fromMap({
+      "full_name": fullName,
+      "phone": phone,
+      "class": className,
+      "subject": subject,
+      "type_person": '',
+    });
     try {
-      response = await dio.post(ApiPath.contact,
-          data: jsonEncode({
-            "full_name": fullName,
-            "phone": phone,
-            "class": className,
-            "subject": subject,
-            "type_person": '',
-          }));
+      response = await dio.post(
+        ApiPath.contact,
+        data: formData,
+      );
     } on DioException {
       return false;
     }

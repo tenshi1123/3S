@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:three_s/modules/models/report_model.dart';
+import 'package:three_s/utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 import '../../utils/widget/excercise_tab_widget.dart';
 
 class SummaryScore extends StatelessWidget {
-  const SummaryScore({super.key});
-
+  const SummaryScore({super.key, required this.reportPoint});
+  final ReportPoint reportPoint;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +39,9 @@ class SummaryScore extends StatelessWidget {
             SizedBox(
               height: 250.dg,
               width: 300.dg,
-              child: const PieChart(),
+              child: PieChart(
+                score: reportPoint.pointAvg,
+              ),
             ),
             Text(
               'Thật tuyệt vời!',
@@ -64,13 +68,23 @@ class SummaryScore extends StatelessWidget {
             SizedBox(
               height: 5.h,
             ),
-            ListView.builder(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  return const ClassItem();
-                }),
+            reportPoint.listPoints.isEmpty
+                ? Text(
+                    'Chưa có bài tập nào',
+                    style: defaultText16.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: primary500,
+                    ),
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    itemCount: reportPoint.listPoints.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ClassItem(
+                        model: reportPoint.listPoints[index],
+                      );
+                    }),
             SizedBox(
               height: 20.h,
             ),
@@ -82,8 +96,8 @@ class SummaryScore extends StatelessWidget {
 }
 
 class ClassItem extends StatelessWidget {
-  const ClassItem({super.key});
-
+  const ClassItem({super.key, required this.model});
+  final ListPointModel model;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -110,28 +124,32 @@ class ClassItem extends StatelessWidget {
                   children: [
                     Image.asset('assets/images/tick.png'),
                     SizedBox(
-                      width: 5.w,
+                      width: 8.w,
                     ),
-                    Text(
-                      '  09/02/2024',
-                      style: defaultText16,
+                    SizedBox(
+                      width: 200.w,
+                      child: Text(
+                        model.name,
+                        style: defaultText16,
+                        overflow: TextOverflow.fade,
+                      ),
                     ),
                   ],
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: 'GV: ',
-                    style: defaultText14,
-                    children: [
-                      TextSpan(
-                        text: 'Hoàng Mạnh hùng',
-                        style: defaultText14.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                // RichText(
+                //   text: TextSpan(
+                //     text: 'GV: ',
+                //     style: defaultText14,
+                //     children: [
+                //       TextSpan(
+                //         text: 'Hoàng Mạnh hùng',
+                //         style: defaultText14.copyWith(
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // )
               ],
             ),
             const Spacer(),
@@ -147,9 +165,9 @@ class ClassItem extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  '9',
+                  model.point,
                   style: defaultText20.copyWith(
-                    fontSize: 32.sp,
+                    fontSize: 20.sp,
                     color: const Color(0xff2F9CD3),
                     fontWeight: FontWeight.w700,
                   ),

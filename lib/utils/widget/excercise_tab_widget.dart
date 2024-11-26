@@ -91,7 +91,7 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
               ListView.builder(
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
-                  itemCount: 5,
+                  itemCount: _listCourses.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ClassItem(
                       model: _listCourses[index],
@@ -100,10 +100,10 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
               ListView.builder(
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
-                  itemCount: 3,
+                  itemCount: _listCourses.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ClassItem(
-                      model: _listCourses[index + 5],
+                      model: _listCourses[index],
                     );
                   }),
               Card(
@@ -254,13 +254,21 @@ class ClassItem extends StatelessWidget {
 }
 
 class PieChart extends StatelessWidget {
-  const PieChart({super.key});
-
+  const PieChart({super.key, required this.score});
+  final int score;
   @override
   Widget build(BuildContext context) {
     List<OrdinalData> ordinalDataList = [
-      OrdinalData(domain: '1', measure: 90, color: const Color(0xff3A7DD4)),
-      OrdinalData(domain: '2', measure: 10, color: const Color(0xffd9d9d9)),
+      OrdinalData(
+        domain: '1',
+        measure: score * 10,
+        color: const Color(0xff3A7DD4),
+      ),
+      OrdinalData(
+        domain: '2',
+        measure: (10 - score) * 10,
+        color: const Color(0xffd9d9d9),
+      ),
       OrdinalData(domain: '3', measure: 33, color: Colors.white),
     ];
     return Stack(
@@ -295,7 +303,7 @@ class PieChart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '9',
+                score.toString(),
                 style: defaultText16.copyWith(
                   fontSize: 48.sp,
                   fontWeight: FontWeight.bold,

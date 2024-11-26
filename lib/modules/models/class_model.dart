@@ -121,22 +121,50 @@ class DocumentModel {
 class InfoCheckinModel {
   final List<HomeWorkModel> homeWork;
   final List<DocumentModel> document;
+  final List<FeedbackModel> feedbacks;
   InfoCheckinModel({
     required this.homeWork,
     required this.document,
+    required this.feedbacks,
   });
   factory InfoCheckinModel.fromJson(Map<String, dynamic> json) {
     return InfoCheckinModel(
       homeWork: List<HomeWorkModel>.from(
-        json['document'].map(
+        json['homework'].map(
           (e) => HomeWorkModel.fromJson(e),
         ),
       ),
       document: List<DocumentModel>.from(
-        json['lesson'].map(
+        json['document'].map(
           (e) => DocumentModel.fromJson(e),
         ),
       ),
+      feedbacks: List<FeedbackModel>.from(
+        json['feedback'].map(
+          (e) => FeedbackModel.fromJson(e),
+        ),
+      ),
+    );
+  }
+}
+
+class FeedbackModel {
+  final String nameLecture;
+  final String avatar;
+  final String content;
+  final String type;
+  FeedbackModel({
+    required this.nameLecture,
+    required this.avatar,
+    required this.content,
+    required this.type,
+  });
+  factory FeedbackModel.fromJson(Map<String, dynamic> json) {
+    return FeedbackModel(
+      nameLecture: json['name_lecture'],
+      avatar: json['avatar'],
+      content: json['content'],
+      type: json['type'],
     );
   }
 }

@@ -20,15 +20,18 @@ class ReportRepo {
     return result;
   }
 
-  Future<List<ScheduleModel>> getReportPoint() async {
+  Future<ReportPoint> getReportPoint(String id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    dio.options.headers['Authorization'] = 'Bearer $token';
     Response response;
     response = await dio.get(
-      ApiPath.reportSchedule,
-      queryParameters: {'limit': 8, 'page': 1, 'category_id': ''},
+      ApiPath.reportPoint,
+      queryParameters: {
+        'course_schedule_id': id,
+      },
     );
-    List<ScheduleModel> result = ((response.data)['courses'] as List)
-        .map((e) => ScheduleModel.fromJson(e))
-        .toList();
+    ReportPoint result = ReportPoint.fromJson(response.data['data']);
     return result;
   }
 }

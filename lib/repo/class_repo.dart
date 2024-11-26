@@ -34,7 +34,7 @@ class ClassRepo {
     return InfoClassModel.fromJson(response.data);
   }
 
-  Future<HomeWorkModel> getInfoHomework(String id) async {
+  Future<InfoCheckinModel> getInfoHomework(String id) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     dio.options.headers['Authorization'] = 'Bearer $token';
@@ -45,6 +45,6 @@ class ClassRepo {
         'event_checkin_off_id': id,
       },
     );
-    return HomeWorkModel.fromJson(response.data);
+    return InfoCheckinModel.fromJson(response.data);
   }
 }

@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:d_chart/d_chart.dart';
@@ -9,8 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailClassTabbar extends StatefulWidget {
-  const DetailClassTabbar(this.outerTab, {super.key});
-  final String outerTab;
+  const DetailClassTabbar({super.key, required this.infoCheckinModel});
+  final InfoCheckinModel infoCheckinModel;
   @override
   State<DetailClassTabbar> createState() => _DetailClassTabbarState();
 }
@@ -79,200 +80,58 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
           child: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 160.dg,
-                      width: 260.dg,
-                      child: const PieChart(),
-                    ),
-                    Text(
-                      'Thật tuyệt vời!',
-                      style: defaultText16.copyWith(
-                        color: keyBlack,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 25.w),
-                      child: Text(
-                        'Chúc mừng bạn hoàn thành bài tập của buổi học',
-                        style: defaultText16.copyWith(
-                          color: keyBlack,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    const DocumentItem(
-                      title: 1,
-                    ),
-                  ],
-                ),
-              ),
-              //Giáo viên
+              //Bài tập
+              // SizedBox(
+              //   height: 160.dg,
+              //   width: 260.dg,
+              //   child: const _PieChart(),
+              // ),
+
+              ListView.builder(
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemCount: widget.infoCheckinModel.document.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _HomeworkItem(
+                      model: widget.infoCheckinModel.homeWork[index],
+                    );
+                  }),
+              //Tài liệu
               SizedBox(
                 width: 343.w,
                 height: 110.h,
                 child: Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DocumentItem(
-                        title: 1,
-                      ),
-                      DocumentItem(
-                        title: 1,
-                      ),
-                      DocumentItem(
-                        title: 1,
-                      ),
-                    ],
-                  ),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: widget.infoCheckinModel.document.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _DocumentItem(
+                          model: widget.infoCheckinModel.document[index],
+                        );
+                      }),
                 ),
               ),
               //Nhận xét
-              Column(
-                children: [
-                  SizedBox(
-                    width: 375.w,
-                    height: 100.h,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 16.w,
-                        ),
-                        Container(
-                          height: 55.h,
-                          width: 55.w,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/avatar1.png'),
-                              fit: BoxFit.fill,
-                            ),
-                            color: Color(0xff6B7AC7),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 16.w,
-                        ),
-                        SizedBox(
-                          width: 270.w,
-                          height: 80.h,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Nguyễn văn A',
-                                style: defaultText16.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5.h,
-                              ),
-                              Text(
-                                'Giảng viên toán',
-                                style: defaultText12.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 343.w,
-                    height: 186.h,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(12.r),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              'Đánh giá:  ',
-                              style: defaultText16.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const Icon(
-                              Icons.star,
-                              color: Color(0xffFFC400),
-                              size: 24.0,
-                            ),
-                            const Icon(
-                              Icons.star,
-                              color: Color(0xffFFC400),
-                              size: 24.0,
-                            ),
-                            const Icon(
-                              Icons.star_border_outlined,
-                              color: Color(0xffFFC400),
-                              size: 24.0,
-                            ),
-                            Text(
-                              '  (Tốt)',
-                              style: defaultText14.copyWith(
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Nhận xét:',
-                              style: defaultText16.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(
-                          child: Text(
-                            'The placeholder text, beginning with the line “L dolor sit amet, consectetur adipiscing elit”, looks like Latin because in its youth, centuries ago, it was Latin.',
-                            style: defaultText12.copyWith(
-                              fontWeight: FontWeight.w500,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              // ListView.builder(
-              //     shrinkWrap: true,
-              //     physics: const ClampingScrollPhysics(),
-              //     itemCount: 3,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return const CommentItem(
-              //         avatar: '', name: '', time: '', content: '',
-              //       );
-              //     }),
+              widget.infoCheckinModel.feedbacks.isEmpty
+                  ? Text(
+                      'Không có nhận xét nào',
+                      style: defaultText16.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: widget.infoCheckinModel.feedbacks.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _FeedbackItem(
+                          model: widget.infoCheckinModel.feedbacks[index],
+                          //title: index,
+                        );
+                      }),
             ],
           ),
         ),
@@ -281,9 +140,10 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
   }
 }
 
-class DocumentItem extends StatelessWidget {
-  const DocumentItem({super.key, required this.title});
-  final int title;
+class _DocumentItem extends StatelessWidget {
+  const _DocumentItem({super.key, required this.model});
+
+  final DocumentModel model;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -316,13 +176,13 @@ class DocumentItem extends StatelessWidget {
             Container(
               height: 55.h,
               width: 55.w,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: AssetImage('assets/images/document.png'),
+                  image: NetworkImage(model.image),
                   fit: BoxFit.fill,
                 ),
-                color: Color(0xff6B7AC7),
+                color: const Color(0xff6B7AC7),
               ),
             ),
             SizedBox(
@@ -332,10 +192,13 @@ class DocumentItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Tenbaitap.PDF',
-                  style: defaultText16.copyWith(
-                    fontWeight: FontWeight.w700,
+                SizedBox(
+                  width: 200.w,
+                  child: Text(
+                    model.name,
+                    style: defaultText16.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -361,8 +224,8 @@ class DocumentItem extends StatelessWidget {
   }
 }
 
-class PieChart extends StatelessWidget {
-  const PieChart({super.key});
+class _PieChart extends StatelessWidget {
+  const _PieChart({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -421,6 +284,264 @@ class PieChart extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _FeedbackItem extends StatelessWidget {
+  const _FeedbackItem({super.key, required this.model});
+  final FeedbackModel model;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          width: 375.w,
+          height: 100.h,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 16.w,
+              ),
+              Container(
+                height: 55.h,
+                width: 55.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(model.avatar),
+                    fit: BoxFit.fill,
+                  ),
+                  color: const Color(0xff6B7AC7),
+                ),
+              ),
+              SizedBox(
+                width: 16.w,
+              ),
+              SizedBox(
+                width: 270.w,
+                height: 80.h,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      model.nameLecture,
+                      style: defaultText16.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      'Giảng viên toán',
+                      style: defaultText12.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+        Container(
+          width: 343.w,
+          height: 186.h,
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ],
+            color: Colors.white,
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(12.r),
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text(
+                    'Đánh giá:  ',
+                    style: defaultText16.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 150.w,
+                    height: 30.h,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: 3,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Icon(
+                            (int.parse(model.type) > index)
+                                ? Icons.star
+                                : Icons.star_border_outlined,
+                            color: const Color(0xffFFC400),
+                            size: 24.0,
+                          );
+                        }),
+                  ),
+                  // const Icon(
+                  //   Icons.star,
+                  //   color: Color(0xffFFC400),
+                  //   size: 24.0,
+                  // ),
+                  // const Icon(
+                  //   Icons.star_border_outlined,
+                  //   color: Color(0xffFFC400),
+                  //   size: 24.0,
+                  // ),
+                  // Text(
+                  //   '  (Tốt)',
+                  //   style: defaultText14.copyWith(
+                  //     fontWeight: FontWeight.w400,
+                  //   ),
+                  // ),
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Nhận xét:',
+                    style: defaultText16.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Text(
+                  model.content,
+                  style: defaultText12.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _HomeworkItem extends StatelessWidget {
+  const _HomeworkItem({super.key, required this.model});
+  final HomeWorkModel model;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () async {
+        if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
+          throw Exception('Could not launch ');
+        }
+      },
+      child: Container(
+        width: 343.w,
+        //height: 66.h,
+        margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
+        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(12.r),
+          color: Colors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: 55.h,
+                  width: 55.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(model.image),
+                      fit: BoxFit.fill,
+                    ),
+                    color: const Color(0xffCEE8F5),
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 200.w,
+                      child: Text(
+                        model.name,
+                        style: defaultText16.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      'Tải xuống để xem',
+                      style: defaultText14.copyWith(),
+                    )
+                  ],
+                ),
+                const Spacer(),
+                SvgPicture.asset(
+                  'assets/icons/downloads.svg',
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+              ],
+            ),
+            const Divider(),
+            Text(
+              'Hạn nộp bài: ${model.timeDeadline}',
+              style: defaultText14.copyWith(
+                color: primary900,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              'Ghi chú:',
+              style: defaultText14.copyWith(
+                color: primary900,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              model.notes,
+              style: defaultText14.copyWith(
+                color: primary900.withOpacity(0.8),
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

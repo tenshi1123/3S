@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:three_s/modules/models/class_model.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,8 +8,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'detail_class_tabbar.dart';
 
 class DetailClass extends StatelessWidget {
-  const DetailClass({super.key});
-
+  const DetailClass(
+      {super.key,
+      required this.infoCheckinModel,
+      required this.title1,
+      required this.title2});
+  final InfoCheckinModel infoCheckinModel;
+  final String title1;
+  final String title2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +27,7 @@ class DetailClass extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'Ngày 09/12/2024',
+          title1,
           style: defaultText16.copyWith(
               color: Colors.white, fontWeight: FontWeight.w700),
         ),
@@ -37,7 +44,7 @@ class DetailClass extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
               child: Text(
-                'Lớp toán thầy Hiệp ôn luyện ĐGNL 2025 ',
+                title2,
                 style: defaultText20.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
@@ -50,7 +57,9 @@ class DetailClass extends StatelessWidget {
             SizedBox(
               height: 660.h,
               width: 375.w,
-              child: const DetailClassTabbar(''),
+              child: DetailClassTabbar(
+                infoCheckinModel: infoCheckinModel,
+              ),
             ),
             // ListView.builder(
             //     shrinkWrap: true,

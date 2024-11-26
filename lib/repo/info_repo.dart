@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:three_s/modules/models/info_model.dart';
+import 'package:three_s/repo/login_repo.dart';
 import '../../utils/constants/api_path.dart';
 
 class InfoRepo {
@@ -22,20 +23,29 @@ class InfoRepo {
     final String? token = prefs.getString('token');
     dio.options.headers['Authorization'] = 'Bearer $token';
     Response response;
-    response = await dio.get(
-      ApiPath.user,
-    );
+    try {
+      response = await dio.get(
+        ApiPath.user,
+      );
+    } on DioException {
+      String newToken = await LoginRepo().refreshToken();
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', newToken);
+      dio.options.headers['Authorization'] = 'Bearer $newToken';
+      response = await dio.get(
+        ApiPath.user,
+      );
+      return InfoModel.fromJson(response.data['data']);
+    }
     return InfoModel.fromJson(response.data['data']);
   }
 
-  Future<InfoModel> deleteInfo() async {
+  Future deleteInfo() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     dio.options.headers['Authorization'] = 'Bearer $token';
-    Response response;
-    response = await dio.post(
+    await dio.post(
       ApiPath.deleteUser,
     );
-    return InfoModel.fromJson(response.data['data']);
   }
 }

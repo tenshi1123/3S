@@ -1,5 +1,5 @@
 class ReportPoint {
-  final String pointAvg;
+  final int pointAvg;
   final List<ListPointModel> listPoints;
   ReportPoint({
     required this.pointAvg,

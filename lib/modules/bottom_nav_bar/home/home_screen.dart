@@ -330,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   const Spacer(),
                                   Text(
-                                    widget.upcommingModel?[index].name ?? '',
+                                    ' ${widget.upcommingModel?[index].name}',
                                     style: defaultText16.copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w800,
@@ -340,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 5.h,
                                   ),
                                   Text(
-                                    widget.upcommingModel?[index].buoiHoc ?? '',
+                                    ' ${widget.upcommingModel?[index].buoiHoc}',
                                     style: defaultText16.copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w800,
@@ -350,8 +350,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 5.h,
                                   ),
                                   Text(
-                                    widget.upcommingModel?[index].createdDate ??
-                                        '',
+                                    ' ${widget.upcommingModel?[index].createdDate}',
                                     style: defaultText14.copyWith(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,

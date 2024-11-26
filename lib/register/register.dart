@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/login/login_screen.dart';
+import 'package:three_s/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/constants/styles.dart';
@@ -32,6 +33,12 @@ class _RegisterScreenState extends State<RegisterScreen>
       path: phoneNumber,
     );
     await launchUrl(launchUri);
+  }
+
+  bool isPhoneNoValid(String? phoneNo) {
+    if (phoneNo == null) return false;
+    final regExp = RegExp(r'(^(?:[+0]9)?[0-9]{8,12}$)');
+    return regExp.hasMatch(phoneNo);
   }
 
   @override
@@ -164,6 +171,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                           ),
                           child: TextField(
                             controller: phone1Controller,
+                            keyboardType:
+                                const TextInputType.numberWithOptions(),
                             style: defaultText16,
                             scrollPadding: EdgeInsets.symmetric(
                                 vertical:
@@ -187,13 +196,55 @@ class _RegisterScreenState extends State<RegisterScreen>
                           height: 240.h,
                         ),
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: ((context) => const RegisterSuccess()),
-                              ),
-                            );
+                          onTap: () async {
+                            if (isPhoneNoValid(phone1Controller?.text) ==
+                                false) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Số điện thoại không đúng định dạng',
+                                      style: defaultText16.copyWith(
+                                        color: const Color.fromARGB(
+                                            255, 29, 29, 29),
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      'Vui lòng kiểm tra lại số điện thoại đã nhập',
+                                      style: defaultText16.copyWith(
+                                          color: const Color(0xff3C3C3C)),
+                                    ),
+                                    actionsPadding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text(
+                                          'ok',
+                                          style: defaultText16.copyWith(
+                                              color: const Color(0xff3C3C3C)),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              await LoginRepo().contactLearned(
+                                  phone1Controller?.text ?? '',
+                                  name1Controller?.text ?? '');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: ((context) =>
+                                      const RegisterSuccess()),
+                                ),
+                              );
+                            }
                           },
                           child: Container(
                             height: 48.h,
@@ -436,13 +487,58 @@ class _RegisterScreenState extends State<RegisterScreen>
                           height: 10.h,
                         ),
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: ((context) => const RegisterSuccess()),
-                              ),
-                            );
+                          onTap: () async {
+                            if (isPhoneNoValid(phone2Controller?.text) ==
+                                false) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text(
+                                      'Số điện thoại không đúng định dạng',
+                                      style: defaultText16.copyWith(
+                                        color: const Color.fromARGB(
+                                            255, 29, 29, 29),
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      'Vui lòng kiểm tra lại số điện thoại đã nhập',
+                                      style: defaultText16.copyWith(
+                                          color: const Color(0xff3C3C3C)),
+                                    ),
+                                    actionsPadding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text(
+                                          'ok',
+                                          style: defaultText16.copyWith(
+                                              color: const Color(0xff3C3C3C)),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              await LoginRepo().contactAdd(
+                                  phone2Controller?.text ?? '',
+                                  name2Controller?.text ?? '',
+                                  classController?.text ?? '',
+                                  subjectController?.text ?? '',
+                                  '');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: ((context) =>
+                                      const RegisterSuccess()),
+                                ),
+                              );
+                            }
                           },
                           child: Container(
                             height: 48.h,

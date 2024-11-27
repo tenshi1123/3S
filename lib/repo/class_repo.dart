@@ -47,4 +47,22 @@ class ClassRepo {
     );
     return InfoCheckinModel.fromJson(response.data);
   }
+
+  Future<List<DetailHomeWorkModel>> getDetailHomework(String id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    Response response;
+    response = await dio.get(
+      ApiPath.detailHomework,
+      queryParameters: {
+        'class_lesson_document_customer_id': id,
+      },
+    );
+    List<DetailHomeWorkModel> result =
+        ((response.data)['detail_homework'] as List)
+            .map((e) => DetailHomeWorkModel.fromJson(e))
+            .toList();
+    return result;
+  }
 }

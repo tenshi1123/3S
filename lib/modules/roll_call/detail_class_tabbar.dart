@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/models/class_model.dart';
+import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:d_chart/d_chart.dart';
@@ -422,7 +423,7 @@ class _FeedbackItem extends StatelessWidget {
               Expanded(
                 child: Text(
                   model.content,
-                  style: defaultText12.copyWith(
+                  style: defaultText14.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
                   overflow: TextOverflow.ellipsis,
@@ -444,9 +445,16 @@ class _HomeworkItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
-          throw Exception('Could not launch ');
-        }
+        // if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
+        //   throw Exception('Could not launch ');
+        // }
+        List<DetailHomeWorkModel> detail1 =
+            await ClassRepo().getDetailHomework(model.id);
+        _dialogBuilder(
+          context,
+          detail1: detail1,
+          title: model.name,
+        );
       },
       child: Container(
         width: 343.w,
@@ -544,4 +552,45 @@ class _HomeworkItem extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _dialogBuilder(
+  BuildContext context, {
+  required List<DetailHomeWorkModel> detail1,
+  required String title,
+}) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          title,
+          style: defaultText14.copyWith(
+            color: primary900.withOpacity(0.8),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        content: Text(
+          detail1.isEmpty
+              ? 'Bạn chưa được chấm điểm'
+              : 'Điểm của bạn là : ${detail1[0].point}',
+          style: defaultText14.copyWith(
+            color: primary900.withOpacity(0.8),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

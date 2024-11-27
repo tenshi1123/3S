@@ -56,14 +56,17 @@ class AttendanceModel {
 }
 
 class InfoClassModel {
+  //final List<String> gvStatus;
   final String title;
   final List<AttendanceModel> attributes;
   InfoClassModel({
+    //required this.gvStatus,
     required this.title,
     required this.attributes,
   });
   factory InfoClassModel.fromJson(Map<String, dynamic> json) {
     return InfoClassModel(
+        //gvStatus: json["status"],
         title: json['title'],
         attributes: List<AttendanceModel>.from(
           json['attendance'].map(
@@ -165,6 +168,21 @@ class FeedbackModel {
       avatar: json['avatar'],
       content: json['content'],
       type: json['type'],
+    );
+  }
+}
+
+class DetailHomeWorkModel {
+  final String point;
+  final String linkHomework;
+  DetailHomeWorkModel({
+    required this.point,
+    required this.linkHomework,
+  });
+  factory DetailHomeWorkModel.fromJson(Map<String, dynamic> json) {
+    return DetailHomeWorkModel(
+      point: json['point'],
+      linkHomework: json['link_homework'],
     );
   }
 }

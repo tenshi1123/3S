@@ -97,7 +97,7 @@ class _ClassItem extends StatelessWidget {
                 children: [
                   (int.parse(model.gvStatus) == 1)
                       ? Image.asset('assets/images/cancle.png')
-                      : (int.parse(model.gvStatus) == 0)
+                      : (int.parse(model.gvStatus) == -1)
                           ? const SizedBox()
                           : Image.asset('assets/images/tick.png'),
                   Text(
@@ -171,9 +171,24 @@ class _ClassItem extends StatelessWidget {
                     ],
                   ),
                   const Spacer(),
-                  (int.parse(model.gvStatus) == 4)
-                      ? const SizedBox()
-                      : (int.parse(model.gvStatus) == 2)
+                  (int.parse(model.gvStatus) == 0)
+                      ? Container(
+                          width: 64.w,
+                          height: 28.h,
+                          decoration: BoxDecoration(
+                            color: const Color(0xffF9A825),
+                            borderRadius: BorderRadius.circular(8.r),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Vắng mặt',
+                              style: defaultText12.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        )
+                      : (int.parse(model.gvStatus) == 1)
                           ? Container(
                               width: 64.w,
                               height: 28.h,
@@ -190,7 +205,7 @@ class _ClassItem extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : (int.parse(model.gvStatus) == 3)
+                          : (int.parse(model.gvStatus) == 2)
                               ? Container(
                                   width: 64.w,
                                   height: 28.h,
@@ -207,7 +222,7 @@ class _ClassItem extends StatelessWidget {
                                     ),
                                   ),
                                 )
-                              : (int.parse(model.gvStatus) == 1)
+                              : (int.parse(model.gvStatus) == 3)
                                   ? Container(
                                       width: 64.w,
                                       height: 28.h,
@@ -218,30 +233,66 @@ class _ClassItem extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          'Vắng mặt',
+                                          'Đúng giờ',
                                           style: defaultText12.copyWith(
                                             color: Colors.white,
                                           ),
                                         ),
                                       ),
                                     )
-                                  : Container(
-                                      width: 64.w,
-                                      height: 28.h,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xff2F9CD3),
-                                        borderRadius:
-                                            BorderRadius.circular(8.r),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Chưa học',
-                                          style: defaultText12.copyWith(
-                                            color: Colors.white,
+                                  : (int.parse(model.gvStatus) == 4)
+                                      ? Container(
+                                          width: 64.w,
+                                          height: 28.h,
+                                          decoration: BoxDecoration(
+                                            color: const Color(0xff2F9CD3),
+                                            borderRadius:
+                                                BorderRadius.circular(8.r),
                                           ),
-                                        ),
-                                      ),
-                                    ),
+                                          child: Center(
+                                            child: Text(
+                                              'Đến',
+                                              style: defaultText12.copyWith(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      : (int.parse(model.gvStatus) == 5)
+                                          ? Container(
+                                              width: 64.w,
+                                              height: 28.h,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xff2F9CD3),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Tan học',
+                                                  style: defaultText12.copyWith(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : Container(
+                                              width: 64.w,
+                                              height: 28.h,
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xff2F9CD3),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.r),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Chưa học',
+                                                  style: defaultText12.copyWith(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                 ],
               ),
               const Divider(),

@@ -44,4 +44,22 @@ class CourseRepo {
         .toList();
     return result;
   }
+
+  //Danh sách lịch học
+  Future<List<LichHocModel>> getScheduleList(String day) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    Response response;
+    response = await dio.get(
+      ApiPath.listSchedule,
+      queryParameters: {
+        'day': day,
+      },
+    );
+    List<LichHocModel> result = ((response.data)['data'] as List)
+        .map((e) => LichHocModel.fromJson(e))
+        .toList();
+    return result;
+  }
 }

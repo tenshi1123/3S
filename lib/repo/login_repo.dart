@@ -37,7 +37,7 @@ class LoginRepo {
     return response.data['data']["refresh_token"];
   }
 
-  Future<bool> contactLearned(String phone, String fullName) async {
+  Future<String> contactLearned(String phone, String fullName) async {
     Response response;
     var formData = FormData.fromMap({
       'phone': phone,
@@ -49,12 +49,12 @@ class LoginRepo {
         data: formData,
       );
     } on DioException {
-      return false;
+      return '';
     }
-    return response.data["token"] != null;
+    return response.data["message"];
   }
 
-  Future<bool> contactAdd(String phone, String fullName, String className,
+  Future<String> contactAdd(String phone, String fullName, String className,
       String subject, String typePerson) async {
     Response response;
     var formData = FormData.fromMap({
@@ -62,7 +62,7 @@ class LoginRepo {
       "phone": phone,
       "class": className,
       "subject": subject,
-      "type_person": '',
+      "type_person": typePerson,
     });
     try {
       response = await dio.post(
@@ -70,9 +70,9 @@ class LoginRepo {
         data: formData,
       );
     } on DioException {
-      return false;
+      return '';
     }
-    return response.data["token"] != null;
+    return response.data["message"];
   }
 
   Future<String> getToken() async {

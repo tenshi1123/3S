@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: GestureDetector(
         onTap: () {
-          _focusNode.unfocus();
+          FocusScope.of(context).unfocus();
         },
         child: Padding(
           padding: EdgeInsets.only(

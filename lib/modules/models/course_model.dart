@@ -63,3 +63,44 @@ class UpcommingModel {
     );
   }
 }
+
+class LichHocModel {
+  final String img;
+  final String name;
+  final String buoiHoc;
+  final String createdDate;
+  final String timeStart;
+  final String timeEnd;
+  final String id;
+  final String nameTeacher;
+  final String position;
+  final String avatar;
+
+  LichHocModel({
+    required this.img,
+    required this.name,
+    required this.buoiHoc,
+    required this.createdDate,
+    required this.timeStart,
+    required this.timeEnd,
+    required this.id,
+    required this.nameTeacher,
+    required this.position,
+    required this.avatar,
+  });
+
+  factory LichHocModel.fromJson(Map<String, dynamic> json) {
+    return LichHocModel(
+      img: json['course_schedule_img'] ?? '',
+      name: json['course_name'] ?? '',
+      buoiHoc: json['buoi_hoc'] ?? '',
+      createdDate: json['created_date'] ?? '',
+      timeStart: json['time_start'] ?? '',
+      timeEnd: json['time_end'] ?? '',
+      id: json['checkin_off_id'] ?? '',
+      nameTeacher: json['name_teacher'] ?? '',
+      position: json['position_teacher'] ?? '',
+      avatar: json['avatar_teacher'] ?? '',
+    );
+  }
+}

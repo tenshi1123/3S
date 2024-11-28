@@ -18,6 +18,9 @@ class ApiPath {
   // lịch học sắp tới
   static const String schedule = '$baseUrl/schedule';
 
+  // danh sách lịch học
+  static const String listSchedule = '$baseUrl/schedule/list';
+
   // theo dõi lớp học điểm danh
   static const String lopHoc = '$baseUrl/class';
 

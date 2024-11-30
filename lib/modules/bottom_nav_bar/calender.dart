@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:three_s/repo/course_repo.dart';
-import 'package:three_s/utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 import '../models/course_model.dart';
 

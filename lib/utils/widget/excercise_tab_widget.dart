@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:three_s/modules/models/course_model.dart';
+import 'package:three_s/repo/course_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,11 +12,13 @@ import 'package:d_chart/d_chart.dart';
 import '../../modules/course/coure_screen.dart';
 
 class ExcerciseTabBar extends StatefulWidget {
-  const ExcerciseTabBar(this.outerTab,
-      {super.key, required this.categories, required this.courses});
-  final String outerTab;
+  const ExcerciseTabBar({
+    super.key,
+    required this.categories,
+  });
+
   final List<CategoryModel> categories;
-  final List<CourseModel> courses;
+
   @override
   State<ExcerciseTabBar> createState() => _ExcerciseTabBarState();
 }
@@ -24,13 +27,14 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
     with TickerProviderStateMixin {
   late final TabController _tabController;
   late final List<CategoryModel> _listCategories;
-  late final List<CourseModel> _listCourses;
+
   @override
   void initState() {
     super.initState();
     _listCategories = widget.categories;
-    _listCourses = widget.courses;
-    _tabController = TabController(length: 4, vsync: this);
+
+    _tabController =
+        TabController(length: widget.categories.length, vsync: this);
   }
 
   @override
@@ -69,18 +73,11 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
           labelColor: Colors.white,
           unselectedLabelColor: Colors.black,
           tabs: [
-            Tab(
-              text: '    ${_listCategories[0].name}    ',
-            ),
-            // second tab [you can add an icon using the icon property]
-            Tab(
-              text: '    ${_listCategories[1].name}    ',
-            ),
-            Tab(
-              text: '    ${_listCategories[2].name}    ',
-            ),
-            Tab(
-              text: '    ${_listCategories[3].name}    ',
+            ...List.generate(
+              widget.categories.length,
+              (i) => Tab(
+                text: '   ${widget.categories[i].name}   ',
+              ),
             ),
           ],
         ),
@@ -88,50 +85,40 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
           child: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: _listCourses.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ClassItem(
-                      model: _listCourses[index],
-                    );
-                  }),
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: _listCourses.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ClassItem(
-                      model: _listCourses[index],
-                    );
-                  }),
-              Card(
-                margin: const EdgeInsets.all(16.0),
-                color: Colors.white,
-                child: Center(
-                  child: Text(
-                    'Không có khóa học nào',
-                    style: defaultText16.copyWith(
-                      color: keyBlack,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              Card(
-                margin: const EdgeInsets.all(16.0),
-                color: Colors.white,
-                child: Center(
-                  child: Text(
-                    'Không có khóa học nào',
-                    style: defaultText16.copyWith(
-                      color: keyBlack,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
+              ...List.generate(
+                  widget.categories.length,
+                  (i) => FutureBuilder(
+                        future: CourseRepo().getListCourse(
+                            widget.categories[i].id), // Hàm gọi API
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text(
+                              'Something went wrong',
+                              style: defaultText14,
+                            );
+                          } else if (snapshot.hasData) {
+                            final listKhocHoc =
+                                snapshot.data as List<CourseModel>;
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: listKhocHoc.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ClassItem(
+                                    model: listKhocHoc[index],
+                                  );
+                                });
+                          } else {
+                            return Text(
+                              'Something went wrong2',
+                              style: defaultText14,
+                            );
+                          }
+                        },
+                      )),
             ],
           ),
         ),

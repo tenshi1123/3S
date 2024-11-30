@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1059614136698",
+    "project_id": "sedu-a0158",
+    "storage_bucket": "sedu-a0158.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059614136698:android:8a781f89f13af3800e1ec3",
+        "android_client_info": {
+          "package_name": "com.hvg.three_s"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZp3EJLQRo-6sodhfEj6Ak2KkQVSzmbis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

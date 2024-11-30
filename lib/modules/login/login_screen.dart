@@ -284,7 +284,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             builder: ((context) => BottomNavBar(
                                   type: 0,
                                   categories: listCate,
-                                  courses: listCourse,
                                   infoModel: infoModel,
                                   upcommingModel: upcommingModel,
                                 )),
@@ -353,7 +352,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         builder: ((context) => BottomNavBar(
                               type: 1,
                               categories: listCate,
-                              courses: listCourse,
                             )),
                       ),
                     );

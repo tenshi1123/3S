@@ -18,6 +18,9 @@ class LoginRepo {
     } on DioException {
       return false;
     }
+    if (response.data['status'] == false) {
+      return false;
+    }
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', response.data['data']["refresh_token"]);
     return response.data['data']["refresh_token"] != null;

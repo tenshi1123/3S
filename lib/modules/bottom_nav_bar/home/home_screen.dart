@@ -21,13 +21,12 @@ class HomeScreen extends StatefulWidget {
     super.key,
     required this.type,
     required this.categories,
-    required this.courses,
     this.infoModel,
     this.upcommingModel,
   });
   final int type;
   final List<CategoryModel> categories;
-  final List<CourseModel> courses;
+
   final InfoModel? infoModel;
   final List<UpcommingModel>? upcommingModel;
   @override
@@ -209,22 +208,25 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    List<ClassModel> listClass = await ClassRepo().listClass();
-                    (type == 0)
-                        ? pushWithoutNavBar(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ListClass(
-                                listClasses: listClass,
-                              ),
-                            ),
-                          )
-                        : pushWithoutNavBar(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const NotStudentYet(),
-                            ),
-                          );
+                    if (type == 0) {
+                      List<ClassModel> listClass =
+                          await ClassRepo().listClass();
+                      pushWithoutNavBar(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ListClass(
+                            listClasses: listClass,
+                          ),
+                        ),
+                      );
+                    } else {
+                      pushWithoutNavBar(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NotStudentYet(),
+                        ),
+                      );
+                    }
                   },
                   child: Image.asset(
                     'assets/images/follow_class.png',
@@ -234,23 +236,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    List<ScheduleModel> listSchedule =
-                        await ReportRepo().getSchedule();
-                    (type == 0)
-                        ? pushWithoutNavBar(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MonthlySummary(
-                                listClasses: listSchedule,
-                              ),
-                            ),
-                          )
-                        : pushWithoutNavBar(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const NotStudentYet(),
-                            ),
-                          );
+                    if (type == 0) {
+                      List<ScheduleModel> listSchedule =
+                          await ReportRepo().getSchedule();
+                      pushWithoutNavBar(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MonthlySummary(
+                            listClasses: listSchedule,
+                          ),
+                        ),
+                      );
+                    } else {
+                      pushWithoutNavBar(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const NotStudentYet(),
+                        ),
+                      );
+                    }
                   },
                   child: Image.asset(
                     'assets/images/monthly_summary.png',
@@ -385,9 +389,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 400.h,
               width: 375.w,
               child: ExcerciseTabBar(
-                '',
                 categories: widget.categories,
-                courses: widget.courses,
               ),
             ),
             SizedBox(

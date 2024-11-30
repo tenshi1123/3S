@@ -238,7 +238,6 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
                       builder: ((context) => BottomNavBar(
                             type: 0,
                             categories: listCate,
-                            courses: listCourse,
                           )),
                     ),
                   );

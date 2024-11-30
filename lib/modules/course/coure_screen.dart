@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'course_tabbar.dart';
 
 class CoureScreen extends StatelessWidget {
   const CoureScreen({super.key, required this.title});
   final String title;
+  Future<void> makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,42 +133,47 @@ class CoureScreen extends StatelessWidget {
               ),
             ],
           ),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: Container(
-          //     height: 98.h,
-          //     width: 375.w,
-          //     decoration: BoxDecoration(
-          //       boxShadow: [
-          //         BoxShadow(
-          //           color: Colors.grey.withOpacity(0.5),
-          //           spreadRadius: 5,
-          //           blurRadius: 7,
-          //           offset: const Offset(0, 3),
-          //         ),
-          //       ],
-          //       color: Colors.white,
-          //     ),
-          //     child: Center(
-          //       child: Container(
-          //         height: 50.h,
-          //         width: 343.w,
-          //         decoration: BoxDecoration(
-          //             color: primary500,
-          //             borderRadius: BorderRadius.circular(12.r)),
-          //         child: Center(
-          //           child: Text(
-          //             'Mua Khóa Học',
-          //             style: defaultText14.copyWith(
-          //               color: Colors.white,
-          //               fontWeight: FontWeight.w600,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 98.h,
+              width: 375.w,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+                color: Colors.white,
+              ),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    makePhoneCall('19008978');
+                  },
+                  child: Container(
+                    height: 50.h,
+                    width: 343.w,
+                    decoration: BoxDecoration(
+                        color: primary500,
+                        borderRadius: BorderRadius.circular(12.r)),
+                    child: Center(
+                      child: Text(
+                        'Mua Khóa Học',
+                        style: defaultText14.copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

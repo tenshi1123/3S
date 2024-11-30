@@ -45,6 +45,7 @@ class MonthlySummary extends StatelessWidget {
                     MaterialPageRoute(
                       builder: ((context) => SummaryScore(
                             reportPoint: reportPoint,
+                            title: listClasses[index].name,
                           )),
                     ),
                   );

@@ -39,7 +39,6 @@ class _SplshscreenState extends State<Splshscreen> {
               builder: ((context) => BottomNavBar(
                     type: 0,
                     categories: listCate,
-                    courses: listCourse,
                     infoModel: infoModel,
                     upcommingModel: upcommingModel,
                   )),
@@ -59,7 +58,6 @@ class _SplshscreenState extends State<Splshscreen> {
 
   Future<void> databaseInitialized() async {
     listCate = await CourseRepo().getListCategory();
-    listCourse = await CourseRepo().getListCourse();
   }
 
   @override

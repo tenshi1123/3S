@@ -6,11 +6,11 @@ import '../../utils/constants/api_path.dart';
 class CourseRepo {
   Dio dio = Dio();
   //danh sách khóa học
-  Future<List<CourseModel>> getListCourse() async {
+  Future<List<CourseModel>> getListCourse(String id) async {
     Response response;
     response = await dio.get(
       ApiPath.course,
-      queryParameters: {'limit': 8, 'page': 1, 'category_id': ''},
+      queryParameters: {'limit': 8, 'page': 1, 'category_id': id},
     );
     List<CourseModel> result = ((response.data)['courses'] as List)
         .map((e) => CourseModel.fromJson(e))

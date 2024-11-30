@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:three_s/modules/login/change_pass_screen.dart';
 import 'package:three_s/modules/models/info_model.dart';
 import 'package:three_s/utils/constants/color.dart';
@@ -328,7 +329,10 @@ Future<void> _dialogBuilder(
               textStyle: Theme.of(context).textTheme.labelLarge,
             ),
             child: const Text('Xác nhận'),
-            onPressed: () {
+            onPressed: () async {
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              await prefs.remove('token');
               Navigator.push(
                 context,
                 MaterialPageRoute(

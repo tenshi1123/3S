@@ -6,8 +6,10 @@ import '../../utils/constants/styles.dart';
 import '../../utils/widget/excercise_tab_widget.dart';
 
 class SummaryScore extends StatelessWidget {
-  const SummaryScore({super.key, required this.reportPoint});
+  const SummaryScore(
+      {super.key, required this.reportPoint, required this.title});
   final ReportPoint reportPoint;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +28,7 @@ class SummaryScore extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
               child: Text(
-                'Lớp toán thầy Hiệp ôn luyện ĐGNL 2025 ',
+                title,
                 style: defaultText20.copyWith(
                   fontWeight: FontWeight.w700,
                 ),

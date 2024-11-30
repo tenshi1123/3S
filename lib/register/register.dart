@@ -134,24 +134,27 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   BorderRadius.all(Radius.circular(8.r)),
                               color: const Color(0xffF4F1F3),
                             ),
-                            child: TextField(
-                              //keyboardType: const TextInputType.numberWithOptions(),
-                              controller: name1Controller,
-                              style: defaultText16,
-                              scrollPadding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).viewInsets.bottom),
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.person_2_outlined,
-                                  color: subBlack,
-                                ),
-                                hintText: 'Tên học sinh',
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                hintStyle: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: subBlack,
+                            child: Center(
+                              child: TextField(
+                                //keyboardType: const TextInputType.numberWithOptions(),
+                                controller: name1Controller,
+                                style: defaultText16,
+                                scrollPadding: EdgeInsets.symmetric(
+                                    vertical: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.person_2_outlined,
+                                    color: subBlack,
+                                  ),
+                                  hintText: 'Tên học sinh',
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  hintStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: subBlack,
+                                  ),
                                 ),
                               ),
                             ),
@@ -170,25 +173,28 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   BorderRadius.all(Radius.circular(8.r)),
                               color: const Color(0xffF4F1F3),
                             ),
-                            child: TextField(
-                              controller: phone1Controller,
-                              keyboardType:
-                                  const TextInputType.numberWithOptions(),
-                              style: defaultText16,
-                              scrollPadding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).viewInsets.bottom),
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.phone_outlined,
-                                  color: subBlack,
-                                ),
-                                hintText: 'Số điện thoại',
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                hintStyle: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: subBlack,
+                            child: Center(
+                              child: TextField(
+                                controller: phone1Controller,
+                                keyboardType:
+                                    const TextInputType.numberWithOptions(),
+                                style: defaultText16,
+                                scrollPadding: EdgeInsets.symmetric(
+                                    vertical: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.phone_outlined,
+                                    color: subBlack,
+                                  ),
+                                  hintText: 'Số điện thoại',
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  hintStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: subBlack,
+                                  ),
                                 ),
                               ),
                             ),
@@ -356,33 +362,33 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   BorderRadius.all(Radius.circular(8.r)),
                               color: const Color(0xffF4F1F3),
                             ),
-                            child: TextField(
-                              //keyboardType: const TextInputType.numberWithOptions(),
-                              controller: name2Controller,
-                              style: defaultText16,
-                              scrollPadding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).viewInsets.bottom),
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.email_outlined,
-                                  color: subBlack,
-                                ),
-                                hintText: 'Tên học sinh/phụ huynh',
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                hintStyle: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: subBlack,
+                            child: Center(
+                              child: TextField(
+                                //keyboardType: const TextInputType.numberWithOptions(),
+                                controller: name2Controller,
+                                style: defaultText16,
+                                scrollPadding: EdgeInsets.symmetric(
+                                    vertical: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.email_outlined,
+                                    color: subBlack,
+                                  ),
+                                  hintText: 'Tên học sinh/phụ huynh',
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  hintStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: subBlack,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(
-                            height: 10.h,
-                          ),
-                          SizedBox(
-                            height: 5.h,
+                            height: 12.h,
                           ),
                           Container(
                             width: 350.w,
@@ -392,57 +398,26 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   BorderRadius.all(Radius.circular(8.r)),
                               color: const Color(0xffF4F1F3),
                             ),
-                            child: TextField(
-                              controller: phone2Controller,
-                              style: defaultText16,
-                              scrollPadding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).viewInsets.bottom),
-                              decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.phone_outlined,
-                                  color: subBlack,
-                                ),
-                                hintText: 'Số điện thoại',
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                hintStyle: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: subBlack,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25.h,
-                          ),
-                          Container(
-                            width: 350.w,
-                            height: 58.h,
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.r)),
-                              color: const Color(0xffF4F1F3),
-                            ),
-                            child: TextField(
-                              style: defaultText16,
-                              obscuringCharacter: "*",
-                              controller: classController,
-                              scrollPadding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).viewInsets.bottom),
-                              decoration: InputDecoration(
-                                prefixIcon: SvgPicture.asset(
-                                    'assets/icons/class.svg',
-                                    height: 16.h,
-                                    width: 16.w,
-                                    fit: BoxFit.scaleDown),
-                                hintText: 'Bạn đang học lớp mấy',
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                hintStyle: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: subBlack,
+                            child: Center(
+                              child: TextField(
+                                controller: phone2Controller,
+                                style: defaultText16,
+                                scrollPadding: EdgeInsets.symmetric(
+                                    vertical: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.phone_outlined,
+                                    color: subBlack,
+                                  ),
+                                  hintText: 'Số điện thoại',
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  hintStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: subBlack,
+                                  ),
                                 ),
                               ),
                             ),
@@ -458,25 +433,65 @@ class _RegisterScreenState extends State<RegisterScreen>
                                   BorderRadius.all(Radius.circular(8.r)),
                               color: const Color(0xffF4F1F3),
                             ),
-                            child: TextField(
-                              style: defaultText16,
-                              obscuringCharacter: "*",
-                              controller: subjectController,
-                              scrollPadding: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).viewInsets.bottom),
-                              decoration: InputDecoration(
-                                prefixIcon: SvgPicture.asset(
-                                    'assets/icons/book_mark.svg',
-                                    height: 16.h,
-                                    width: 16.w,
-                                    fit: BoxFit.scaleDown),
-                                hintText: 'Môn học bạn muốn tham khảo',
-                                border: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                hintStyle: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: subBlack,
+                            child: Center(
+                              child: TextField(
+                                style: defaultText16,
+                                obscuringCharacter: "*",
+                                controller: classController,
+                                scrollPadding: EdgeInsets.symmetric(
+                                    vertical: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                decoration: InputDecoration(
+                                  prefixIcon: SvgPicture.asset(
+                                      'assets/icons/class.svg',
+                                      height: 16.h,
+                                      width: 16.w,
+                                      fit: BoxFit.scaleDown),
+                                  hintText: 'Bạn đang học lớp mấy',
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  hintStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: subBlack,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25.h,
+                          ),
+                          Container(
+                            width: 350.w,
+                            height: 58.h,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.r)),
+                              color: const Color(0xffF4F1F3),
+                            ),
+                            child: Center(
+                              child: TextField(
+                                style: defaultText16,
+                                obscuringCharacter: "*",
+                                controller: subjectController,
+                                scrollPadding: EdgeInsets.symmetric(
+                                    vertical: MediaQuery.of(context)
+                                        .viewInsets
+                                        .bottom),
+                                decoration: InputDecoration(
+                                  prefixIcon: SvgPicture.asset(
+                                      'assets/icons/book_mark.svg',
+                                      height: 16.h,
+                                      width: 16.w,
+                                      fit: BoxFit.scaleDown),
+                                  hintText: 'Môn học bạn muốn tham khảo',
+                                  border: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  hintStyle: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: subBlack,
+                                  ),
                                 ),
                               ),
                             ),

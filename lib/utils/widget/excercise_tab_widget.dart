@@ -32,7 +32,6 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
   void initState() {
     super.initState();
     _listCategories = widget.categories;
-
     _tabController =
         TabController(length: widget.categories.length, vsync: this);
   }
@@ -76,7 +75,7 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
             ...List.generate(
               widget.categories.length,
               (i) => Tab(
-                text: '   ${widget.categories[i].name}   ',
+                text: '   ${_listCategories[i].name}   ',
               ),
             ),
           ],
@@ -86,39 +85,38 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
             controller: _tabController,
             children: <Widget>[
               ...List.generate(
-                  widget.categories.length,
-                  (i) => FutureBuilder(
-                        future: CourseRepo().getListCourse(
-                            widget.categories[i].id), // Hàm gọi API
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text(
-                              'Something went wrong',
-                              style: defaultText14,
+                widget.categories.length,
+                (i) => FutureBuilder(
+                  future: CourseRepo()
+                      .getListCourse(widget.categories[i].id), // Hàm gọi API
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text(
+                        'Something went wrong',
+                        style: defaultText14,
+                      );
+                    } else if (snapshot.hasData) {
+                      final listKhocHoc = snapshot.data as List<CourseModel>;
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount: listKhocHoc.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ClassItem(
+                              model: listKhocHoc[index],
                             );
-                          } else if (snapshot.hasData) {
-                            final listKhocHoc =
-                                snapshot.data as List<CourseModel>;
-                            return ListView.builder(
-                                shrinkWrap: true,
-                                physics: const ClampingScrollPhysics(),
-                                itemCount: listKhocHoc.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return ClassItem(
-                                    model: listKhocHoc[index],
-                                  );
-                                });
-                          } else {
-                            return Text(
-                              'Something went wrong2',
-                              style: defaultText14,
-                            );
-                          }
-                        },
-                      )),
+                          });
+                    } else {
+                      return Text(
+                        'Something went wrong2',
+                        style: defaultText14,
+                      );
+                    }
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -185,15 +183,15 @@ class ClassItem extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            const Icon(
-                              Icons.star,
-                              color: Color(0xffFFC400),
-                              size: 24.0,
-                            ),
-                            Text(
-                              '4.7 ',
-                              style: defaultText14,
-                            ),
+                            // const Icon(
+                            //   Icons.star,
+                            //   color: Color(0xffFFC400),
+                            //   size: 24.0,
+                            // ),
+                            // Text(
+                            //   '4.7 ',
+                            //   style: defaultText14,
+                            // ),
                             SizedBox(
                               width: 5.h,
                             ),
@@ -206,26 +204,26 @@ class ClassItem extends StatelessWidget {
                             ),
                           ],
                         ),
-                        // RichText(
-                        //   text: TextSpan(
-                        //     text: '${model.price} d     ',
-                        //     style: defaultText14.copyWith(
-                        //       color: const Color(0xff2F9CD3),
-                        //       fontWeight: FontWeight.w700,
-                        //     ),
-                        //     children: [
-                        //       TextSpan(
-                        //         text: model.priceOld,
-                        //         style: defaultText14.copyWith(
-                        //           fontWeight: FontWeight.w500,
-                        //           decoration: TextDecoration.lineThrough,
-                        //           color:
-                        //               const Color.fromARGB(255, 170, 170, 170),
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // )
+                        RichText(
+                          text: TextSpan(
+                            text: '${model.price} d     ',
+                            style: defaultText14.copyWith(
+                              color: const Color(0xff2F9CD3),
+                              fontWeight: FontWeight.w700,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: model.priceOld,
+                                style: defaultText14.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.lineThrough,
+                                  color:
+                                      const Color.fromARGB(255, 170, 170, 170),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   )

@@ -11,10 +11,12 @@ import 'package:three_s/modules/roll_call/list_class.dart';
 import 'package:three_s/repo/report_repo.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:three_s/utils/widget/not_student_yet.dart';
+import '../../../repo/course_repo.dart';
 import '../../../utils/constants/color.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../utils/widget/excercise_tab_widget.dart';
 import 'search_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -265,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+              padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 5.h),
               child: Row(
                 children: [
                   Text(
@@ -278,101 +280,251 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            (widget.upcommingModel?.isEmpty ?? true)
-                ? const SizedBox()
-                : SizedBox(
-                    width: 375.w,
-                    height: 166.h,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      physics: const ScrollPhysics(),
-                      itemExtent: 278.0.w,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 0),
-                      itemCount: widget.upcommingModel?.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          child: Stack(
-                            children: [
-                              Container(
-                                width: 246.w,
-                                height: 166.h,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue.shade100,
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: widget.upcommingModel?[index].img !=
-                                            null
-                                        ? NetworkImage(
-                                            widget.upcommingModel![index].img)
-                                        : const AssetImage(
-                                                'assets/images/class1.png')
-                                            as ImageProvider,
-                                  ),
+            (type == 1)
+                ? FutureBuilder(
+                    future: CourseRepo().getListCourse(''), // Hàm gọi API
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Text(
+                          'Something went wrong',
+                          style: defaultText14,
+                        );
+                      } else if (snapshot.hasData) {
+                        final listKhoaHoc = snapshot.data as List<CourseModel>;
+                        return SizedBox(
+                          width: 375.w,
+                          height: 166.h,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            physics: const ScrollPhysics(),
+                            itemExtent: 278.0.w,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 0),
+                            itemCount: listKhoaHoc.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      width: 246.w,
+                                      height: 166.h,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blue.shade100,
+                                        image: const DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: AssetImage(
+                                                  'assets/images/class1.png')
+                                              as ImageProvider,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 246.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          gradient: LinearGradient(
+                                              begin: FractionalOffset.topCenter,
+                                              end:
+                                                  FractionalOffset.bottomCenter,
+                                              colors: [
+                                                Colors.grey.withOpacity(0.0),
+                                                Colors.black,
+                                              ],
+                                              stops: const [
+                                                0.0,
+                                                1.0
+                                              ])),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Spacer(),
+                                        Text(
+                                          ' ${listKhoaHoc[index].name}',
+                                          style: defaultText16.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 5.h,
+                                        ),
+                                        Row(
+                                          children: [
+                                            // const Icon(
+                                            //   Icons.star,
+                                            //   color: Color(0xffFFC400),
+                                            //   size: 24.0,
+                                            // ),
+                                            // Text(
+                                            //   '4.7 ',
+                                            //   style: defaultText14.copyWith(
+                                            //     color: Colors.white,
+                                            //     fontWeight: FontWeight.w500,
+                                            //   ),
+                                            // ),
+                                            SizedBox(
+                                              width: 5.h,
+                                            ),
+                                            SvgPicture.asset(
+                                              'assets/icons/clock.svg',
+                                            ),
+                                            Text(
+                                              listKhoaHoc[index].duration,
+                                              style: defaultText14.copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 5.h,
+                                        ),
+                                        RichText(
+                                          text: TextSpan(
+                                            text:
+                                                '${listKhoaHoc[index].price}     ',
+                                            style: defaultText14.copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text:
+                                                    listKhoaHoc[index].priceOld,
+                                                style: defaultText14.copyWith(
+                                                  fontWeight: FontWeight.w500,
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  color: const Color.fromARGB(
+                                                      255, 170, 170, 170),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10.h,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Container(
-                                height: 246.w,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    gradient: LinearGradient(
-                                        begin: FractionalOffset.topCenter,
-                                        end: FractionalOffset.bottomCenter,
-                                        colors: [
-                                          Colors.grey.withOpacity(0.0),
-                                          Colors.black,
-                                        ],
-                                        stops: const [
-                                          0.0,
-                                          1.0
-                                        ])),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Spacer(),
-                                  Text(
-                                    ' ${widget.upcommingModel?[index].name}',
-                                    style: defaultText16.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  Text(
-                                    ' ${widget.upcommingModel?[index].buoiHoc}',
-                                    style: defaultText16.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  Text(
-                                    ' ${widget.upcommingModel?[index].createdDate}',
-                                    style: defaultText14.copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10.h,
-                                  )
-                                ],
-                              ),
-                            ],
+                              );
+                            },
                           ),
                         );
-                      },
-                    ),
-                  ),
+                      } else {
+                        return Text(
+                          'Something went wrong2',
+                          style: defaultText14,
+                        );
+                      }
+                    },
+                  )
+                : (widget.upcommingModel?.isEmpty ?? true)
+                    ? const SizedBox()
+                    : SizedBox(
+                        width: 375.w,
+                        height: 166.h,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          physics: const ScrollPhysics(),
+                          itemExtent: 278.0.w,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 0),
+                          itemCount: widget.upcommingModel?.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: 246.w,
+                                    height: 166.h,
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue.shade100,
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: widget.upcommingModel?[index]
+                                                    .img !=
+                                                null
+                                            ? NetworkImage(widget
+                                                .upcommingModel![index].img)
+                                            : const AssetImage(
+                                                    'assets/images/class1.png')
+                                                as ImageProvider,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 246.w,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        gradient: LinearGradient(
+                                            begin: FractionalOffset.topCenter,
+                                            end: FractionalOffset.bottomCenter,
+                                            colors: [
+                                              Colors.grey.withOpacity(0.0),
+                                              Colors.black,
+                                            ],
+                                            stops: const [
+                                              0.0,
+                                              1.0
+                                            ])),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Spacer(),
+                                      Text(
+                                        ' ${widget.upcommingModel?[index].name}',
+                                        style: defaultText16.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        ' ${widget.upcommingModel?[index].buoiHoc}',
+                                        style: defaultText16.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.h,
+                                      ),
+                                      Text(
+                                        ' ${widget.upcommingModel?[index].createdDate}',
+                                        style: defaultText14.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+              padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 5.h),
               child: Row(
                 children: [
                   Text(

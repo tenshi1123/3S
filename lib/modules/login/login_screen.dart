@@ -113,24 +113,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(8.r)),
                     color: const Color(0xffF4F1F3),
                   ),
-                  child: TextField(
-                    keyboardType: const TextInputType.numberWithOptions(),
-                    controller: studenIdController,
-                    focusNode: _focusNode1,
-                    style: defaultText16,
-                    scrollPadding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).viewInsets.bottom),
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.person_2_outlined,
-                        color: subBlack,
-                      ),
-                      hintText: 'Số điện thoại phụ huynh/học sinh',
-                      border:
-                          const OutlineInputBorder(borderSide: BorderSide.none),
-                      hintStyle: TextStyle(
-                        fontSize: 16.sp,
-                        color: subBlack,
+                  child: Center(
+                    child: TextField(
+                      keyboardType: const TextInputType.numberWithOptions(),
+                      controller: studenIdController,
+                      focusNode: _focusNode1,
+                      style: defaultText16,
+                      scrollPadding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).viewInsets.bottom),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.person_2_outlined,
+                          color: subBlack,
+                        ),
+                        hintText: 'Số điện thoại phụ huynh/học sinh',
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide.none),
+                        hintStyle: TextStyle(
+                          fontSize: 16.sp,
+                          color: subBlack,
+                        ),
                       ),
                     ),
                   ),

@@ -44,4 +44,10 @@ class ApiPath {
 
   // xóa tài khoản
   static const String deleteUser = '$baseUrl/user/delete';
+
+  // check password
+  static const String checkPassword = '$baseUrl/user/password/check';
+
+  // Đổi mật khẩu
+  static const String changePassword = '$baseUrl/user/password/update';
 }

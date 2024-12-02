@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:three_s/main.dart';
-import 'package:three_s/modules/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:three_s/repo/info_repo.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 
@@ -232,14 +231,38 @@ class _ChangePassScreenState extends State<ChangePassScreen> {
               ),
               GestureDetector(
                 onTap: () async {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) => BottomNavBar(
-                            type: 0,
-                            categories: listCate,
-                          )),
-                    ),
+                  String message = await InfoRepo().changePassword(
+                    passController1?.text ?? '',
+                    passController2?.text ?? '',
+                    passController3?.text ?? '',
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(
+                          message,
+                          style: defaultText16.copyWith(
+                            color: const Color.fromARGB(255, 29, 29, 29),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        actionsPadding:
+                            const EdgeInsets.symmetric(horizontal: 10.0),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text(
+                              'ok',
+                              style: defaultText16.copyWith(
+                                  color: const Color(0xff3C3C3C)),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
                 child: Container(

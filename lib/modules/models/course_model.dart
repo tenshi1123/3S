@@ -19,12 +19,14 @@ class CourseModel {
   final String price;
   final String priceOld;
   final String duration;
+  final String star;
   CourseModel({
     required this.name,
     required this.id,
     required this.price,
     required this.priceOld,
     required this.duration,
+    required this.star,
   });
   factory CourseModel.fromJson(Map<String, dynamic> json) {
     return CourseModel(
@@ -33,6 +35,7 @@ class CourseModel {
       price: json['price'] ?? '',
       priceOld: json['price_old'] ?? '',
       duration: json['duration'] ?? '',
+      star: json['star'] ?? '',
     );
   }
 }

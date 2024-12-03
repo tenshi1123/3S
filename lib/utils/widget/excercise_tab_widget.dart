@@ -183,23 +183,23 @@ class ClassItem extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            // const Icon(
-                            //   Icons.star,
-                            //   color: Color(0xffFFC400),
-                            //   size: 24.0,
-                            // ),
-                            // Text(
-                            //   '4.7 ',
-                            //   style: defaultText14,
-                            // ),
+                            const Icon(
+                              Icons.star,
+                              color: Color(0xffFFC400),
+                              size: 24.0,
+                            ),
+                            Text(
+                              ' ${model.star}',
+                              style: defaultText14,
+                            ),
                             SizedBox(
-                              width: 5.h,
+                              width: 8.h,
                             ),
                             SvgPicture.asset(
                               'assets/icons/clock.svg',
                             ),
                             Text(
-                              model.duration,
+                              ' ${model.duration}',
                               style: defaultText14,
                             ),
                           ],

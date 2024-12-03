@@ -59,6 +59,9 @@ class ClassRepo {
         'class_lesson_document_customer_id': id,
       },
     );
+    if ((response.data)['detail_homework'] == null) {
+      return [];
+    }
     List<DetailHomeWorkModel> result =
         ((response.data)['detail_homework'] as List)
             .map((e) => DetailHomeWorkModel.fromJson(e))

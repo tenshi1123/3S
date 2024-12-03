@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+import 'package:three_s/main.dart';
 import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/modules/models/course_model.dart';
 import 'package:three_s/modules/models/info_model.dart';
+import 'package:three_s/modules/models/notification_model.dart';
 import 'package:three_s/modules/models/report_model.dart';
 import 'package:three_s/modules/monthly_summary/monthly_summary.dart';
 import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/modules/roll_call/list_class.dart';
+import 'package:three_s/repo/notification_repo.dart';
 import 'package:three_s/repo/report_repo.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:three_s/utils/widget/not_student_yet.dart';
@@ -15,6 +18,7 @@ import '../../../repo/course_repo.dart';
 import '../../../utils/constants/color.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../utils/widget/excercise_tab_widget.dart';
+import '../../notification/list_notification.dart';
 import 'search_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -52,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               index: index,
             ));
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -107,12 +112,32 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         const Spacer(),
-                        // SvgPicture.asset(
-                        //   'assets/icons/bell_icon.svg',
-                        //   color: Colors.white,
-                        //   height: 24.h,
-                        //   width: 24.w,
-                        // ),
+                        GestureDetector(
+                          onTap: () async {
+                            List<NotiModel> listNotifications =
+                                await NotiRepo().getListNotifications();
+                            pushWithoutNavBar(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) => ListNoti(
+                                      ListNotifications: listNotifications,
+                                    )),
+                              ),
+                            );
+                          },
+                          child: hasNewNoti
+                              ? SvgPicture.asset(
+                                  'assets/icons/bell_icon.svg',
+                                  color: Colors.white,
+                                  height: 24.h,
+                                  width: 24.w,
+                                )
+                              : Image.asset(
+                                  'assets/images/hasNoti.png',
+                                  width: 60.w,
+                                  height: 45.h,
+                                ),
+                        ),
                       ],
                     ),
                   ),
@@ -161,9 +186,11 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(
+                  Container(
                     height: 168.h,
                     width: 343.w,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.r)),
                     child: PageView.builder(
                       padEnds: false,
                       controller: controller,
@@ -172,6 +199,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return pages[index % pages.length];
                       },
                     ),
+                  ),
+                  SizedBox(
+                    height: 5.h,
                   ),
                   SmoothPageIndicator(
                     controller: controller,
@@ -451,6 +481,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 166.h,
                                     decoration: BoxDecoration(
                                       color: Colors.blue.shade100,
+                                      borderRadius: BorderRadius.circular(16.r),
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
                                         image: widget.upcommingModel?[index]
@@ -468,6 +499,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height: 246.w,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(16.r),
                                         gradient: LinearGradient(
                                             begin: FractionalOffset.topCenter,
                                             end: FractionalOffset.bottomCenter,
@@ -562,12 +595,13 @@ class NotificationItem extends StatelessWidget {
     return GestureDetector(
       onTap: () {},
       child: Container(
-        //margin: EdgeInsets.symmetric(horizontal: 20.w),
+        margin: EdgeInsets.symmetric(horizontal: 10.w),
         width: 343.w,
         height: 170.h,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.white,
-          image: DecorationImage(
+          borderRadius: BorderRadius.circular(16.r),
+          image: const DecorationImage(
             image: AssetImage('assets/images/banner.png'),
             fit: BoxFit.fill,
           ),

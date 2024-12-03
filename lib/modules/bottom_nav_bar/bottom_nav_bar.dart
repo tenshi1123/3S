@@ -5,6 +5,7 @@ import "package:three_s/modules/bottom_nav_bar/calender.dart";
 import "package:three_s/modules/models/course_model.dart";
 import "package:three_s/modules/models/info_model.dart";
 import "package:three_s/utils/constants/color.dart";
+import 'package:flutter_svg/flutter_svg.dart';
 import "course_screen.dart";
 import "home/guess_screen.dart";
 import "home/home_screen.dart";
@@ -68,10 +69,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
             upcommingModel: widget.upcommingModel,
           ),
           item: ItemConfig(
-            icon: const Icon(Icons.home),
+            icon: SvgPicture.asset(
+              'assets/icons/home.svg',
+            ),
             title: "Trang chủ",
             activeForegroundColor: Colors.white,
-            inactiveForegroundColor: const Color(0xffBABABA),
+            //inactiveForegroundColor: const Color(0xffBABABA),
+            inactiveIcon: SvgPicture.asset(
+              'assets/icons/inactive_home.svg',
+            ),
             activeColorSecondary: key1Color,
             inactiveBackgroundColor: Colors.white.withOpacity(0.2),
           ),
@@ -79,13 +85,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
         PersistentTabConfig(
           screen: const CourseScreen(),
           item: ItemConfig(
-            icon: const Icon(
-              Icons.bookmark_border,
+            icon: SvgPicture.asset(
+              'assets/icons/course.svg',
             ),
             //icon: SvgPicture.asset('assets/icons/nav_bar2.svg'),
             title: "Khóa học",
             activeForegroundColor: Colors.white,
-            inactiveForegroundColor: const Color(0xffBABABA),
+            inactiveIcon: SvgPicture.asset(
+              'assets/icons/inactive_course.svg',
+            ),
             activeColorSecondary: key1Color,
             inactiveBackgroundColor: Colors.white.withOpacity(0.2),
           ),
@@ -97,13 +105,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   title: 'Lịch học',
                 ),
           item: ItemConfig(
-            icon: const Icon(
-              Icons.calendar_today,
+            icon: SvgPicture.asset(
+              'assets/icons/schedule.svg',
             ),
             //icon: SvgPicture.asset('assets/icons/nav_bar2.svg'),
             title: "Lịch học",
             activeForegroundColor: Colors.white,
-            inactiveForegroundColor: const Color(0xffBABABA),
+            inactiveIcon: SvgPicture.asset(
+              'assets/icons/inactive_schedule.svg',
+            ),
             activeColorSecondary: key1Color,
             inactiveBackgroundColor: Colors.white.withOpacity(0.2),
           ),
@@ -117,10 +127,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   title: 'Cá nhân',
                 ),
           item: ItemConfig(
-            icon: const Icon(Icons.person_2_outlined),
+            icon: SvgPicture.asset(
+              'assets/icons/personal.svg',
+            ),
             title: "Cá nhân",
             activeForegroundColor: Colors.white,
-            inactiveForegroundColor: const Color(0xffBABABA),
+            inactiveIcon: SvgPicture.asset(
+              'assets/icons/inactive_personal.svg',
+            ),
             activeColorSecondary: key1Color,
             inactiveBackgroundColor: Colors.white.withOpacity(0.2),
           ),

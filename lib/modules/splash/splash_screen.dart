@@ -24,7 +24,7 @@ class _SplshscreenState extends State<Splshscreen> {
     super.initState();
     databaseInitialized();
     Timer(
-      const Duration(seconds: 0),
+      const Duration(seconds: 2),
       () async {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         final String? token = prefs.getString('token');

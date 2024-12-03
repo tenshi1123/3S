@@ -26,53 +26,40 @@ class CourseScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: <Widget>[
-            Column(
-              children: [
-                Image.asset(
-                  'assets/images/nodata.png',
-                  height: 172.h,
-                  width: 258.w,
-                ),
-                Text(
-                  "Bạn chưa có khóa học",
-                  style: defaultText16.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xff3C3C3C)),
-                ),
-                Text(
-                  "Hãy tìm khóa học phù hợp nhé!",
-                  style: defaultText14.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xffbababa)),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Image.asset(
-                  'assets/images/nodata.png',
-                  height: 172.h,
-                  width: 258.w,
-                ),
-                Text(
-                  "Bạn chưa có khóa học",
-                  style: defaultText16.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xff3C3C3C)),
-                ),
-                Text(
-                  "Hãy tìm khóa học phù hợp nhé!",
-                  style: defaultText14.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xffbababa)),
-                ),
-              ],
-            ),
+            _NoCourse(),
+            _NoCourse(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _NoCourse extends StatelessWidget {
+  const _NoCourse({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.asset(
+          'assets/images/nodata.png',
+          height: 172.h,
+          width: 258.w,
+        ),
+        Text(
+          "Bạn chưa có khóa học",
+          style: defaultText16.copyWith(
+              fontWeight: FontWeight.w600, color: const Color(0xff3C3C3C)),
+        ),
+        Text(
+          "Hãy tìm khóa học phù hợp nhé!",
+          style: defaultText14.copyWith(
+              fontWeight: FontWeight.w500, color: const Color(0xffbababa)),
+        ),
+      ],
     );
   }
 }

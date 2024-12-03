@@ -50,4 +50,16 @@ class ApiPath {
 
   // Đổi mật khẩu
   static const String changePassword = '$baseUrl/user/password/update';
+
+  //check thông báo mới hay không
+  static const String checkNoti = '$baseUrl/notification/check';
+
+  //danh sách thông báo
+  static const String getListNoti = '$baseUrl/notification';
+
+  //Chi tiết thông báo
+  static const String getDetailNoti = '$baseUrl/notification/detail';
+
+  //Cập nhật trạng thái khi ấn vào chi tiết
+  static const String updateStatusNoti = '$baseUrl/notification/update';
 }

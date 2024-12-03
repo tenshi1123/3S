@@ -517,8 +517,27 @@ class _HomeworkItem extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                SvgPicture.asset(
-                  'assets/icons/downloads.svg',
+                GestureDetector(
+                  onTap: () async {
+                    // if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
+                    //   throw Exception('Could not launch ');
+                    // }
+                    List<DetailHomeWorkModel> detail1 =
+                        await ClassRepo().getDetailHomework(model.id);
+                    if (detail1.isEmpty) {
+                      if (!await launchUrl(Uri.parse(model.image))) {
+                        throw Exception('Could not launch ');
+                      }
+                    } else {
+                      if (!await launchUrl(
+                          Uri.parse(detail1[0].linkHomework))) {
+                        throw Exception('Could not launch ');
+                      }
+                    }
+                  },
+                  child: SvgPicture.asset(
+                    'assets/icons/downloads.svg',
+                  ),
                 ),
                 SizedBox(
                   width: 20.w,

@@ -171,7 +171,7 @@ class _NewWidgetExampleState extends State<Calender> {
                                   CircleAvatar(
                                     backgroundColor: const Color.fromARGB(
                                         255, 248, 248, 248),
-                                    radius: 20,
+                                    radius: 20.r,
                                     backgroundImage: NetworkImage(
                                       listLichHoc[index].avatar,
                                     ),

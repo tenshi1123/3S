@@ -104,13 +104,16 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
                           physics: const ClampingScrollPhysics(),
                           itemCount: listKhocHoc.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return ClassItem(
-                              model: listKhocHoc[index],
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              child: _ClassItem(
+                                model: listKhocHoc[index],
+                              ),
                             );
                           });
                     } else {
                       return Text(
-                        'Something went wrong2',
+                        'Something went wrong',
                         style: defaultText14,
                       );
                     }
@@ -125,8 +128,8 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
   }
 }
 
-class ClassItem extends StatelessWidget {
-  const ClassItem({super.key, required this.model});
+class _ClassItem extends StatelessWidget {
+  const _ClassItem({super.key, required this.model});
   final CourseModel model;
   @override
   Widget build(BuildContext context) {

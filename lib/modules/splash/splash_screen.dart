@@ -29,29 +29,29 @@ class _SplshscreenState extends State<Splshscreen> {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         final String? token = prefs.getString('token');
         checked = (token != null);
-        if (checked) {
-          InfoModel infoModel = await InfoRepo().getInfo();
-          List<UpcommingModel> upcommingModel =
-              await CourseRepo().getUpcommingClass();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: ((context) => BottomNavBar(
-                    type: 0,
-                    categories: listCate,
-                    infoModel: infoModel,
-                    upcommingModel: upcommingModel,
-                  )),
-            ),
-          );
-        } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Onbonding(),
-            ),
-          );
-        }
+        // if (checked) {
+        //   InfoModel infoModel = await InfoRepo().getInfo();
+        //   List<UpcommingModel> upcommingModel =
+        //       await CourseRepo().getUpcommingClass();
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: ((context) => BottomNavBar(
+        //             type: 0,
+        //             categories: listCate,
+        //             infoModel: infoModel,
+        //             upcommingModel: upcommingModel,
+        //           )),
+        //     ),
+        //   );
+        // } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Onbonding(),
+          ),
+        );
+        //}
       },
     );
   }

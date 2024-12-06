@@ -18,6 +18,14 @@ class NotStudentYet extends StatelessWidget {
             color: const Color(0xff3C3C3C),
           ),
         ),
+        bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4.0),
+            child: Container(
+              //margin: EdgeInsets.only(bottom: 20.h),
+              padding: EdgeInsets.only(bottom: 20.h),
+              color: const Color(0xfff0f0f0),
+              height: 1.0,
+            )),
       ),
       body: Column(
         children: [

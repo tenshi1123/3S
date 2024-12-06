@@ -114,16 +114,25 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Spacer(),
                         GestureDetector(
                           onTap: () async {
-                            List<NotiModel> listNotifications =
-                                await NotiRepo().getListNotifications();
-                            pushWithoutNavBar(
-                              context,
-                              MaterialPageRoute(
-                                builder: ((context) => ListNoti(
-                                      ListNotifications: listNotifications,
-                                    )),
-                              ),
-                            );
+                            if (type == 0) {
+                              List<NotiModel> listNotifications =
+                                  await NotiRepo().getListNotifications();
+                              pushWithoutNavBar(
+                                context,
+                                MaterialPageRoute(
+                                  builder: ((context) => ListNoti(
+                                        ListNotifications: listNotifications,
+                                      )),
+                                ),
+                              );
+                            } else {
+                              pushWithoutNavBar(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const NotStudentYet(),
+                                ),
+                              );
+                            }
                           },
                           child: hasNewNoti
                               ? SvgPicture.asset(
@@ -186,18 +195,19 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Container(
-                    height: 168.h,
-                    width: 343.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.r)),
-                    child: PageView.builder(
-                      padEnds: false,
-                      controller: controller,
-                      itemCount: pages.length,
-                      itemBuilder: (_, index) {
-                        return pages[index % pages.length];
-                      },
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16.r),
+                    child: SizedBox(
+                      height: 168.h,
+                      width: 343.w,
+                      child: PageView.builder(
+                        padEnds: false,
+                        controller: controller,
+                        itemCount: pages.length,
+                        itemBuilder: (_, index) {
+                          return pages[index % pages.length];
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -222,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+              padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 16.w),
               child: Row(
                 children: [
                   Text(
@@ -297,7 +307,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 5.h),
+              padding: EdgeInsets.only(left: 16.w, top: 15.h, bottom: 15.h),
               child: Row(
                 children: [
                   Text(
@@ -473,7 +483,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: widget.upcommingModel?.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w),
+                              padding: EdgeInsets.only(right: 16.w),
                               child: Stack(
                                 children: [
                                   Container(
@@ -557,7 +567,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
             Padding(
-              padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 5.h),
+              padding: EdgeInsets.only(left: 16.w, top: 15.h, bottom: 15.h),
               child: Row(
                 children: [
                   Text(
@@ -594,16 +604,20 @@ class NotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.w),
-        width: 343.w,
-        height: 170.h,
-        decoration: BoxDecoration(
-          color: Colors.white,
+      child: Padding(
+        padding: EdgeInsets.only(right: 10.w, left: 10.w),
+        child: ClipRRect(
           borderRadius: BorderRadius.circular(16.r),
-          image: const DecorationImage(
-            image: AssetImage('assets/images/banner.png'),
-            fit: BoxFit.fill,
+          child: Container(
+            width: 343.w,
+            height: 170.h,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              image: DecorationImage(
+                image: AssetImage('assets/images/banner.png'),
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
         ),
       ),

@@ -83,7 +83,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
         PersistentTabConfig(
-          screen: const CourseScreen(),
+          screen: CourseScreen(
+            type: widget.type,
+          ),
           item: ItemConfig(
             icon: SvgPicture.asset(
               'assets/icons/course.svg',

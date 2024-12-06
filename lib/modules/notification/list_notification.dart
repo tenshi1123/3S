@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/notification/detail_notification.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
-
 import '../models/notification_model.dart';
 
 class ListNoti extends StatelessWidget {
@@ -18,6 +17,14 @@ class ListNoti extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4.0),
+            child: Container(
+              //margin: EdgeInsets.only(bottom: 20.h),
+              padding: EdgeInsets.only(bottom: 20.h),
+              color: const Color(0xfff0f0f0),
+              height: 1.0,
+            )),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
@@ -30,25 +37,42 @@ class ListNoti extends StatelessWidget {
         //   )
         // ],
       ),
-      body: ListView.builder(
-          //shrinkWrap: true,
-          //physics: const ClampingScrollPhysics(),
-          itemCount: ListNotifications.length,
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => const DetailNoti()),
-                  ),
-                );
-              },
-              child: _NotiItem(
-                model: ListNotifications[index],
-              ),
-            );
-          }),
+      body: Padding(
+        padding: EdgeInsets.only(top: 20.h),
+        child: ListView.builder(
+            //shrinkWrap: true,
+            //physics: const ClampingScrollPhysics(),
+            itemCount: ListNotifications.length,
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () {
+                  // if (ListNotifications[index].link.contains('https://')) {
+                  //   if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
+                  //     throw Exception('Could not launch ');
+                  //   }
+                  // } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => DetailNoti(
+                            model: ListNotifications[index],
+                          )),
+                    ),
+                  );
+                  //}
+                },
+                child: _NotiItem(
+                  model: ListNotifications[index],
+                  isShow: (index == 0)
+                      ? true
+                      : (ListNotifications[index].createdAt.substring(0, 10) !=
+                          ListNotifications[index - 1]
+                              .createdAt
+                              .substring(0, 10)),
+                ),
+              );
+            }),
+      ),
     );
   }
 }
@@ -57,8 +81,10 @@ class _NotiItem extends StatelessWidget {
   const _NotiItem({
     super.key,
     required this.model,
+    required this.isShow,
   });
   final NotiModel model;
+  final bool isShow;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,16 +96,18 @@ class _NotiItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Padding(
-          //   padding: EdgeInsets.only(left: 15.w, bottom: 15.h, top: 2.h),
-          //   child: Text(
-          //     'Hôm nay',
-          //     style: defaultText16.copyWith(
-          //       fontWeight: FontWeight.w600,
-          //       color: keyBlack,
-          //     ),
-          //   ),
-          // ),
+          Padding(
+            padding: EdgeInsets.only(left: 15.w, bottom: 15.h, top: 2.h),
+            child: isShow
+                ? Text(
+                    model.createdAt.substring(0, 10),
+                    style: defaultText16.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: keyBlack,
+                    ),
+                  )
+                : const SizedBox(),
+          ),
           Padding(
             padding: EdgeInsets.only(left: 15.w),
             child: Row(
@@ -112,7 +140,7 @@ class _NotiItem extends StatelessWidget {
                       child: Text(
                         model.content,
                         style: defaultText14.copyWith(
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                           color: const Color(0xff575757),
                         ),
                         maxLines: 3,
@@ -127,7 +155,7 @@ class _NotiItem extends StatelessWidget {
                       model.createdAt,
                       style: defaultText14.copyWith(
                         fontWeight: FontWeight.w400,
-                        color: const Color(0xffBDBDBD),
+                        color: const Color(0xffA3A3A3),
                       ),
                     ),
                   ],

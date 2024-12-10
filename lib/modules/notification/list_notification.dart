@@ -4,6 +4,7 @@ import 'package:three_s/modules/notification/detail_notification.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import '../models/notification_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ListNoti extends StatelessWidget {
   const ListNoti({
@@ -115,6 +116,10 @@ class _NotiItem extends StatelessWidget {
               children: [
                 Image.network(
                   model.icon,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return const Text('😢');
+                  },
                   height: 32.h,
                   width: 32.w,
                   fit: BoxFit.fill,

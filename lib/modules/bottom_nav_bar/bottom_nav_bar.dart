@@ -9,7 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import "course_screen.dart";
 import "home/guess_screen.dart";
 import "home/home_screen.dart";
-import "personer_screen.dart";
+import "info/personer_screen.dart";
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({

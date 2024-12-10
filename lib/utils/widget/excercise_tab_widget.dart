@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:three_s/modules/models/course_model.dart';
 import 'package:three_s/repo/course_repo.dart';
@@ -53,7 +54,7 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
           indicatorPadding: EdgeInsets.zero,
           labelPadding: EdgeInsets.only(left: 10.w),
           isScrollable: true,
-          indicatorColor: primary600,
+          indicatorColor: Colors.white,
           indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(
               25.0,
@@ -61,6 +62,7 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
             color: const Color(0xff2F9CD3),
           ),
           indicatorSize: TabBarIndicatorSize.label,
+          dividerColor: Colors.grey.shade100,
           // indicator: UnderlineTabIndicator(
           //   borderSide: BorderSide(width: 2.w), //hight of indicator
           //   insets: EdgeInsets.symmetric(
@@ -91,7 +93,11 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
                       .getListCourse(widget.categories[i].id), // Hàm gọi API
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
+                      return Image.asset(
+                        "assets/images/loading.gif",
+                        height: 68.h,
+                        width: 68.w,
+                      );
                     } else if (snapshot.hasError) {
                       return Text(
                         'Something went wrong',
@@ -196,7 +202,7 @@ class _ClassItem extends StatelessWidget {
                               style: defaultText14,
                             ),
                             SizedBox(
-                              width: 8.h,
+                              width: 16.h,
                             ),
                             SvgPicture.asset(
                               'assets/icons/clock.svg',
@@ -209,14 +215,16 @@ class _ClassItem extends StatelessWidget {
                         ),
                         RichText(
                           text: TextSpan(
-                            text: '${model.price} d     ',
-                            style: defaultText14.copyWith(
+                            text:
+                                '${NumberFormat('#,###').format(int.parse(model.price))} đ     ',
+                            style: defaultBoldText.copyWith(
                               color: const Color(0xff2F9CD3),
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w800,
                             ),
                             children: [
                               TextSpan(
-                                text: model.priceOld,
+                                text:
+                                    '${NumberFormat('#,###').format(int.parse(model.priceOld))} đ',
                                 style: defaultText14.copyWith(
                                   fontWeight: FontWeight.w500,
                                   decoration: TextDecoration.lineThrough,
@@ -233,7 +241,9 @@ class _ClassItem extends StatelessWidget {
                 ],
               ),
             ),
-            const Divider(),
+            Divider(
+              color: Colors.grey.shade200,
+            ),
           ],
         ),
       ),
@@ -279,7 +289,7 @@ class PieChart extends StatelessWidget {
                 showLeaderLines: true,
               ),
               arcLength: 2 * pi,
-              arcRatio: 0.2,
+              arcRatio: 0.12,
               //arcWidth: 10,
               startAngle: pi * 3 / 4,
               strokeWidthPx: 0,

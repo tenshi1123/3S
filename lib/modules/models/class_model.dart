@@ -115,8 +115,8 @@ class DocumentModel {
   });
   factory DocumentModel.fromJson(Map<String, dynamic> json) {
     return DocumentModel(
-      image: json['course_schedule_img'],
-      name: json['name'],
+      image: json['course_schedule_img'] ?? '',
+      name: json['name'] ?? '',
     );
   }
 }
@@ -164,10 +164,10 @@ class FeedbackModel {
   });
   factory FeedbackModel.fromJson(Map<String, dynamic> json) {
     return FeedbackModel(
-      nameLecture: json['name_lecture'],
-      avatar: json['avatar'],
-      content: json['content'],
-      type: json['type'],
+      nameLecture: json['name_lecture'] ?? '',
+      avatar: json['avatar'] ?? '',
+      content: json['content'] ?? '',
+      type: json['type'] ?? '',
     );
   }
 }

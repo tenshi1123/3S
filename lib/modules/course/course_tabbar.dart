@@ -124,12 +124,15 @@ class _CourseTabbarState extends State<CourseTabbar>
                   ListView.builder(
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
-                      itemCount: 5,
+                      itemCount: 6,
                       itemBuilder: (BuildContext context, int index) {
                         return LessonItem(
                           title: index,
                         );
                       }),
+                  // SizedBox(
+                  //   height: 5.h,
+                  // ),
                 ],
               ),
               //Giáo viên
@@ -297,7 +300,7 @@ class LessonItem extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      '0${title + 1}',
+                      '${title + 1}',
                       style: defaultText14.copyWith(
                         color: const Color(0xff2F9CD3),
                         fontWeight: FontWeight.w600,

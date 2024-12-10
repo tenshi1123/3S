@@ -37,22 +37,23 @@ class MonthlySummary extends StatelessWidget {
           itemCount: listClasses.length,
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
-                onTap: () async {
-                  ReportPoint reportPoint =
-                      await ReportRepo().getReportPoint(listClasses[index].id);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) => SummaryScore(
-                            reportPoint: reportPoint,
-                            title: listClasses[index].name,
-                          )),
-                    ),
-                  );
-                },
-                child: _ClassItem(
-                  model: listClasses[index],
-                ));
+              onTap: () async {
+                ReportPoint reportPoint =
+                    await ReportRepo().getReportPoint(listClasses[index].id);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => SummaryScore(
+                          reportPoint: reportPoint,
+                          title: listClasses[index].name,
+                        )),
+                  ),
+                );
+              },
+              child: _ClassItem(
+                model: listClasses[index],
+              ),
+            );
           }),
     );
   }

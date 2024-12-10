@@ -91,7 +91,7 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
               ListView.builder(
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
-                  itemCount: widget.infoCheckinModel.document.length,
+                  itemCount: widget.infoCheckinModel.homeWork.length,
                   itemBuilder: (BuildContext context, int index) {
                     return _HomeworkItem(
                       model: widget.infoCheckinModel.homeWork[index],

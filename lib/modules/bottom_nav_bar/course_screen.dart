@@ -23,7 +23,7 @@ class CourseScreen extends StatelessWidget {
                 width: 2.w,
                 color: const Color(0xff2F9CD3),
               ),
-              insets: const EdgeInsets.symmetric(horizontal: -10),
+              insets: EdgeInsets.symmetric(horizontal: -50.w),
             ),
             labelColor: const Color(0xff2F9CD3),
             tabs: const <Widget>[

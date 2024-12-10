@@ -28,29 +28,68 @@ class ListClass extends StatelessWidget {
           )
         ],
       ),
-      body: ListView.builder(
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          itemCount: listClasses.length,
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              onTap: () async {
-                InfoClassModel infoClass =
-                    await ClassRepo().getInfoClass(listClasses[index].id);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: ((context) => InfoClass(
-                          model: infoClass,
-                        )),
+      body: Stack(
+        children: [
+          ListView.builder(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              itemCount: listClasses.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () async {
+                    InfoClassModel infoClass =
+                        await ClassRepo().getInfoClass(listClasses[index].id);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: ((context) => InfoClass(
+                              model: infoClass,
+                            )),
+                      ),
+                    );
+                  },
+                  child: _ClassItem(
+                    model: listClasses[index],
                   ),
                 );
-              },
-              child: _ClassItem(
-                model: listClasses[index],
+              }),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 120.h,
+              width: 375.w,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+                color: Colors.white,
               ),
-            );
-          }),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 12.h,
+                    ),
+                    child: Text(
+                      '(*) Lưu ý: Nếu có sai sót về điểm danh về buổi học vui lòng liên hệ lại với giáo viên để được hỗ trợ.',
+                      style: defaultText14.copyWith(
+                        color: const Color(0xffDF1111),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

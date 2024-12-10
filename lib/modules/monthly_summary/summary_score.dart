@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:three_s/modules/models/report_model.dart';
 import 'package:three_s/utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
@@ -25,18 +26,34 @@ class SummaryScore extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-              child: Text(
-                title,
-                style: defaultText20.copyWith(
-                  fontWeight: FontWeight.w700,
+            Row(
+              children: [
+                SizedBox(
+                  width: 20.w,
                 ),
-              ),
+                Text(
+                  title,
+                  style: defaultText20.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 12.h,
             ),
             Divider(
               thickness: 6.h,
               color: const Color(0xffF0F0F0),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+              child: Text(
+                'Tháng ${DateFormat('MM, yyyy').format(DateTime.now())}',
+                style: defaultText20.copyWith(
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             SizedBox(
               height: 250.dg,
@@ -47,8 +64,9 @@ class SummaryScore extends StatelessWidget {
             ),
             Text(
               'Thật tuyệt vời!',
-              style: defaultText18.copyWith(
+              style: defaultBoldText.copyWith(
                 fontWeight: FontWeight.w700,
+                fontSize: 20.sp,
               ),
             ),
             SizedBox(
@@ -68,7 +86,7 @@ class SummaryScore extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 5.h,
+              height: 16.h,
             ),
             reportPoint.listPoints.isEmpty
                 ? Text(
@@ -132,7 +150,10 @@ class ClassItem extends StatelessWidget {
                       width: 200.w,
                       child: Text(
                         model.name,
-                        style: defaultText16,
+                        style: defaultBoldText.copyWith(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
                         overflow: TextOverflow.fade,
                       ),
                     ),

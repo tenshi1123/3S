@@ -22,7 +22,7 @@ class InfoModel {
       id: json['id'] ?? '',
       email: json['email'] ?? '',
       phone: json['phone'] ?? '',
-      gender: json['gender'] ?? '',
+      gender: json['gender'] ?? 'Không xác định',
       birthday: json['birthday'] ?? '',
     );
   }

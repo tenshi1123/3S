@@ -49,13 +49,21 @@ class _NewWidgetExampleState extends State<Calender> {
             },
             focusDate: _selectedDate,
           ),
-          const SizedBox(height: 32.0),
-          ElevatedButton(
-            onPressed: () {
-              _controller.animateToDate(DateTime.now());
-            },
-            child: const Text('Đến ngày hôm nay'),
+          Card(
+            elevation: 1,
+            shadowColor: Colors.grey,
+            child: Container(
+              height: 1,
+              color: Colors.white,
+            ),
           ),
+          // const SizedBox(height: 32.0),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     _controller.animateToDate(DateTime.now());
+          //   },
+          //   child: const Text('Đến ngày hôm nay'),
+          // ),
           Stack(
             children: [
               // ListView.builder(

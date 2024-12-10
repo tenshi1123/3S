@@ -9,7 +9,8 @@ import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../login/login_screen.dart';
+import '../../login/login_screen.dart';
+import 'info_screen.dart';
 
 class PersonerScreen extends StatelessWidget {
   const PersonerScreen({super.key, this.infoModel});
@@ -33,23 +34,23 @@ class PersonerScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            const Divider(),
+            const Divider(thickness: 1),
             SizedBox(
               width: 343.w,
-              height: 60.h,
+              height: 72.h,
               child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 26.r,
+                    radius: 32.r,
                     backgroundColor: Colors.grey,
                     backgroundImage: NetworkImage(infoModel!.avatar),
                     //child: const Text('AH'),
                   ),
                   SizedBox(
-                    width: 5.w,
+                    width: 16.w,
                   ),
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -63,19 +64,44 @@ class PersonerScreen extends StatelessWidget {
                       Text(
                         infoModel!.phone,
                         style: defaultText14.copyWith(
-                            color: const Color(
-                          0xff8A8A8A,
-                        )),
+                          color: const Color(
+                            0xff8A8A8A,
+                          ),
+                          height: 20 / 16.h,
+                        ),
                       ),
                     ],
                   ),
                   const Spacer(),
+                  TextButton(
+                    onPressed: () {
+                      pushWithoutNavBar(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => InfoUser(
+                                infoModel: infoModel,
+                              )),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Xem',
+                      style: defaultText16.copyWith(
+                        color: const Color(0xff2F9CD3),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
             Divider(
               thickness: 6.h,
               height: 30.h,
+              color: const Color(0xffF0F0F0),
+            ),
+            SizedBox(
+              height: 10.h,
             ),
             GestureDetector(
               onTap: () {
@@ -91,9 +117,10 @@ class PersonerScreen extends StatelessWidget {
                   SizedBox(
                     width: 16.w,
                   ),
-                  const Icon(
-                    Icons.lock_outline_sharp,
-                    color: Color(0xff3C3C3C),
+                  SvgPicture.asset(
+                    'assets/icons/lock.svg',
+                    height: 20.h,
+                    width: 20.w,
                   ),
                   SizedBox(
                     width: 10.w,
@@ -104,7 +131,7 @@ class PersonerScreen extends StatelessWidget {
                         defaultText16.copyWith(color: const Color(0xff3C3C3C)),
                   ),
                   const Spacer(),
-                  const Icon(Icons.keyboard_arrow_right_outlined),
+                  Icon(Icons.keyboard_arrow_right_outlined, size: 20.h),
                   SizedBox(
                     width: 16.w,
                   ),
@@ -115,6 +142,7 @@ class PersonerScreen extends StatelessWidget {
               thickness: 1.h,
               indent: 16.w,
               endIndent: 16.w,
+              height: 30.h,
             ),
             GestureDetector(
               onTap: () {
@@ -125,9 +153,10 @@ class PersonerScreen extends StatelessWidget {
                   SizedBox(
                     width: 16.w,
                   ),
-                  const Icon(
-                    Icons.headphones,
-                    color: Color(0xff3C3C3C),
+                  SvgPicture.asset(
+                    'assets/icons/hotline.svg',
+                    height: 20.h,
+                    width: 20.w,
                   ),
                   SizedBox(
                     width: 10.w,
@@ -140,8 +169,10 @@ class PersonerScreen extends StatelessWidget {
                   const Spacer(),
                   Text(
                     '1900 6262',
-                    style:
-                        defaultText16.copyWith(color: const Color(0xFFDF1111)),
+                    style: defaultText16.copyWith(
+                      color: const Color(0xFFDF1111),
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   SizedBox(
                     width: 16.w,
@@ -153,6 +184,7 @@ class PersonerScreen extends StatelessWidget {
               thickness: 1.h,
               indent: 16.w,
               endIndent: 16.w,
+              height: 30.h,
             ),
             GestureDetector(
               onTap: () {
@@ -209,9 +241,10 @@ class PersonerScreen extends StatelessWidget {
                   SizedBox(
                     width: 16.w,
                   ),
-                  const Icon(
+                  Icon(
                     Icons.delete_outline,
-                    color: Color(0xFFDF1111),
+                    color: const Color(0xFFDF1111),
+                    size: 25.h,
                   ),
                   SizedBox(
                     width: 10.w,
@@ -226,7 +259,8 @@ class PersonerScreen extends StatelessWidget {
             ),
             Divider(
               thickness: 6.h,
-              height: 30.h,
+              height: 36.h,
+              color: const Color(0xffF0F0F0),
             ),
             GestureDetector(
               onTap: () {
@@ -237,9 +271,10 @@ class PersonerScreen extends StatelessWidget {
                   SizedBox(
                     width: 16.w,
                   ),
-                  const Icon(
-                    Icons.refresh_outlined,
-                    color: Color(0xff3C3C3C),
+                  SvgPicture.asset(
+                    'assets/icons/refresh.svg',
+                    height: 20.h,
+                    width: 20.w,
                   ),
                   SizedBox(
                     width: 10.w,
@@ -250,7 +285,7 @@ class PersonerScreen extends StatelessWidget {
                         defaultText16.copyWith(color: const Color(0xff3C3C3C)),
                   ),
                   const Spacer(),
-                  const Icon(Icons.keyboard_arrow_right_outlined),
+                  Icon(Icons.keyboard_arrow_right_outlined, size: 20.h),
                   SizedBox(
                     width: 16.w,
                   ),
@@ -261,6 +296,7 @@ class PersonerScreen extends StatelessWidget {
               thickness: 1.h,
               indent: 16.w,
               endIndent: 16.w,
+              height: 30.h,
             ),
             GestureDetector(
               onTap: () => _dialogBuilder(
@@ -273,9 +309,10 @@ class PersonerScreen extends StatelessWidget {
                   SizedBox(
                     width: 16.w,
                   ),
-                  const Icon(
-                    Icons.exit_to_app,
-                    color: Color(0xFFDF1111),
+                  SvgPicture.asset(
+                    'assets/icons/exit.svg',
+                    height: 20.h,
+                    width: 20.w,
                   ),
                   SizedBox(
                     width: 10.w,

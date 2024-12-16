@@ -124,15 +124,12 @@ class _CourseTabbarState extends State<CourseTabbar>
                   ListView.builder(
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
-                      itemCount: 6,
+                      itemCount: 4,
                       itemBuilder: (BuildContext context, int index) {
                         return LessonItem(
                           title: index,
                         );
                       }),
-                  // SizedBox(
-                  //   height: 5.h,
-                  // ),
                 ],
               ),
               //Giáo viên

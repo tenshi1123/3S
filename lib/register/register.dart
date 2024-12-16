@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:three_s/modules/login/login_screen.dart';
 import 'package:three_s/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../modules/splash/wellcome_screen.dart';
 import '../utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -321,7 +321,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: ((context) => const LoginScreen()),
+                                  builder: ((context) =>
+                                      const WellcomeScreen()),
                                 ),
                               );
                             },
@@ -625,7 +626,8 @@ class _RegisterScreenState extends State<RegisterScreen>
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: ((context) => const LoginScreen()),
+                                  builder: ((context) =>
+                                      const WellcomeScreen()),
                                 ),
                               );
                             },

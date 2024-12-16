@@ -27,3 +27,24 @@ class InfoModel {
     );
   }
 }
+
+class ChildrenInfoModel {
+  final String img;
+  final String nameChild;
+  final String token;
+  final String refreshToken;
+  ChildrenInfoModel({
+    required this.img,
+    required this.nameChild,
+    required this.token,
+    required this.refreshToken,
+  });
+  factory ChildrenInfoModel.fromJson(Map<String, dynamic> json) {
+    return ChildrenInfoModel(
+      img: json['img'] ?? '',
+      nameChild: json['name_child'] ?? '',
+      token: json['token'] ?? '',
+      refreshToken: json['refresh_token'] ?? '',
+    );
+  }
+}

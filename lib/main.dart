@@ -9,7 +9,6 @@ List<CourseModel> listCourse = [];
 bool hasNewNoti = false;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     initializeDateFormatting().then((_) => runApp(const App()));

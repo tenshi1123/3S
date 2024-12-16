@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:three_s/modules/login/login_screen.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import '../../utils/constants/color.dart';
+import '../splash/wellcome_screen.dart';
 
 class ChangePassSucess extends StatelessWidget {
   const ChangePassSucess({super.key});
@@ -50,7 +50,7 @@ class ChangePassSucess extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: ((context) => const LoginScreen()),
+                  builder: ((context) => const WellcomeScreen()),
                 ),
               );
             },

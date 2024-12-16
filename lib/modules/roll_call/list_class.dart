@@ -30,29 +30,33 @@ class ListClass extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          ListView.builder(
-              shrinkWrap: true,
-              physics: const ClampingScrollPhysics(),
-              itemCount: listClasses.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () async {
-                    InfoClassModel infoClass =
-                        await ClassRepo().getInfoClass(listClasses[index].id);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => InfoClass(
-                              model: infoClass,
-                            )),
-                      ),
-                    );
-                  },
-                  child: _ClassItem(
-                    model: listClasses[index],
-                  ),
-                );
-              }),
+          SizedBox(
+            height: 620.h,
+            width: 375.w,
+            child: ListView.builder(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: listClasses.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () async {
+                      InfoClassModel infoClass =
+                          await ClassRepo().getInfoClass(listClasses[index].id);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => InfoClass(
+                                model: infoClass,
+                              )),
+                        ),
+                      );
+                    },
+                    child: _ClassItem(
+                      model: listClasses[index],
+                    ),
+                  );
+                }),
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(

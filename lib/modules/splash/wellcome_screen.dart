@@ -47,12 +47,14 @@ class WellcomeScreen extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: ((context) => const LoginScreen()),
+                  builder: ((context) => const LoginScreen(
+                        type: 'hs',
+                      )),
                 ),
               );
             },
@@ -61,14 +63,14 @@ class WellcomeScreen extends StatelessWidget {
               width: 340.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(9.r),
-                color: key1Color,
+                color: const Color(0xffEFF6FF),
               ),
               child: Center(
                 child: Text(
-                  'Trải nghiệm ngay',
+                  'Đăng nhập với vai trò học sinh',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: primary500,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w700,
                   ),
@@ -77,7 +79,41 @@ class WellcomeScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 30.h,
+            height: 15.h,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => const LoginScreen(
+                        type: 'ph',
+                      )),
+                ),
+              );
+            },
+            child: Container(
+              height: 48.h,
+              width: 340.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(9.r),
+                color: const Color(0xffEFF6FF),
+              ),
+              child: Center(
+                child: Text(
+                  'Đăng nhập với vai trò phụ huynh',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: primary500,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 40.h,
           ),
         ],
       ),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:three_s/modules/login/login_screen.dart';
 import 'package:three_s/utils/constants/styles.dart';
-
+import '../modules/splash/wellcome_screen.dart';
 import '../utils/constants/color.dart';
 
 class RegisterSuccess extends StatelessWidget {
@@ -51,7 +50,7 @@ class RegisterSuccess extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: ((context) => const LoginScreen()),
+                  builder: ((context) => const WellcomeScreen()),
                 ),
               );
             },

@@ -13,11 +13,13 @@ import 'package:three_s/utils/constants/color.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
+import 'chose_account.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({super.key, required this.type});
   @override
   State<LoginScreen> createState() => _LoginScreenState();
+  final String type;
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -30,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return regExp.hasMatch(phoneNo);
   }
 
+  bool _isLoading = false;
   TextEditingController? passController = TextEditingController();
   TextEditingController? studenIdController = TextEditingController();
   Future<void> _makePhoneCall(String phoneNumber) async {
@@ -126,7 +129,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           Icons.person_2_outlined,
                           color: subBlack,
                         ),
-                        hintText: 'Số điện thoại phụ huynh/học sinh',
+                        hintText: (widget.type == 'hs')
+                            ? 'Số điện thoại học sinh'
+                            : 'Số điện thoại phụ huynh',
                         border: const OutlineInputBorder(
                             borderSide: BorderSide.none),
                         hintStyle: TextStyle(
@@ -163,43 +168,45 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(8.r)),
                     color: const Color(0xffF4F1F3),
                   ),
-                  child: TextField(
-                    obscureText: _isObscure,
-                    obscuringCharacter: "*",
-                    style: defaultText16,
-                    controller: passController,
-                    focusNode: _focusNode,
-                    scrollPadding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).viewInsets.bottom),
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: subBlack,
-                      ),
-                      hintText: 'Mật khẩu',
-                      border:
-                          const OutlineInputBorder(borderSide: BorderSide.none),
-                      hintStyle: TextStyle(
-                        fontSize: 16.sp,
-                        color: subBlack,
-                      ),
-                      suffix: IconButton(
-                        padding: const EdgeInsets.all(0),
-                        iconSize: 20.0,
-                        icon: _isObscure
-                            ? const Icon(
-                                Icons.visibility_off,
-                                color: Colors.grey,
-                              )
-                            : const Icon(
-                                Icons.visibility,
-                                color: Colors.black,
-                              ),
-                        onPressed: () {
-                          setState(() {
-                            _isObscure = !_isObscure;
-                          });
-                        },
+                  child: Center(
+                    child: TextField(
+                      obscureText: _isObscure,
+                      obscuringCharacter: "*",
+                      style: defaultText16,
+                      controller: passController,
+                      focusNode: _focusNode,
+                      scrollPadding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).viewInsets.bottom),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.lock_outline,
+                          color: subBlack,
+                        ),
+                        hintText: 'Mật khẩu',
+                        border: const OutlineInputBorder(
+                            borderSide: BorderSide.none),
+                        hintStyle: TextStyle(
+                          fontSize: 16.sp,
+                          color: subBlack,
+                        ),
+                        suffixIcon: IconButton(
+                          padding: const EdgeInsets.all(0),
+                          iconSize: 20.0,
+                          icon: _isObscure
+                              ? const Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.grey,
+                                )
+                              : const Icon(
+                                  Icons.visibility,
+                                  color: Colors.black,
+                                ),
+                          onPressed: () {
+                            setState(() {
+                              _isObscure = !_isObscure;
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -236,7 +243,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 InkWell(
                   onTap: () async {
+                    setState(() {
+                      _isLoading = true;
+                    });
                     if (isPhoneNoValid(studenIdController?.text) == false) {
+                      setState(() {
+                        _isLoading = false;
+                      });
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -271,78 +284,156 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       );
                     } else {
-                      bool loged = await LoginRepo().login(
-                        studenIdController?.text ?? '',
-                        passController?.text ?? '',
-                      );
-                      if (loged == true) {
-                        //await LoginRepo().getToken();
-                        InfoModel infoModel = await InfoRepo().getInfo();
-                        List<UpcommingModel> upcommingModel =
-                            await CourseRepo().getUpcommingClass();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: ((context) => BottomNavBar(
-                                  type: 0,
-                                  categories: listCate,
-                                  infoModel: infoModel,
-                                  upcommingModel: upcommingModel,
-                                )),
-                          ),
+                      // Đăng nhập tài khoản học sinhsinh
+                      if (widget.type == 'hs') {
+                        bool loged = await LoginRepo().login(
+                          studenIdController?.text ?? '',
+                          passController?.text ?? '',
                         );
-                      } else {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CupertinoAlertDialog(
-                              title: const Text('Vui lòng thử lại'),
-                              content: const Text(
-                                  'Vui lòng kiểm tra lại mã học sinh và mật khẩu của bạn'),
-                              actions: <Widget>[
-                                CupertinoDialogAction(
-                                  isDefaultAction: true,
-                                  child: Text(
-                                    'Yes',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: primary500,
+                        if (loged == true) {
+                          //await LoginRepo().getToken();
+                          InfoModel infoModel = await InfoRepo().getInfo();
+                          List<UpcommingModel> upcommingModel =
+                              await CourseRepo().getUpcommingClass();
+                          //comment tam ti mo
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: ((context) => BottomNavBar(
+                                    type: 0,
+                                    categories: listCate,
+                                    infoModel: infoModel,
+                                    upcommingModel: upcommingModel,
+                                  )),
+                            ),
+                          );
+                        } else {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CupertinoAlertDialog(
+                                title: const Text('Vui lòng thử lại'),
+                                content: const Text(
+                                    'Vui lòng kiểm tra lại mã học sinh và mật khẩu của bạn'),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    isDefaultAction: true,
+                                    child: Text(
+                                      'Yes',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: primary500,
+                                      ),
                                     ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .pop(
-                                      (_) => false,
-                                    );
-                                  },
-                                )
-                              ],
-                            );
-                          },
+                                    onPressed: () {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pop(
+                                        (_) => false,
+                                      );
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      }
+                      // Đăng nhập tài khoản phụ huynh
+                      else {
+                        bool loged = await LoginRepo().loginParent(
+                          studenIdController?.text ?? '',
+                          passController?.text ?? '',
                         );
+                        if (loged == true) {
+                          List<ChildrenInfoModel> listChildModel =
+                              await LoginRepo().getListChillren();
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: ((context) => ChoseAccount(
+                                    listChildrenModel: listChildModel,
+                                  )),
+                            ),
+                          );
+                        } else {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CupertinoAlertDialog(
+                                title: const Text('Vui lòng thử lại'),
+                                content: const Text(
+                                    'Vui lòng kiểm tra lại mã học sinh và mật khẩu của bạn'),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    isDefaultAction: true,
+                                    child: Text(
+                                      'Yes',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: primary500,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context, rootNavigator: true)
+                                          .pop(
+                                        (_) => false,
+                                      );
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        }
                       }
                     }
+                    // AppRouter.toPage(
+                    //   context,
+                    //   AppPages.ChoseAccountPage,
+                    // );
                   },
-                  child: Container(
-                    height: 48.h,
-                    width: 340.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9.r),
-                      color: key1Color,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Đăng nhập',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
+                  child: _isLoading
+                      ? Center(
+                          child: SizedBox(
+                            width: 48.w,
+                            height: 48.h,
+                            child: const CircularProgressIndicator(),
+                          ),
+                        )
+                      : Container(
+                          height: 48.h,
+                          width: 340.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(9.r),
+                            color: key1Color,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Đăng nhập',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                 ),
+                // Đăng nhập nếu là phụ huynh
+
                 SizedBox(
                   height: 10.h,
                 ),

@@ -1,11 +1,15 @@
+import "dart:io";
+
 import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
+import "package:onesignal_flutter/onesignal_flutter.dart";
 import "package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart";
 import "package:three_s/modules/bottom_nav_bar/calender.dart";
 import "package:three_s/modules/models/course_model.dart";
 import "package:three_s/modules/models/info_model.dart";
 import "package:three_s/utils/constants/color.dart";
 import 'package:flutter_svg/flutter_svg.dart';
+import "../../utils/onesignal.dart";
 import "course_screen.dart";
 import "home/guess_screen.dart";
 import "home/home_screen.dart";
@@ -32,7 +36,32 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   void initState() {
     super.initState();
-    //setupOneSignal();
+    setupOneSignal();
+  }
+
+  Future<void> setupOneSignal() async {
+    await initOneSignal();
+    if (Platform.isAndroid) {
+      OneSignal.Notifications.addClickListener((event) {
+        print('NOTIFICATION CLICK LISTENER CALLED WITH EVENT: $event');
+      });
+    } else {
+      //do nothing :v tự báo chính mình
+      OneSignal.Notifications.addClickListener((event) {});
+    }
+
+    promptPolicyPrivacy();
+  }
+
+  Future<void> promptPolicyPrivacy() async {
+    if (Platform.isAndroid) {
+      OneSignal.consentRequired(true);
+      OneSignal.consentGiven(true);
+    } else {
+      //do nothing :v
+    }
+
+    // sendUserTag(userId);
   }
 
   // Future<void> setupOneSignal() async {

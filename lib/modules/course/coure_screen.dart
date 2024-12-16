@@ -130,20 +130,11 @@ class CoureScreen extends StatelessWidget {
                   thickness: 6.h,
                   color: const Color(0xfff0f0f0),
                 ),
-                // SizedBox(
-                //   height: 400.h,
-                //   width: 375.w,
-                //   child: const CourseTabbar(''),
-                // ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int index) {
-                      return LessonItem(
-                        title: index,
-                      );
-                    }),
+                SizedBox(
+                  height: 400.h,
+                  width: 375.w,
+                  child: const CourseTabbar(''),
+                ),
                 SizedBox(
                   height: 100.h,
                 ),

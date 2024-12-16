@@ -88,15 +88,44 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
               //   child: const _PieChart(),
               // ),
 
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemCount: widget.infoCheckinModel.homeWork.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return _HomeworkItem(
-                      model: widget.infoCheckinModel.homeWork[index],
-                    );
-                  }),
+              Column(
+                children: [
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: widget.infoCheckinModel.homeWork.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return _HomeworkItem(
+                          model: widget.infoCheckinModel.homeWork[index],
+                        );
+                      }),
+                  Container(
+                    width: 343.w,
+                    height: 52.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(12.r),
+                      ),
+                      color: const Color(0xffF4F6F9),
+                      border: Border.all(),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/icons/upload.svg',
+                        ),
+                        Text(
+                          '  Upload bài tập',
+                          style: defaultBoldText.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
               //Tài liệu
               SizedBox(
                 width: 343.w,

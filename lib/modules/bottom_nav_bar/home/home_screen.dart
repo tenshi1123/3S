@@ -41,6 +41,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final controller = PageController(viewportFraction: 1, keepPage: true);
+  bool isLoading = false;
+  bool isLoading2 = false;
   late final int type;
   @override
   void initState() {
@@ -250,9 +252,21 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 GestureDetector(
                   onTap: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
+
                     if (type == 0) {
                       List<ClassModel> listClass =
                           await ClassRepo().listClass();
+                      // AppRouter.toPage(context, AppPages.ListClassScreen,
+                      //     // blocValue: _authBloc,
+                      //     arguments: {
+                      //       'listClasses': listClass,
+                      //     });
+                      setState(() {
+                        isLoading = false;
+                      });
                       pushWithoutNavBar(
                         context,
                         MaterialPageRoute(
@@ -262,6 +276,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     } else {
+                      setState(() {
+                        isLoading = false;
+                      });
                       pushWithoutNavBar(
                         context,
                         MaterialPageRoute(
@@ -270,17 +287,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                   },
-                  child: Image.asset(
-                    'assets/images/follow_class.png',
-                    width: 164.w,
-                    height: 116.h,
-                  ),
+                  child: isLoading
+                      ? Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
+                          child: SizedBox(
+                            width: 100.w,
+                            height: 100.h,
+                            child: const CircularProgressIndicator(),
+                          ),
+                        )
+                      : Image.asset(
+                          'assets/images/follow_class.png',
+                          width: 164.w,
+                          height: 116.h,
+                        ),
                 ),
                 GestureDetector(
                   onTap: () async {
+                    setState(() {
+                      isLoading2 = true;
+                    });
                     if (type == 0) {
                       List<ScheduleModel> listSchedule =
                           await ReportRepo().getSchedule();
+                      setState(() {
+                        isLoading2 = false;
+                      });
                       pushWithoutNavBar(
                         context,
                         MaterialPageRoute(
@@ -290,6 +322,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     } else {
+                      setState(() {
+                        isLoading2 = false;
+                      });
                       pushWithoutNavBar(
                         context,
                         MaterialPageRoute(
@@ -298,11 +333,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     }
                   },
-                  child: Image.asset(
-                    'assets/images/monthly_summary.png',
-                    width: 164.w,
-                    height: 116.h,
-                  ),
+                  child: isLoading2
+                      ? Padding(
+                          padding: const EdgeInsets.fromLTRB(15, 0, 0, 15),
+                          child: SizedBox(
+                            width: 100.w,
+                            height: 100.h,
+                            child: const CircularProgressIndicator(),
+                          ),
+                        )
+                      : Image.asset(
+                          'assets/images/monthly_summary.png',
+                          width: 164.w,
+                          height: 116.h,
+                        ),
                 ),
               ],
             ),

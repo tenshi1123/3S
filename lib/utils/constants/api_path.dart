@@ -4,6 +4,8 @@ class ApiPath {
 
   // api về đăng nhập, các thông tin của học sinh
   static const String login = '$baseUrl/login';
+  static const String loginParent = '$baseUrl/login/parents';
+  static const String getlistChildren = '$baseUrl/parents/children';
   static const String register = '$baseUrl/register';
   static const String forgotPassword = '$baseUrl/forgot-password';
   static const String refreshToken = '$baseUrl/refresh-token';

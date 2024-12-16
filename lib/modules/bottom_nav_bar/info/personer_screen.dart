@@ -9,12 +9,25 @@ import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../login/login_screen.dart';
+import '../../../main.dart';
+import '../../../repo/course_repo.dart';
+import '../../../repo/info_repo.dart';
+import '../../../repo/login_repo.dart';
+import '../../models/course_model.dart';
+import '../../splash/wellcome_screen.dart';
+import '../bottom_nav_bar.dart';
 import 'info_screen.dart';
 
-class PersonerScreen extends StatelessWidget {
+class PersonerScreen extends StatefulWidget {
   const PersonerScreen({super.key, this.infoModel});
   final InfoModel? infoModel;
+
+  @override
+  State<PersonerScreen> createState() => _PersonerScreenState();
+}
+
+class _PersonerScreenState extends State<PersonerScreen> {
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     Future<void> makePhoneCall(String phoneNumber) async {
@@ -43,7 +56,7 @@ class PersonerScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 32.r,
                     backgroundColor: Colors.grey,
-                    backgroundImage: NetworkImage(infoModel!.avatar),
+                    backgroundImage: NetworkImage(widget.infoModel!.avatar),
                     //child: const Text('AH'),
                   ),
                   SizedBox(
@@ -54,7 +67,7 @@ class PersonerScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        infoModel!.fullName,
+                        widget.infoModel!.fullName,
                         style: defaultText18.copyWith(
                           color: primary500,
                           fontWeight: FontWeight.w600,
@@ -62,7 +75,7 @@ class PersonerScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        infoModel!.phone,
+                        widget.infoModel!.phone,
                         style: defaultText14.copyWith(
                           color: const Color(
                             0xff8A8A8A,
@@ -79,7 +92,7 @@ class PersonerScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: ((context) => InfoUser(
-                                infoModel: infoModel,
+                                infoModel: widget.infoModel,
                               )),
                         ),
                       );
@@ -103,7 +116,7 @@ class PersonerScreen extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {
                 pushWithoutNavBar(
                   context,
@@ -144,7 +157,7 @@ class PersonerScreen extends StatelessWidget {
               endIndent: 16.w,
               height: 30.h,
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {
                 makePhoneCall('19008978');
               },
@@ -186,7 +199,7 @@ class PersonerScreen extends StatelessWidget {
               endIndent: 16.w,
               height: 30.h,
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {
                 showDialog(
                   context: context,
@@ -262,35 +275,51 @@ class PersonerScreen extends StatelessWidget {
               height: 36.h,
               color: const Color(0xffF0F0F0),
             ),
-            GestureDetector(
-              onTap: () {
-                _showBottomSheet(context);
+            InkWell(
+              onTap: () async {
+                setState(() {
+                  _isLoading = true;
+                });
+                List<ChildrenInfoModel> listChildModel =
+                    await LoginRepo().getListChillren();
+                setState(() {
+                  _isLoading = false;
+                });
+                _showBottomSheet(context, listChildrenModel: listChildModel);
               },
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 16.w,
-                  ),
-                  SvgPicture.asset(
-                    'assets/icons/refresh.svg',
-                    height: 20.h,
-                    width: 20.w,
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    'Chuyển tài khoản',
-                    style:
-                        defaultText16.copyWith(color: const Color(0xff3C3C3C)),
-                  ),
-                  const Spacer(),
-                  Icon(Icons.keyboard_arrow_right_outlined, size: 20.h),
-                  SizedBox(
-                    width: 16.w,
-                  ),
-                ],
-              ),
+              child: _isLoading
+                  ? Center(
+                      child: SizedBox(
+                        width: 28.w,
+                        height: 28.h,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    )
+                  : Row(
+                      children: [
+                        SizedBox(
+                          width: 16.w,
+                        ),
+                        SvgPicture.asset(
+                          'assets/icons/refresh.svg',
+                          height: 20.h,
+                          width: 20.w,
+                        ),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Text(
+                          'Chuyển tài khoản',
+                          style: defaultText16.copyWith(
+                              color: const Color(0xff3C3C3C)),
+                        ),
+                        const Spacer(),
+                        Icon(Icons.keyboard_arrow_right_outlined, size: 20.h),
+                        SizedBox(
+                          width: 16.w,
+                        ),
+                      ],
+                    ),
             ),
             Divider(
               thickness: 1.h,
@@ -298,7 +327,7 @@ class PersonerScreen extends StatelessWidget {
               endIndent: 16.w,
               height: 30.h,
             ),
-            GestureDetector(
+            InkWell(
               onTap: () => _dialogBuilder(
                 context,
                 title: 'Đăng xuất',
@@ -373,7 +402,7 @@ Future<void> _dialogBuilder(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: ((context) => const LoginScreen()),
+                  builder: ((context) => const WellcomeScreen()),
                 ),
               );
             },
@@ -384,7 +413,8 @@ Future<void> _dialogBuilder(
   );
 }
 
-void _showBottomSheet(BuildContext context) {
+void _showBottomSheet(BuildContext context,
+    {required List<ChildrenInfoModel> listChildrenModel}) {
   showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -409,48 +439,78 @@ void _showBottomSheet(BuildContext context) {
               SizedBox(
                 height: 20.h,
               ),
-              SizedBox(
-                width: 343.w,
-                height: 52.h,
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 26.r,
-                      backgroundColor: Colors.grey,
-                      backgroundImage:
-                          const NetworkImage('https://i.imgur.com/nhETfUw.png'),
-                      //child: const Text('AH'),
-                    ),
-                    SizedBox(
-                      width: 5.w,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Phạm Thế Anh',
-                          style: defaultText18.copyWith(
-                            color: primary500,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18.sp,
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const ScrollPhysics(),
+                itemCount: listChildrenModel.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () async {
+                      final SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setString(
+                          'token', listChildrenModel[index].refreshToken);
+                      InfoModel infoModel = await InfoRepo().getInfo();
+                      List<UpcommingModel> upcommingModel =
+                          await CourseRepo().getUpcommingClass();
+                      //comment tam ti mo
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => BottomNavBar(
+                                type: 0,
+                                categories: listCate,
+                                infoModel: infoModel,
+                                upcommingModel: upcommingModel,
+                              )),
+                        ),
+                      );
+                    },
+                    child: SizedBox(
+                      width: 343.w,
+                      height: 72.h,
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 26.r,
+                            backgroundColor: Colors.grey,
+                            backgroundImage:
+                                NetworkImage(listChildrenModel[index].img),
+                            //child: const Text('AH'),
                           ),
-                        ),
-                        Text(
-                          'Đã đăng nhập',
-                          style: defaultText14.copyWith(
-                              color: const Color(
-                            0xff8A8A8A,
-                          )),
-                        ),
-                      ],
+                          SizedBox(
+                            width: 5.w,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                listChildrenModel[index].nameChild,
+                                style: defaultText18.copyWith(
+                                  color: primary500,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.sp,
+                                ),
+                              ),
+                              Text(
+                                'Đã đăng nhập',
+                                style: defaultText14.copyWith(
+                                    color: const Color(
+                                  0xff8A8A8A,
+                                )),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          SvgPicture.asset(
+                            'assets/icons/tick.svg',
+                          ),
+                        ],
+                      ),
                     ),
-                    const Spacer(),
-                    SvgPicture.asset(
-                      'assets/icons/tick.svg',
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
               Divider(
                 thickness: 1.h,

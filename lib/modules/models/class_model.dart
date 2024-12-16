@@ -28,16 +28,22 @@ class ClassModel {
 class AttendanceModel {
   final String buoiHoc;
   final String createdDate;
+  final String time;
   final String timeStart;
   final String timeEnd;
+  final String noteCheckIn;
+  final String noteCheckOut;
   final String id;
   final String nameTeacher;
   final String gvStatus;
   AttendanceModel({
     required this.buoiHoc,
     required this.createdDate,
+    required this.time,
     required this.timeStart,
     required this.timeEnd,
+    required this.noteCheckIn,
+    required this.noteCheckOut,
     required this.id,
     required this.nameTeacher,
     required this.gvStatus,
@@ -46,8 +52,11 @@ class AttendanceModel {
     return AttendanceModel(
       buoiHoc: json['buoi_hoc'] ?? '',
       createdDate: json['created_date'] ?? '',
+      time: json['time'] ?? '',
       timeStart: json['time_start'] ?? '',
       timeEnd: json['time_end'] ?? '',
+      noteCheckIn: json['gv_note_check_in'] ?? '',
+      noteCheckOut: json['gv_note_check_out'] ?? '',
       id: json['event_checkin_off_id'] ?? '',
       nameTeacher: json['name_teacher'] ?? '',
       gvStatus: json['gv_status'] ?? '',

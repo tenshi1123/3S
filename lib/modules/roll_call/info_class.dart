@@ -295,6 +295,24 @@ class _ClassItem extends StatelessWidget {
                                             ),
                 ],
               ),
+              Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xffF5F5F5),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16.r),
+                  ),
+                ),
+                padding: EdgeInsets.fromLTRB(
+                  16.w,
+                  10.h,
+                  12.w,
+                  20.h,
+                ),
+                child: Text(
+                  '${model.noteCheckIn}\n${model.noteCheckOut}',
+                  style: defaultText14,
+                ),
+              ),
               const Divider(),
             ],
           ),

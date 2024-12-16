@@ -52,7 +52,7 @@ class DetailClass extends StatelessWidget {
             ),
             Divider(
               thickness: 6.h,
-              color: const Color(0xffF0F0F0),
+              color: const Color(0xffF0F0F0).withOpacity(0.5),
             ),
             SizedBox(
               height: 660.h,

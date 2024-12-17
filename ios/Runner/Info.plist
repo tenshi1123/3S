@@ -50,6 +50,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>This app requires access to the photo library to send image.</string>
+    <string>This app requires access to the photo library to send image to teacher</string>
 </dict>
 </plist>

@@ -399,7 +399,7 @@ Future<void> _dialogBuilder(
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();
               await prefs.remove('token');
-              Navigator.push(
+              pushWithoutNavBar(
                 context,
                 MaterialPageRoute(
                   builder: ((context) => const WellcomeScreen()),

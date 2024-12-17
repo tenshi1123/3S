@@ -5,6 +5,7 @@ import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../register/register.dart';
+import '../../splash/wellcome_screen.dart';
 
 class GuessScreen extends StatelessWidget {
   const GuessScreen({super.key, required this.title});
@@ -46,6 +47,14 @@ class GuessScreen extends StatelessWidget {
               height: 30.h,
             ),
             GestureDetector(
+              onTap: () {
+                pushWithoutNavBar(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => const WellcomeScreen()),
+                  ),
+                );
+              },
               child: Container(
                 height: 38.h,
                 width: 180.w,

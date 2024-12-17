@@ -61,7 +61,11 @@ class ApiPath {
 
   //Chi tiết thông báo
   static const String getDetailNoti = '$baseUrl/notification/detail';
-
+  //Gửi thông tin onesignal id
+  static const String pushOnsignalId = '$baseUrl/notify/onesignal_id';
   //Cập nhật trạng thái khi ấn vào chi tiết
   static const String updateStatusNoti = '$baseUrl/notification/update';
+
+  // gửi bài tập
+  static const String uploadHomeWork = '$baseUrl/detail/homework/upload';
 }

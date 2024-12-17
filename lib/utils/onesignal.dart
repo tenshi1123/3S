@@ -1,4 +1,5 @@
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:three_s/repo/login_repo.dart';
 
 const oneSignalAppId = "";
 
@@ -7,6 +8,8 @@ Future<void> initOneSignal() async {
   OneSignal.Notifications.requestPermission(true).then((value) {
     print('signal value : $value');
   });
+  var onesignalId = await OneSignal.User.getOnesignalId();
+  await LoginRepo().pushOnesignalId(onesignalId ?? '');
 }
 
 void registerOneSignalEventListener({

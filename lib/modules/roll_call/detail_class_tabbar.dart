@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ import 'package:three_s/utils/constants/styles.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DetailClassTabbar extends StatefulWidget {
   const DetailClassTabbar({super.key, required this.infoCheckinModel});
@@ -20,7 +22,7 @@ class DetailClassTabbar extends StatefulWidget {
 class _DetailClassTabbarState extends State<DetailClassTabbar>
     with TickerProviderStateMixin {
   late final TabController _tabController;
-
+  List<File> photos = <File>[];
   @override
   void initState() {
     super.initState();
@@ -31,6 +33,23 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  Future _pickImageFromGallery(String id) async {
+    final returnedImage = await ImagePicker().pickMultiImage();
+    photos = List<File>.from(
+      (returnedImage).map(
+        (e) => File(e.path),
+      ),
+    );
+    //File(returnedImage!.path);
+    if (photos.isNotEmpty) {
+      ClassRepo().uploadExcercise(
+        id,
+        photos,
+      );
+    }
+    setState(() {});
   }
 
   @override
@@ -95,35 +114,46 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
                       physics: const ClampingScrollPhysics(),
                       itemCount: widget.infoCheckinModel.homeWork.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _HomeworkItem(
-                          model: widget.infoCheckinModel.homeWork[index],
+                        return Column(
+                          children: [
+                            _HomeworkItem(
+                              model: widget.infoCheckinModel.homeWork[index],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                _pickImageFromGallery(widget.infoCheckinModel
+                                    .homeWork[index].lessonDocumentId);
+                              },
+                              child: Container(
+                                width: 343.w,
+                                height: 52.h,
+                                margin: EdgeInsets.symmetric(vertical: 10.h),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12.r),
+                                  ),
+                                  color: const Color(0xffF4F6F9),
+                                  border: Border.all(),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icons/upload.svg',
+                                    ),
+                                    Text(
+                                      '  Upload bài tập',
+                                      style: defaultBoldText.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         );
                       }),
-                  Container(
-                    width: 343.w,
-                    height: 52.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(12.r),
-                      ),
-                      color: const Color(0xffF4F6F9),
-                      border: Border.all(),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/icons/upload.svg',
-                        ),
-                        Text(
-                          '  Upload bài tập',
-                          style: defaultBoldText.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
               //Tài liệu

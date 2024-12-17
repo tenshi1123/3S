@@ -88,6 +88,7 @@ class InfoClassModel {
 class HomeWorkModel {
   final String image;
   final String name;
+  final String lessonDocumentId;
   final String timeDeadline;
   final String notes;
   final String nameTeacher;
@@ -96,6 +97,7 @@ class HomeWorkModel {
   HomeWorkModel({
     required this.image,
     required this.name,
+    required this.lessonDocumentId,
     required this.timeDeadline,
     required this.notes,
     required this.nameTeacher,
@@ -104,13 +106,14 @@ class HomeWorkModel {
   });
   factory HomeWorkModel.fromJson(Map<String, dynamic> json) {
     return HomeWorkModel(
-      image: json['course_schedule_img'],
-      name: json['name'],
-      timeDeadline: json['time_deadline'],
-      notes: json['note'],
-      nameTeacher: json['name_teacher'],
-      isSubmit: json['is_submit_homework'],
-      id: json['class_lesson_document_customer_id'],
+      image: json['course_schedule_img'] ?? '',
+      name: json['name'] ?? '',
+      lessonDocumentId: json['class_lesson_document_id'] ?? '',
+      timeDeadline: json['time_deadline'] ?? '',
+      notes: json['note'] ?? '',
+      nameTeacher: json['name_teacher'] ?? '',
+      isSubmit: json['is_submit_homework'] ?? '',
+      id: json['class_lesson_document_customer_id'] ?? '',
     );
   }
 }

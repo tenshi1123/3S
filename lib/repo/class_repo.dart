@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:three_s/modules/models/class_model.dart';
@@ -67,5 +69,27 @@ class ClassRepo {
             .map((e) => DetailHomeWorkModel.fromJson(e))
             .toList();
     return result;
+  }
+
+  Future uploadExcercise(String id, List<File> photo) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    var formData = FormData.fromMap({
+      'class_lesson_document_id': int.parse(id),
+      'file': [
+        await MultipartFile.fromFile(photo[0].path,
+            filename: photo[0].path.split('/').last),
+      ]
+    });
+    for (var file in photo) {
+      formData.files.addAll([
+        MapEntry(
+            "files",
+            await MultipartFile.fromFile(file.path,
+                filename: file.path.split('/').last)),
+      ]);
+    }
+    await dio.post(ApiPath.uploadHomeWork, data: formData);
   }
 }

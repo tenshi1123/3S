@@ -60,34 +60,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
     } else {
       //do nothing :v
     }
-
     // sendUserTag(userId);
   }
-
-  // Future<void> setupOneSignal() async {
-  //   await initOneSignal();
-  //   if (Platform.isAndroid) {
-  //     OneSignal.Notifications.addClickListener((event) {
-  //       print('NOTIFICATION CLICK LISTENER CALLED WITH EVENT: $event');
-  //     });
-  //   } else {
-  //     //do nothing :v tự báo chính mình
-  //     OneSignal.Notifications.addClickListener((event) {});
-  //   }
-
-  //   promptPolicyPrivacy();
-  // }
-
-  // Future<void> promptPolicyPrivacy() async {
-  //   if (Platform.isAndroid) {
-  //     OneSignal.consentRequired(true);
-  //     OneSignal.consentGiven(true);
-  //   } else {
-  //     //do nothing :v
-  //   }
-
-  //   // sendUserTag(userId);
-  // }
 
   List<PersistentTabConfig> _tabs() => [
         PersistentTabConfig(

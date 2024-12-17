@@ -124,4 +124,15 @@ class LoginRepo {
     await prefs.setString('token', mocktoken);
     return mocktoken;
   }
+
+  Future pushOnesignalId(String id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    if (token != null) {
+      dio.options.headers['Authorization'] = 'Bearer $token';
+      await dio.post(ApiPath.pushOnsignalId, data: {
+        'onesignal_id': id,
+      });
+    }
+  }
 }

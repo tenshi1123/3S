@@ -141,6 +141,10 @@ class _ClassItem extends StatelessWidget {
                       style: defaultText14.copyWith(height: 1.8.h),
                     ),
                     Text(
+                      'Ca học',
+                      style: defaultText14.copyWith(height: 1.8.h),
+                    ),
+                    Text(
                       'Giờ đến lớp:',
                       style: defaultText14.copyWith(height: 1.8.h),
                     ),
@@ -166,6 +170,14 @@ class _ClassItem extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           color: primary500,
                           height: 1.8.h),
+                    ),
+                    Text(
+                      model.time,
+                      style: defaultText14.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: primary500,
+                        height: 1.8.h,
+                      ),
                     ),
                     Text(
                       model.timeStart,
@@ -237,7 +249,7 @@ class _ClassItem extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'Check out',
+                                    'Check in',
                                     style: defaultText12.copyWith(
                                       color: Colors.white,
                                     ),
@@ -263,8 +275,7 @@ class _ClassItem extends StatelessWidget {
                                   )
                                 : (int.parse(model.gvStatus) == 4)
                                     ? Container(
-                                        width: 64.w,
-                                        height: 28.h,
+                                        padding: const EdgeInsets.all(5),
                                         decoration: BoxDecoration(
                                           color: const Color(0xff2F9CD3),
                                           borderRadius:
@@ -272,7 +283,7 @@ class _ClassItem extends StatelessWidget {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            'Xin về sớm',
+                                            'Check out',
                                             style: defaultText12.copyWith(
                                               color: Colors.white,
                                             ),

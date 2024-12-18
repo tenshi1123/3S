@@ -76,20 +76,21 @@ class ClassRepo {
     final String? token = prefs.getString('token');
     dio.options.headers['Authorization'] = 'Bearer $token';
     var formData = FormData.fromMap({
-      'class_lesson_document_id': int.parse(id),
+      'class_lesson_document_id': id,
       'file': [
         await MultipartFile.fromFile(photo[0].path,
             filename: photo[0].path.split('/').last),
       ]
     });
-    for (var file in photo) {
-      formData.files.addAll([
-        MapEntry(
-            "files",
-            await MultipartFile.fromFile(file.path,
-                filename: file.path.split('/').last)),
-      ]);
-    }
-    await dio.post(ApiPath.uploadHomeWork, data: formData);
+    // for (var file in photo) {
+    //   formData.files.addAll([
+    //     MapEntry(
+    //         "file",
+    //         await MultipartFile.fromFile(file.path,
+    //             filename: file.path.split('/').last)),
+    //   ]);
+    // }
+    Response response;
+    response = await dio.post(ApiPath.uploadHomeWork, data: formData);
   }
 }

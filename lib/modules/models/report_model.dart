@@ -1,5 +1,5 @@
 class ReportPoint {
-  final int pointAvg;
+  final int? pointAvg;
   final List<ListPointModel> listPoints;
   ReportPoint({
     required this.pointAvg,
@@ -7,7 +7,7 @@ class ReportPoint {
   });
   factory ReportPoint.fromJson(Map<String, dynamic> json) {
     return ReportPoint(
-        pointAvg: json['point_avg'] ?? '',
+        pointAvg: int.tryParse(json['point_avg'] ?? ''),
         listPoints: List<ListPointModel>.from(
           json['list'].map(
             (e) => ListPointModel.fromJson(e),

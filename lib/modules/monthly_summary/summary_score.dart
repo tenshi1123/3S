@@ -55,35 +55,40 @@ class SummaryScore extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 250.dg,
-              width: 300.dg,
-              child: PieChart(
-                score: reportPoint.pointAvg,
-              ),
-            ),
-            Text(
-              'Thật tuyệt vời!',
-              style: defaultBoldText.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 20.sp,
-              ),
-            ),
+            (reportPoint.pointAvg != null)
+                ? SizedBox(
+                    height: 250.dg,
+                    width: 300.dg,
+                    child: PieChart(
+                      score: reportPoint.pointAvg ?? 0,
+                    ),
+                  )
+                : const SizedBox(),
+            (reportPoint.pointAvg == null)
+                ? Text(
+                    'Chưa có điểm tổng kết tháng',
+                    style: defaultBoldText.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20.sp,
+                    ),
+                  )
+                : Text(
+                    'Thật tuyệt vời!',
+                    style: defaultBoldText.copyWith(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20.sp,
+                    ),
+                  ),
             SizedBox(
               height: 20.h,
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 16.w,
-                ),
-                Text(
-                  'Bảng điểm trung bình theo buổi học',
-                  style: defaultText16.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xff292929)),
-                ),
-              ],
+            Center(
+              child: Text(
+                'Bảng điểm trung bình theo buổi học',
+                style: defaultText16.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xff292929)),
+              ),
             ),
             SizedBox(
               height: 16.h,

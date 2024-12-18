@@ -11,6 +11,7 @@ import 'package:d_chart/d_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 
 class DetailClassTabbar extends StatefulWidget {
   const DetailClassTabbar({super.key, required this.infoCheckinModel});
@@ -22,6 +23,7 @@ class DetailClassTabbar extends StatefulWidget {
 class _DetailClassTabbarState extends State<DetailClassTabbar>
     with TickerProviderStateMixin {
   late final TabController _tabController;
+  bool _isLoading = false;
   List<File> photos = <File>[];
   @override
   void initState() {
@@ -36,17 +38,46 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
   }
 
   Future _pickImageFromGallery(String id) async {
-    final returnedImage = await ImagePicker().pickMultiImage();
-    photos = List<File>.from(
-      (returnedImage).map(
-        (e) => File(e.path),
-      ),
-    );
+    //final returnedImage = await ImagePicker().pickMultiImage();
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    // photos = List<File>.from(
+    //   (returnedImage).map(
+    //     (e) => File(e.path),
+    //   ),
+    // );
+
     //File(returnedImage!.path);
-    if (photos.isNotEmpty) {
-      ClassRepo().uploadExcercise(
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      await ClassRepo().uploadExcercise(
         id,
-        photos,
+        [file],
+      );
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              'Thông báo',
+              style: defaultText14,
+            ),
+            content: Text(
+              'Bạn đã chọn ảnh thành công!',
+              style: defaultText14,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _isLoading = false;
+                  });
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
       );
     }
     setState(() {});
@@ -109,51 +140,67 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
 
               Column(
                 children: [
-                  ListView.builder(
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      itemCount: widget.infoCheckinModel.homeWork.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            _HomeworkItem(
-                              model: widget.infoCheckinModel.homeWork[index],
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                _pickImageFromGallery(widget.infoCheckinModel
-                                    .homeWork[index].lessonDocumentId);
-                              },
-                              child: Container(
-                                width: 343.w,
-                                height: 52.h,
-                                margin: EdgeInsets.symmetric(vertical: 10.h),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12.r),
-                                  ),
-                                  color: const Color(0xffF4F6F9),
-                                  border: Border.all(),
+                  _isLoading
+                      ? Center(
+                          child: SizedBox(
+                            width: 28.w,
+                            height: 28.h,
+                            child: const CircularProgressIndicator(),
+                          ),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount: widget.infoCheckinModel.homeWork.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              children: [
+                                _HomeworkItem(
+                                  model:
+                                      widget.infoCheckinModel.homeWork[index],
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/icons/upload.svg',
-                                    ),
-                                    Text(
-                                      '  Upload bài tập',
-                                      style: defaultBoldText.copyWith(
-                                        fontWeight: FontWeight.w700,
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+                                    _pickImageFromGallery(widget
+                                        .infoCheckinModel
+                                        .homeWork[index]
+                                        .lessonDocumentId);
+                                  },
+                                  child: Container(
+                                    width: 343.w,
+                                    height: 52.h,
+                                    margin:
+                                        EdgeInsets.symmetric(vertical: 10.h),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(12.r),
                                       ),
+                                      color: const Color(0xffF4F6F9),
+                                      border: Border.all(),
                                     ),
-                                  ],
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/icons/upload.svg',
+                                        ),
+                                        Text(
+                                          '  Upload bài tập',
+                                          style: defaultBoldText.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
+                              ],
+                            );
+                          }),
                 ],
               ),
               //Tài liệu
@@ -504,16 +551,16 @@ class _HomeworkItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        // if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
-        //   throw Exception('Could not launch ');
-        // }
-        List<DetailHomeWorkModel> detail1 =
-            await ClassRepo().getDetailHomework(model.id);
-        _dialogBuilder(
-          context,
-          detail1: detail1,
-          title: model.name,
-        );
+        if (!await launchUrl(Uri.parse(model.image))) {
+          throw Exception('Could not launch ');
+        }
+        // List<DetailHomeWorkModel> detail1 =
+        //     await ClassRepo().getDetailHomework(model.id);
+        // _dialogBuilder(
+        //   context,
+        //   detail1: detail1,
+        //   title: model.name,
+        // );
       },
       child: Container(
         width: 343.w,

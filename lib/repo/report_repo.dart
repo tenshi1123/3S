@@ -20,7 +20,7 @@ class ReportRepo {
     return result;
   }
 
-  Future<ReportPoint> getReportPoint(String id) async {
+  Future<ReportPoint> getReportPoint(String id, DateTime date) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     dio.options.headers['Authorization'] = 'Bearer $token';
@@ -29,6 +29,8 @@ class ReportRepo {
       ApiPath.reportPoint,
       queryParameters: {
         'course_schedule_id': id,
+        'month': date.month,
+        'year': date.year
       },
     );
     ReportPoint result = ReportPoint.fromJson(response.data['data']);

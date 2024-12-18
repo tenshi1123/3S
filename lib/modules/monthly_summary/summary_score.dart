@@ -3,14 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:three_s/modules/models/report_model.dart';
 import 'package:three_s/utils/constants/color.dart';
+import '../../repo/report_repo.dart';
 import '../../utils/constants/styles.dart';
 import '../../utils/widget/excercise_tab_widget.dart';
 
-class SummaryScore extends StatelessWidget {
-  const SummaryScore(
-      {super.key, required this.reportPoint, required this.title});
-  final ReportPoint reportPoint;
+class SummaryScore extends StatefulWidget {
+  const SummaryScore({super.key, required this.title, required this.id});
+  final String id;
   final String title;
+
+  @override
+  State<SummaryScore> createState() => _SummaryScoreState();
+}
+
+class _SummaryScoreState extends State<SummaryScore> {
+  final ValueNotifier<DateTime> _counter =
+      ValueNotifier<DateTime>(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +41,7 @@ class SummaryScore extends StatelessWidget {
                   width: 20.w,
                 ),
                 Text(
-                  title,
+                  widget.title,
                   style: defaultText20.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
@@ -46,70 +55,126 @@ class SummaryScore extends StatelessWidget {
               thickness: 6.h,
               color: const Color(0xffF0F0F0),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-              child: Text(
-                'Tháng ${DateFormat('MM, yyyy').format(DateTime.now())}',
-                style: defaultText20.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            (reportPoint.pointAvg != null)
-                ? SizedBox(
-                    height: 250.dg,
-                    width: 300.dg,
-                    child: PieChart(
-                      score: reportPoint.pointAvg ?? 0,
-                    ),
-                  )
-                : const SizedBox(),
-            (reportPoint.pointAvg == null)
-                ? Text(
-                    'Chưa có điểm tổng kết tháng',
-                    style: defaultBoldText.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 20.sp,
-                    ),
-                  )
-                : Text(
-                    'Thật tuyệt vời!',
-                    style: defaultBoldText.copyWith(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 20.sp,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {});
+                    _counter.value = DateTime(_counter.value.year,
+                        _counter.value.month - 1, _counter.value.day);
+                  },
+                  child: Image.asset(
+                    'assets/images/icon_left.png',
+                    height: 36.h,
+                    fit: BoxFit.fitHeight,
                   ),
-            SizedBox(
-              height: 20.h,
+                ),
+                ValueListenableBuilder<DateTime>(
+                  builder:
+                      (BuildContext context, DateTime value, Widget? child) {
+                    return Text(
+                      'Tháng ${DateFormat('MM, yyyy').format(value)}',
+                      style: defaultText20.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    );
+                  },
+                  valueListenable: _counter,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _counter.value = DateTime(_counter.value.year,
+                        _counter.value.month + 1, _counter.value.day);
+                    setState(() {});
+                  },
+                  child: Image.asset(
+                    'assets/images/icon_right.png',
+                    height: 36.h,
+                    fit: BoxFit.fitHeight,
+                  ),
+                ),
+              ],
             ),
-            Center(
-              child: Text(
-                'Bảng điểm trung bình theo buổi học',
-                style: defaultText16.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xff292929)),
-              ),
+            FutureBuilder(
+              future: ReportRepo().getReportPoint(widget.id, _counter.value),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text(
+                    'Something went wrong',
+                    style: defaultText14,
+                  );
+                } else if (snapshot.hasData) {
+                  final reportPoint = snapshot.data as ReportPoint;
+                  return Column(
+                    children: [
+                      (reportPoint.pointAvg != null)
+                          ? SizedBox(
+                              height: 250.dg,
+                              width: 300.dg,
+                              child: PieChart(
+                                score: reportPoint.pointAvg ?? 0,
+                              ),
+                            )
+                          : const SizedBox(),
+                      (reportPoint.pointAvg == null)
+                          ? Text(
+                              'Chưa có điểm tổng kết tháng',
+                              style: defaultBoldText.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20.sp,
+                              ),
+                            )
+                          : Text(
+                              'Thật tuyệt vời!',
+                              style: defaultBoldText.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20.sp,
+                              ),
+                            ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Center(
+                        child: Text(
+                          'Bảng điểm trung bình theo buổi học',
+                          style: defaultText16.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xff292929)),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      reportPoint.listPoints.isEmpty
+                          ? Text(
+                              'Chưa có bài tập nào',
+                              style: defaultText16.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: primary500,
+                              ),
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: reportPoint.listPoints.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ClassItem(
+                                  model: reportPoint.listPoints[index],
+                                );
+                              }),
+                    ],
+                  );
+                } else {
+                  return Text(
+                    'Something went wrong2',
+                    style: defaultText14,
+                  );
+                }
+              },
             ),
-            SizedBox(
-              height: 16.h,
-            ),
-            reportPoint.listPoints.isEmpty
-                ? Text(
-                    'Chưa có bài tập nào',
-                    style: defaultText16.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: primary500,
-                    ),
-                  )
-                : ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: reportPoint.listPoints.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ClassItem(
-                        model: reportPoint.listPoints[index],
-                      );
-                    }),
             SizedBox(
               height: 20.h,
             ),

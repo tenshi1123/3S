@@ -10,7 +10,6 @@ import 'package:three_s/utils/constants/styles.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 
 class DetailClassTabbar extends StatefulWidget {
@@ -159,6 +158,13 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
                                   model:
                                       widget.infoCheckinModel.homeWork[index],
                                 ),
+                                Text(
+                                  '(*) Lưu ý: bạn chỉ nộp 1 file hoặc ảnh',
+                                  style: defaultText14.copyWith(
+                                    color: const Color(0xffDF1111),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
                                 GestureDetector(
                                   onTap: () {
                                     setState(() {
@@ -255,7 +261,7 @@ class _DocumentItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
+        if (!await launchUrl(Uri.parse(model.image))) {
           throw Exception('Could not launch ');
         }
       },
@@ -623,28 +629,32 @@ class _HomeworkItem extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                GestureDetector(
-                  onTap: () async {
-                    // if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
-                    //   throw Exception('Could not launch ');
-                    // }
-                    List<DetailHomeWorkModel> detail1 =
-                        await ClassRepo().getDetailHomework(model.id);
-                    if (detail1.isEmpty) {
-                      if (!await launchUrl(Uri.parse(model.image))) {
-                        throw Exception('Could not launch ');
-                      }
-                    } else {
-                      if (!await launchUrl(
-                          Uri.parse(detail1[0].linkHomework))) {
-                        throw Exception('Could not launch ');
-                      }
-                    }
-                  },
-                  child: SvgPicture.asset(
-                    'assets/icons/downloads.svg',
-                  ),
+                // quá mệt mỏi rồi không bấm gì nữa
+                SvgPicture.asset(
+                  'assets/icons/downloads.svg',
                 ),
+                // GestureDetector(
+                //   // onTap: () async {
+                //   //   // if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
+                //   //   //   throw Exception('Could not launch ');
+                //   //   // }
+                //   //   List<DetailHomeWorkModel> detail1 =
+                //   //       await ClassRepo().getDetailHomework(model.id);
+                //   //   if (detail1.isEmpty) {
+                //   //     if (!await launchUrl(Uri.parse(model.image))) {
+                //   //       throw Exception('Could not launch ');
+                //   //     }
+                //   //   } else {
+                //   //     if (!await launchUrl(
+                //   //         Uri.parse(detail1[0].linkHomework))) {
+                //   //       throw Exception('Could not launch ');
+                //   //     }
+                //   //   }
+                //   // },
+                //   child: SvgPicture.asset(
+                //     'assets/icons/downloads.svg',
+                //   ),
+                // ),
                 SizedBox(
                   width: 20.w,
                 ),

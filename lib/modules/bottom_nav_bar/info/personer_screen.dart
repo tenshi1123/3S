@@ -14,7 +14,7 @@ import '../../../repo/course_repo.dart';
 import '../../../repo/info_repo.dart';
 import '../../../repo/login_repo.dart';
 import '../../models/course_model.dart';
-import '../../splash/wellcome_screen.dart';
+import '../../splash/onboarding.dart';
 import '../bottom_nav_bar.dart';
 import 'info_screen.dart';
 
@@ -399,10 +399,10 @@ Future<void> _dialogBuilder(
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();
               await prefs.remove('token');
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: ((context) => const WellcomeScreen()),
+                  builder: (context) => const Onbonding(),
                 ),
               );
             },

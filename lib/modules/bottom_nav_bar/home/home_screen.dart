@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Container(
               width: 375.w,
-              height: 200.h,
+              height: 160.h,
               decoration: BoxDecoration(
                 color: primary600,
                 borderRadius: BorderRadius.vertical(
@@ -182,36 +182,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 20.h,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      pushWithoutNavBar(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SearchScreen(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      width: 343.w,
-                      height: 44.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.r),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          const Icon(Icons.search),
-                          Text(
-                            '  Bạn muốn tìm kiếm gì nào?',
-                            style: defaultText16.copyWith(color: subBlack),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     pushWithoutNavBar(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const SearchScreen(),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: Container(
+                  //     width: 343.w,
+                  //     height: 44.h,
+                  //     decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(12.r),
+                  //       color: Colors.white,
+                  //     ),
+                  //     child: Row(
+                  //       children: [
+                  //         SizedBox(
+                  //           width: 10.w,
+                  //         ),
+                  //         const Icon(Icons.search),
+                  //         Text(
+                  //           '  Bạn muốn tìm kiếm gì nào?',
+                  //           style: defaultText16.copyWith(color: subBlack),
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),
@@ -802,47 +802,6 @@ class NotificationItem extends StatelessWidget {
           ),
         ),
       ),
-      // Container(
-      //   margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-      //   padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 12.h),
-      //   width: 390.w,
-      //   height: 200.h,
-      //   decoration: BoxDecoration(
-      //     borderRadius: BorderRadius.all(Radius.circular(8.r)),
-      //     color: const Color(0xffDADEF1),
-      //   ),
-      //   child: Row(
-      //     children: [
-      //       Container(
-      //         height: 76.h,
-      //         width: 76.w,
-      //         decoration: BoxDecoration(
-      //           borderRadius: BorderRadius.all(
-      //             Radius.circular(8.r),
-      //           ),
-      //           color: const Color(0xff6B7AC7),
-      //         ),
-      //       ),
-      //       SizedBox(
-      //         width: 10.w,
-      //       ),
-      //       Flexible(
-      //         child: Column(
-      //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //           crossAxisAlignment: CrossAxisAlignment.start,
-      //           children: [
-      //             Text(
-      //               'Đây là slide ${index + 1}',
-      //               style: defaultBoldText.copyWith(
-      //                 color: keyBlack,
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       )
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

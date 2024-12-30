@@ -217,7 +217,7 @@ class _NewWidgetExampleState extends State<Calender> {
                     );
                   }
                 },
-              )
+              ),
             ],
           ),
         ],

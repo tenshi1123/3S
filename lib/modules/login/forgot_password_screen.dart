@@ -130,7 +130,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                       context,
                       MaterialPageRoute(
                         builder: ((context) => OtpScreen(
-                              contact: 'abcd',
+                              contact: studenIdController?.text ?? '',
                             )),
                       ),
                     );

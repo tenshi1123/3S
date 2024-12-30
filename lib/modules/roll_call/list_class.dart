@@ -33,29 +33,54 @@ class ListClass extends StatelessWidget {
           SizedBox(
             height: 620.h,
             width: 375.w,
-            child: ListView.builder(
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                itemCount: listClasses.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () async {
-                      InfoClassModel infoClass =
-                          await ClassRepo().getInfoClass(listClasses[index].id);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) => InfoClass(
-                                model: infoClass,
-                              )),
+            child:
+
+                // FutureBuilder(
+                //     future: CourseRepo().getScheduleList(DateFormat("dd-MM-yyyy")
+                //         .format(_selectedDate)),
+                //     builder: (context, snapshot) {
+                //       if (snapshot.connectionState == ConnectionState.waiting) {
+                //         return const CircularProgressIndicator();
+                //       } else if (snapshot.hasError) {
+                //         return Text(
+                //           'Something went wrong',
+                //           style: defaultText14,
+                //         );
+                //       } else if (snapshot.hasData) {
+                //         final listLichHoc = snapshot.data as List<LichHocModel>;
+
+                //       } else {
+                //         return Text(
+                //           'Something went wrong2',
+                //           style: defaultText14,
+                //         );
+                //       }
+                //     },
+                //   ),
+
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    itemCount: listClasses.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () async {
+                          InfoClassModel infoClass = await ClassRepo()
+                              .getInfoClass(listClasses[index].id);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: ((context) => InfoClass(
+                                    model: infoClass,
+                                  )),
+                            ),
+                          );
+                        },
+                        child: _ClassItem(
+                          model: listClasses[index],
                         ),
                       );
-                    },
-                    child: _ClassItem(
-                      model: listClasses[index],
-                    ),
-                  );
-                }),
+                    }),
           ),
           Align(
             alignment: Alignment.bottomCenter,

@@ -23,7 +23,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../utils/widget/excercise_tab_widget.dart';
 import '../../notification/list_notification.dart';
 import '../bottom_nav_bar.dart';
-import 'search_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -49,9 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   bool isLoading2 = false;
   late final int type;
+  late String name;
   @override
   void initState() {
     type = widget.type;
+    name = widget.infoModel!.fullName
+        .replaceFirst(widget.infoModel!.fullName.split(' ').first, '');
     super.initState();
   }
 
@@ -88,33 +90,30 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         InkWell(
                           onTap: () async {
-                            setState(() {
-                              _isLoading = true;
-                            });
                             List<ChildrenInfoModel> listChildModel =
                                 await LoginRepo().getListChillren();
-                            setState(() {
-                              _isLoading = false;
-                            });
+
                             _showBottomSheet(context,
                                 listChildrenModel: listChildModel);
                           },
-                          child: _isLoading
-                              ? Center(
-                                  child: SizedBox(
-                                    width: 28.w,
-                                    height: 28.h,
-                                    child: const CircularProgressIndicator(),
-                                  ),
-                                )
-                              : CircleAvatar(
-                                  radius: 26.r,
-                                  backgroundColor: Colors.white,
-                                  backgroundImage: NetworkImage(widget
-                                          .infoModel?.avatar ??
-                                      'https://trungtam3s.vn/img/favicon.png'),
-                                  //child: Text((type == 0) ? 'TA' : ''),
-                                ),
+                          child:
+                              // _isLoading
+                              //     ? Center(
+                              //         child: SizedBox(
+                              //           width: 28.w,
+                              //           height: 28.h,
+                              //           child: const CircularProgressIndicator(),
+                              //         ),
+                              //       )
+                              //     :
+                              CircleAvatar(
+                            radius: 26.r,
+                            backgroundColor: Colors.white,
+                            backgroundImage: NetworkImage(
+                                widget.infoModel?.avatar ??
+                                    'https://trungtam3s.vn/img/favicon.png'),
+                            //child: Text((type == 0) ? 'TA' : ''),
+                          ),
                         ),
                         SizedBox(
                           width: 5.w,
@@ -144,8 +143,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         GestureDetector(
                           onTap: () async {
                             if (type == 0) {
+                              setState(() {
+                                _isLoading = true;
+                              });
                               List<NotiModel> listNotifications =
                                   await NotiRepo().getListNotifications();
+                              setState(() {
+                                _isLoading = false;
+                              });
                               pushWithoutNavBar(
                                 context,
                                 MaterialPageRoute(
@@ -163,18 +168,26 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             }
                           },
-                          child: hasNewNoti
-                              ? SvgPicture.asset(
-                                  'assets/icons/bell_icon.svg',
-                                  color: Colors.white,
-                                  height: 24.h,
-                                  width: 24.w,
+                          child: _isLoading
+                              ? Center(
+                                  child: SizedBox(
+                                    width: 28.w,
+                                    height: 28.h,
+                                    child: const CircularProgressIndicator(),
+                                  ),
                                 )
-                              : Image.asset(
-                                  'assets/images/hasNoti.png',
-                                  width: 60.w,
-                                  height: 45.h,
-                                ),
+                              : hasNewNoti
+                                  ? SvgPicture.asset(
+                                      'assets/icons/bell_icon.svg',
+                                      color: Colors.white,
+                                      height: 24.h,
+                                      width: 24.w,
+                                    )
+                                  : Image.asset(
+                                      'assets/images/hasNoti.png',
+                                      width: 60.w,
+                                      height: 45.h,
+                                    ),
                         ),
                       ],
                     ),
@@ -382,7 +395,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   Text(
-                    'Lịch học sắp tới',
+                    'Buổi học sắp tới của $name',
                     style: defaultText16.copyWith(
                       fontWeight: FontWeight.w700,
                       color: primary500,

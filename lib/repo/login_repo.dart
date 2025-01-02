@@ -141,4 +141,30 @@ class LoginRepo {
       }
     }
   }
+
+  Future deleteOnesignalId(String id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    var formData = FormData.fromMap({
+      'onesignal_id': id,
+    });
+    Response response;
+    if (token != null) {
+      dio.options.headers['Authorization'] = 'Bearer $token';
+      try {
+        response = await dio.post(ApiPath.deleteOnsignalId, data: formData);
+      } on DioException {
+        return false;
+      }
+    }
+  }
+
+  Future<List<String>> getListBanner() async {
+    Response response;
+    response = await dio.get(ApiPath.getBanner);
+    List<String> result = ((response.data)['data'] as List)
+        .map((e) => e['img_desktop'].toString())
+        .toList();
+    return result;
+  }
 }

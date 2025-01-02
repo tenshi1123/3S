@@ -10,6 +10,7 @@ import 'package:three_s/modules/models/info_model.dart';
 import 'package:three_s/modules/splash/onboarding.dart';
 import 'package:three_s/repo/course_repo.dart';
 import 'package:three_s/repo/info_repo.dart';
+import 'package:three_s/repo/login_repo.dart';
 
 class Splshscreen extends StatefulWidget {
   const Splshscreen({super.key});
@@ -58,6 +59,7 @@ class _SplshscreenState extends State<Splshscreen> {
 
   Future<void> databaseInitialized() async {
     listCate = await CourseRepo().getListCategory();
+    listBanner = await LoginRepo().getListBanner();
   }
 
   @override

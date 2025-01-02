@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
@@ -37,14 +38,51 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
   }
 
   Future _pickImageFromGallery(String id) async {
-    //final returnedImage = await ImagePicker().pickMultiImage();
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-    // photos = List<File>.from(
-    //   (returnedImage).map(
-    //     (e) => File(e.path),
-    //   ),
-    // );
+    final returnedImage = await ImagePicker().pickMultiImage();
+    photos = List<File>.from(
+      (returnedImage).map(
+        (e) => File(e.path),
+      ),
+    );
 
+    //File(returnedImage!.path);
+    if (returnedImage.isNotEmpty) {
+      await ClassRepo().uploadExcercise(
+        id,
+        photos,
+      );
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              'Thông báo',
+              style: defaultText14,
+            ),
+            content: Text(
+              'Bạn đã chọn ảnh thành công!',
+              style: defaultText14,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _isLoading = false;
+                  });
+                  Navigator.pop(context);
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+    setState(() {});
+  }
+
+  Future _pickFile(String id) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
     //File(returnedImage!.path);
     if (result != null) {
       File file = File(result.files.single.path!);
@@ -167,13 +205,48 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    setState(() {
-                                      _isLoading = true;
-                                    });
-                                    _pickImageFromGallery(widget
-                                        .infoCheckinModel
-                                        .homeWork[index]
-                                        .lessonDocumentId);
+                                    // setState(() {
+                                    //   _isLoading = true;
+                                    // });
+                                    // _pickImageFromGallery(widget
+                                    //     .infoCheckinModel
+                                    //     .homeWork[index]
+                                    //     .lessonDocumentId);
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                            "Bạn muốn nộp bài ?",
+                                            style: defaultText16,
+                                          ),
+                                          content: Text(
+                                            "Vui lòng chọn nộp hình ảnh từ thư viện hoặc nộp file",
+                                            style: defaultText14,
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              child: const Text("nộp hình ảnh"),
+                                              onPressed: () {
+                                                _pickImageFromGallery(widget
+                                                    .infoCheckinModel
+                                                    .homeWork[index]
+                                                    .lessonDocumentId);
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: const Text("nộp file"),
+                                              onPressed: () {
+                                                _pickFile(widget
+                                                    .infoCheckinModel
+                                                    .homeWork[index]
+                                                    .lessonDocumentId);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   },
                                   child: Container(
                                     width: 343.w,

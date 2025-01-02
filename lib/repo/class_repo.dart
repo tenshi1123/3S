@@ -85,12 +85,25 @@ class ClassRepo {
     // for (var file in photo) {
     //   formData.files.addAll([
     //     MapEntry(
-    //         "file",
+    //         "file[]",
     //         await MultipartFile.fromFile(file.path,
     //             filename: file.path.split('/').last)),
     //   ]);
     // }
     Response response;
     response = await dio.post(ApiPath.uploadHomeWork, data: formData);
+  }
+
+  Future showExcercise(String id, List<File> photo) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    Response response;
+    response = await dio.get(
+      ApiPath.detailHomework,
+      queryParameters: {
+        'course_schedule_id': id,
+      },
+    );
   }
 }

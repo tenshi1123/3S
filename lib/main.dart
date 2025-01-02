@@ -6,6 +6,7 @@ import 'app.dart';
 
 List<CategoryModel> listCate = [];
 List<CourseModel> listCourse = [];
+List<String> listBanner = [];
 bool hasNewNoti = false;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

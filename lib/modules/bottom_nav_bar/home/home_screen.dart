@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:three_s/main.dart';
 import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/modules/models/course_model.dart';
@@ -11,18 +10,15 @@ import 'package:three_s/modules/models/report_model.dart';
 import 'package:three_s/modules/monthly_summary/monthly_summary.dart';
 import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/modules/roll_call/list_class.dart';
-import 'package:three_s/repo/info_repo.dart';
 import 'package:three_s/repo/notification_repo.dart';
 import 'package:three_s/repo/report_repo.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:three_s/utils/widget/not_student_yet.dart';
 import '../../../repo/course_repo.dart';
-import '../../../repo/login_repo.dart';
 import '../../../utils/constants/color.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../utils/widget/excercise_tab_widget.dart';
 import '../../notification/list_notification.dart';
-import '../bottom_nav_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -60,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final pages = List.generate(
-        3,
+        listBanner.length,
         (index) => NotificationItem(
               index: index,
             ));
@@ -88,32 +84,40 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 66.h,
                     child: Row(
                       children: [
-                        InkWell(
-                          onTap: () async {
-                            List<ChildrenInfoModel> listChildModel =
-                                await LoginRepo().getListChillren();
+                        // InkWell(
+                        //   onTap: () async {
+                        //     List<ChildrenInfoModel> listChildModel =
+                        //         await LoginRepo().getListChillren();
 
-                            _showBottomSheet(context,
-                                listChildrenModel: listChildModel);
-                          },
-                          child:
-                              // _isLoading
-                              //     ? Center(
-                              //         child: SizedBox(
-                              //           width: 28.w,
-                              //           height: 28.h,
-                              //           child: const CircularProgressIndicator(),
-                              //         ),
-                              //       )
-                              //     :
-                              CircleAvatar(
-                            radius: 26.r,
-                            backgroundColor: Colors.white,
-                            backgroundImage: NetworkImage(
-                                widget.infoModel?.avatar ??
-                                    'https://trungtam3s.vn/img/favicon.png'),
-                            //child: Text((type == 0) ? 'TA' : ''),
-                          ),
+                        //     _showBottomSheet(context,
+                        //         listChildrenModel: listChildModel);
+                        //   },
+                        //   child:
+                        //       // _isLoading
+                        //       //     ? Center(
+                        //       //         child: SizedBox(
+                        //       //           width: 28.w,
+                        //       //           height: 28.h,
+                        //       //           child: const CircularProgressIndicator(),
+                        //       //         ),
+                        //       //       )
+                        //       //     :
+                        //       CircleAvatar(
+                        //     radius: 26.r,
+                        //     backgroundColor: Colors.white,
+                        //     backgroundImage: NetworkImage(
+                        //         widget.infoModel?.avatar ??
+                        //             'https://trungtam3s.vn/img/favicon.png'),
+                        //     //child: Text((type == 0) ? 'TA' : ''),
+                        //   ),
+                        // ),
+                        CircleAvatar(
+                          radius: 26.r,
+                          backgroundColor: Colors.white,
+                          backgroundImage: NetworkImage(
+                              widget.infoModel?.avatar ??
+                                  'https://trungtam3s.vn/img/favicon.png'),
+                          //child: Text((type == 0) ? 'TA' : ''),
                         ),
                         SizedBox(
                           width: 5.w,
@@ -257,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SmoothPageIndicator(
                     controller: controller,
-                    count: 3,
+                    count: listBanner.length,
                     effect: SlideEffect(
                         paintStyle: PaintingStyle.stroke,
                         activeDotColor: primary800,
@@ -681,115 +685,115 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-void _showBottomSheet(BuildContext context,
-    {required List<ChildrenInfoModel> listChildrenModel}) {
-  showModalBottomSheet(
-      context: context,
-      useRootNavigator: true,
-      builder: (BuildContext context) {
-        return SizedBox(
-          width: 375.w,
-          height: 616.h,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 20.h,
-              ),
-              Text(
-                'Chuyển tài khoản',
-                style: defaultText16.copyWith(
-                  color: const Color(0xff292929),
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const ScrollPhysics(),
-                itemCount: listChildrenModel.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () async {
-                      final SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      await prefs.setString(
-                          'token', listChildrenModel[index].refreshToken);
-                      InfoModel infoModel = await InfoRepo().getInfo();
-                      List<UpcommingModel> upcommingModel =
-                          await CourseRepo().getUpcommingClass();
-                      //comment tam ti mo
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: ((context) => BottomNavBar(
-                                type: 0,
-                                categories: listCate,
-                                infoModel: infoModel,
-                                upcommingModel: upcommingModel,
-                              )),
-                        ),
-                      );
-                    },
-                    child: SizedBox(
-                      width: 343.w,
-                      height: 72.h,
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 26.r,
-                            backgroundColor: Colors.grey,
-                            backgroundImage:
-                                NetworkImage(listChildrenModel[index].img),
-                            //child: const Text('AH'),
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                listChildrenModel[index].nameChild,
-                                style: defaultText18.copyWith(
-                                  color: primary500,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                              Text(
-                                'Đã đăng nhập',
-                                style: defaultText14.copyWith(
-                                    color: const Color(
-                                  0xff8A8A8A,
-                                )),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          SvgPicture.asset(
-                            'assets/icons/tick.svg',
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              Divider(
-                thickness: 1.h,
-                indent: 28.w,
-                endIndent: 8.w,
-              ),
-            ],
-          ),
-        );
-      });
-}
+// void _showBottomSheet(BuildContext context,
+//     {required List<ChildrenInfoModel> listChildrenModel}) {
+//   showModalBottomSheet(
+//       context: context,
+//       useRootNavigator: true,
+//       builder: (BuildContext context) {
+//         return SizedBox(
+//           width: 375.w,
+//           height: 616.h,
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.start,
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               SizedBox(
+//                 height: 20.h,
+//               ),
+//               Text(
+//                 'Chuyển tài khoản',
+//                 style: defaultText16.copyWith(
+//                   color: const Color(0xff292929),
+//                   fontWeight: FontWeight.w600,
+//                 ),
+//               ),
+//               SizedBox(
+//                 height: 20.h,
+//               ),
+//               ListView.builder(
+//                 shrinkWrap: true,
+//                 physics: const ScrollPhysics(),
+//                 itemCount: listChildrenModel.length,
+//                 itemBuilder: (context, index) {
+//                   return InkWell(
+//                     onTap: () async {
+//                       final SharedPreferences prefs =
+//                           await SharedPreferences.getInstance();
+//                       await prefs.setString(
+//                           'token', listChildrenModel[index].refreshToken);
+//                       InfoModel infoModel = await InfoRepo().getInfo();
+//                       List<UpcommingModel> upcommingModel =
+//                           await CourseRepo().getUpcommingClass();
+//                       //comment tam ti mo
+//                       Navigator.push(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: ((context) => BottomNavBar(
+//                                 type: 0,
+//                                 categories: listCate,
+//                                 infoModel: infoModel,
+//                                 upcommingModel: upcommingModel,
+//                               )),
+//                         ),
+//                       );
+//                     },
+//                     child: SizedBox(
+//                       width: 343.w,
+//                       height: 72.h,
+//                       child: Row(
+//                         children: [
+//                           CircleAvatar(
+//                             radius: 26.r,
+//                             backgroundColor: Colors.grey,
+//                             backgroundImage:
+//                                 NetworkImage(listChildrenModel[index].img),
+//                             //child: const Text('AH'),
+//                           ),
+//                           SizedBox(
+//                             width: 5.w,
+//                           ),
+//                           Column(
+//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                               Text(
+//                                 listChildrenModel[index].nameChild,
+//                                 style: defaultText18.copyWith(
+//                                   color: primary500,
+//                                   fontWeight: FontWeight.w600,
+//                                   fontSize: 18.sp,
+//                                 ),
+//                               ),
+//                               Text(
+//                                 'Đã đăng nhập',
+//                                 style: defaultText14.copyWith(
+//                                     color: const Color(
+//                                   0xff8A8A8A,
+//                                 )),
+//                               ),
+//                             ],
+//                           ),
+//                           const Spacer(),
+//                           SvgPicture.asset(
+//                             'assets/icons/tick.svg',
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   );
+//                 },
+//               ),
+//               Divider(
+//                 thickness: 1.h,
+//                 indent: 28.w,
+//                 endIndent: 8.w,
+//               ),
+//             ],
+//           ),
+//         );
+//       });
+// }
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem({super.key, required this.index});
@@ -802,17 +806,7 @@ class NotificationItem extends StatelessWidget {
         padding: EdgeInsets.only(right: 10.w, left: 10.w),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16.r),
-          child: Container(
-            width: 343.w,
-            height: 170.h,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              image: DecorationImage(
-                image: AssetImage('assets/images/banner.png'),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
+          child: Image.network(listBanner[index]),
         ),
       ),
     );

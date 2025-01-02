@@ -36,6 +36,7 @@ class AttendanceModel {
   final String id;
   final String nameTeacher;
   final String gvStatus;
+  String? point;
   AttendanceModel({
     required this.buoiHoc,
     required this.createdDate,
@@ -47,6 +48,7 @@ class AttendanceModel {
     required this.id,
     required this.nameTeacher,
     required this.gvStatus,
+    this.point,
   });
   factory AttendanceModel.fromJson(Map<String, dynamic> json) {
     return AttendanceModel(
@@ -60,6 +62,7 @@ class AttendanceModel {
       id: json['event_checkin_off_id'] ?? '',
       nameTeacher: json['name_teacher'] ?? '',
       gvStatus: json['gv_status'] ?? '',
+      point: json['point'].toString(),
     );
   }
 }

@@ -61,11 +61,23 @@ class ApiPath {
 
   //Chi tiết thông báo
   static const String getDetailNoti = '$baseUrl/notification/detail';
+
   //Gửi thông tin onesignal id
   static const String pushOnsignalId = '$baseUrl/notify/onesignal_id';
+  //Xóa thông tin onesignal id
+  static const String deleteOnsignalId = '$baseUrl/notify/remove/onesignal_id';
+  //Lấy danh sách banner
+  static const String getbanner = '$baseUrl/banner';
+
   //Cập nhật trạng thái khi ấn vào chi tiết
   static const String updateStatusNoti = '$baseUrl/notification/update';
 
-  // gửi bài tập
+  //Gửi bài tập
   static const String uploadHomeWork = '$baseUrl/detail/homework/upload';
+
+  //Hiển thị bài tập đã nộp
+  static const String showHomeWork = '$baseUrl/homework/submit';
+
+  //Lấy danh sách banner
+  static const String getBanner = '$baseUrl/banner';
 }

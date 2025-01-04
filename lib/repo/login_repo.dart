@@ -131,11 +131,11 @@ class LoginRepo {
     var formData = FormData.fromMap({
       'onesignal_id': id,
     });
-    Response response;
+
     if (token != null) {
       dio.options.headers['Authorization'] = 'Bearer $token';
       try {
-        response = await dio.post(ApiPath.pushOnsignalId, data: formData);
+        await dio.post(ApiPath.pushOnsignalId, data: formData);
       } on DioException {
         return false;
       }
@@ -148,11 +148,11 @@ class LoginRepo {
     var formData = FormData.fromMap({
       'onesignal_id': id,
     });
-    Response response;
+
     if (token != null) {
       dio.options.headers['Authorization'] = 'Bearer $token';
       try {
-        response = await dio.post(ApiPath.deleteOnsignalId, data: formData);
+        await dio.post(ApiPath.deleteOnsignalId, data: formData);
       } on DioException {
         return false;
       }

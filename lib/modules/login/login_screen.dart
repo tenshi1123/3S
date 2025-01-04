@@ -10,7 +10,6 @@ import 'package:three_s/repo/course_repo.dart';
 import 'package:three_s/repo/info_repo.dart';
 import 'package:three_s/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../register/register.dart';
 import '../../utils/constants/styles.dart';
 import 'chose_account.dart';
@@ -35,13 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   TextEditingController? passController = TextEditingController();
   TextEditingController? studenIdController = TextEditingController();
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
-  }
 
   @override
   Widget build(BuildContext context) {

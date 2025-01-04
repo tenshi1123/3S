@@ -5,9 +5,7 @@ const oneSignalAppId = "";
 
 Future<void> initOneSignal() async {
   OneSignal.initialize('eaeb039d-ddb6-471f-b25b-caef8b891625');
-  OneSignal.Notifications.requestPermission(true).then((value) {
-    print('signal value : $value');
-  });
+  OneSignal.Notifications.requestPermission(true).then((value) {});
   var onesignalId = await OneSignal.User.getOnesignalId();
   await LoginRepo().pushOnesignalId(onesignalId ?? '');
 }

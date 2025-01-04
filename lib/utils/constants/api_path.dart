@@ -28,7 +28,8 @@ class ApiPath {
 
   // chi tiết lớp học
   static const String detailClass = '$baseUrl/detail/class';
-
+  // danh sách bài tập đã nộp
+  static const String homeworkSubmited = '$baseUrl/homework/submit';
   // chi tiết buổi điểm danh
   static const String detailRollCall = '$baseUrl/detail/homework/class';
 

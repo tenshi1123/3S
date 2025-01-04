@@ -51,7 +51,7 @@ class ChoseAccount extends StatelessWidget {
 }
 
 class _AccountItem extends StatefulWidget {
-  const _AccountItem({super.key, required this.childrenModel});
+  const _AccountItem({required this.childrenModel});
   final ChildrenInfoModel childrenModel;
 
   @override
@@ -102,7 +102,7 @@ class _AccountItemState extends State<_AccountItem> {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
+                    color: Colors.grey.withAlpha(20),
                     spreadRadius: 5,
                     blurRadius: 7,
                     offset: const Offset(0, 1),

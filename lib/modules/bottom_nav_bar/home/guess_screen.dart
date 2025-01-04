@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../register/register.dart';
 import '../../splash/wellcome_screen.dart';
 
@@ -12,13 +11,13 @@ class GuessScreen extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    Future<void> makePhoneCall(String phoneNumber) async {
-      final Uri launchUri = Uri(
-        scheme: 'tel',
-        path: phoneNumber,
-      );
-      await launchUrl(launchUri);
-    }
+    // Future<void> makePhoneCall(String phoneNumber) async {
+    //   final Uri launchUri = Uri(
+    //     scheme: 'tel',
+    //     path: phoneNumber,
+    //   );
+    //   await launchUrl(launchUri);
+    // }
 
     return SafeArea(
       child: Scaffold(

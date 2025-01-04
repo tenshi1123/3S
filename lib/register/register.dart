@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../modules/splash/wellcome_screen.dart';
 import '../utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,13 +26,6 @@ class _RegisterScreenState extends State<RegisterScreen>
   TextEditingController? phone2Controller = TextEditingController();
   TextEditingController? classController = TextEditingController();
   TextEditingController? subjectController = TextEditingController();
-  Future<void> _makePhoneCall(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
-    await launchUrl(launchUri);
-  }
 
   bool isPhoneNoValid(String? phoneNo) {
     if (phoneNo == null) return false;
@@ -589,13 +581,15 @@ class _RegisterScreenState extends State<RegisterScreen>
                                     classController?.text ?? '',
                                     subjectController?.text ?? '',
                                     isChecked! ? '0' : '1');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: ((context) =>
-                                        const RegisterSuccess()),
-                                  ),
-                                );
+                                if (context.mounted) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: ((context) =>
+                                          const RegisterSuccess()),
+                                    ),
+                                  );
+                                }
                               }
                             },
                             child: Container(

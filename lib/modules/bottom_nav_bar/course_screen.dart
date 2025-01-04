@@ -48,7 +48,7 @@ class CourseScreen extends StatelessWidget {
 }
 
 class _NoCourse extends StatelessWidget {
-  const _NoCourse({super.key});
+  const _NoCourse();
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +90,7 @@ class CourseInProgress extends StatelessWidget {
 }
 
 class _CourseItem extends StatelessWidget {
-  const _CourseItem({
-    super.key,
-    //required this.model
-  });
+  const _CourseItem();
   //final CourseModel model;
   @override
   Widget build(BuildContext context) {

@@ -135,7 +135,7 @@ class _ExcerciseTabBarState extends State<ExcerciseTabBar>
 }
 
 class _ClassItem extends StatelessWidget {
-  const _ClassItem({super.key, required this.model});
+  const _ClassItem({required this.model});
   final CourseModel model;
   @override
   Widget build(BuildContext context) {

@@ -46,17 +46,16 @@ extension AppPagesExtension on AppPages {
       case AppPages.ForgotPassScreen:
         return PageConfig()..pageBuilder = () => const ForgotPassScreen();
       case AppPages.ChoseAccountPage:
-        return PageConfig()..pageBuilder = () => const ChoseAccount(listChildrenModel: [],);
+        return PageConfig()
+          ..pageBuilder = () => const ChoseAccount(
+                listChildrenModel: [],
+              );
       case AppPages.ListClassScreen:
         final List<ClassModel> listClasses = arguments!['listClasses'];
         return PageConfig()
           ..pageBuilder = () => ListClass(
                 listClasses: listClasses,
               );
-      default:
-        throw StateError(
-          "Missing page: ${page.toString()} in AppPagesExtension.getPageConfig()",
-        );
     }
   }
 

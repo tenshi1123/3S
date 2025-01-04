@@ -36,6 +36,24 @@ class ClassRepo {
     return InfoClassModel.fromJson(response.data);
   }
 
+  Future<List<BaiTapModel>> getListBT(String id) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    dio.options.headers['Authorization'] = 'Bearer $token';
+    Response response;
+    response = await dio.get(
+      ApiPath.homeworkSubmited,
+      queryParameters: {
+        'course_schedule_id': id,
+      },
+    );
+    return List<BaiTapModel>.from(
+      response.data['data'].map(
+        (e) => BaiTapModel.fromJson(e),
+      ),
+    );
+  }
+
   Future<InfoCheckinModel> getInfoHomework(String id) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
@@ -77,29 +95,27 @@ class ClassRepo {
     dio.options.headers['Authorization'] = 'Bearer $token';
     var formData = FormData.fromMap({
       'class_lesson_document_id': id,
-      'file': [
-        await MultipartFile.fromFile(photo[0].path,
-            filename: photo[0].path.split('/').last),
-      ]
+      // 'file': [
+      //   await MultipartFile.fromFile(photo[0].path,
+      //       filename: photo[0].path.split('/').last),
+      // ]
     });
-    // for (var file in photo) {
-    //   formData.files.addAll([
-    //     MapEntry(
-    //         "file[]",
-    //         await MultipartFile.fromFile(file.path,
-    //             filename: file.path.split('/').last)),
-    //   ]);
-    // }
-    Response response;
-    response = await dio.post(ApiPath.uploadHomeWork, data: formData);
+    for (var file in photo) {
+      formData.files.addAll([
+        MapEntry(
+            "file[]",
+            await MultipartFile.fromFile(file.path,
+                filename: file.path.split('/').last)),
+      ]);
+    }
+    await dio.post(ApiPath.uploadHomeWork, data: formData);
   }
 
   Future showExcercise(String id, List<File> photo) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
     dio.options.headers['Authorization'] = 'Bearer $token';
-    Response response;
-    response = await dio.get(
+    await dio.get(
       ApiPath.detailHomework,
       queryParameters: {
         'course_schedule_id': id,

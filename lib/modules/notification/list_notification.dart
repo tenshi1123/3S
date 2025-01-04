@@ -8,9 +8,9 @@ import '../models/notification_model.dart';
 class ListNoti extends StatelessWidget {
   const ListNoti({
     super.key,
-    required this.ListNotifications,
+    required this.listNotifications,
   });
-  final List<NotiModel> ListNotifications;
+  final List<NotiModel> listNotifications;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +42,7 @@ class ListNoti extends StatelessWidget {
         child: ListView.builder(
             //shrinkWrap: true,
             //physics: const ClampingScrollPhysics(),
-            itemCount: ListNotifications.length,
+            itemCount: listNotifications.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
@@ -55,18 +55,18 @@ class ListNoti extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: ((context) => DetailNoti(
-                            model: ListNotifications[index],
+                            model: listNotifications[index],
                           )),
                     ),
                   );
                   //}
                 },
                 child: _NotiItem(
-                  model: ListNotifications[index],
+                  model: listNotifications[index],
                   isShow: (index == 0)
                       ? true
-                      : (ListNotifications[index].createdAt.substring(0, 10) !=
-                          ListNotifications[index - 1]
+                      : (listNotifications[index].createdAt.substring(0, 10) !=
+                          listNotifications[index - 1]
                               .createdAt
                               .substring(0, 10)),
                 ),
@@ -79,7 +79,6 @@ class ListNoti extends StatelessWidget {
 
 class _NotiItem extends StatelessWidget {
   const _NotiItem({
-    super.key,
     required this.model,
     required this.isShow,
   });

@@ -67,14 +67,17 @@ class ListClass extends StatelessWidget {
                         onTap: () async {
                           InfoClassModel infoClass = await ClassRepo()
                               .getInfoClass(listClasses[index].id);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: ((context) => InfoClass(
-                                    model: infoClass,
-                                  )),
-                            ),
-                          );
+                          if (context.mounted) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) => InfoClass(
+                                      model: infoClass,
+                                      id: listClasses[index].id,
+                                    )),
+                              ),
+                            );
+                          }
                         },
                         child: _ClassItem(
                           model: listClasses[index],
@@ -90,7 +93,7 @@ class ListClass extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color: Colors.grey.withAlpha(50),
                     spreadRadius: 5,
                     blurRadius: 7,
                     offset: const Offset(0, 3),
@@ -124,7 +127,7 @@ class ListClass extends StatelessWidget {
 }
 
 class _ClassItem extends StatelessWidget {
-  const _ClassItem({super.key, required this.model});
+  const _ClassItem({required this.model});
   final ClassModel model;
   @override
   Widget build(BuildContext context) {
@@ -140,7 +143,7 @@ class _ClassItem extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.grey.withAlpha(50),
             spreadRadius: 5,
             blurRadius: 7,
             offset: const Offset(0, 3),

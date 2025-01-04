@@ -42,9 +42,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Future<void> setupOneSignal() async {
     await initOneSignal();
     if (Platform.isAndroid) {
-      OneSignal.Notifications.addClickListener((event) {
-        print('NOTIFICATION CLICK LISTENER CALLED WITH EVENT: $event');
-      });
+      OneSignal.Notifications.addClickListener((event) {});
     } else {
       //do nothing :v tự báo chính mình
       OneSignal.Notifications.addClickListener((event) {});
@@ -82,7 +80,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               'assets/icons/inactive_home.svg',
             ),
             activeColorSecondary: key1Color,
-            inactiveBackgroundColor: Colors.white.withOpacity(0.2),
+            inactiveBackgroundColor: Colors.white.withAlpha(20),
           ),
         ),
         PersistentTabConfig(
@@ -100,7 +98,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               'assets/icons/inactive_course.svg',
             ),
             activeColorSecondary: key1Color,
-            inactiveBackgroundColor: Colors.white.withOpacity(0.2),
+            inactiveBackgroundColor: Colors.white.withAlpha(20),
           ),
         ),
         PersistentTabConfig(
@@ -120,7 +118,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               'assets/icons/inactive_schedule.svg',
             ),
             activeColorSecondary: key1Color,
-            inactiveBackgroundColor: Colors.white.withOpacity(0.2),
+            inactiveBackgroundColor: Colors.white.withAlpha(20),
           ),
         ),
         PersistentTabConfig(
@@ -141,7 +139,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               'assets/icons/inactive_personal.svg',
             ),
             activeColorSecondary: key1Color,
-            inactiveBackgroundColor: Colors.white.withOpacity(0.2),
+            inactiveBackgroundColor: Colors.white.withAlpha(20),
           ),
         ),
       ];

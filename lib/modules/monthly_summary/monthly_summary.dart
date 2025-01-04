@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three_s/modules/monthly_summary/summary_score.dart';
-import 'package:three_s/repo/report_repo.dart';
 import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 import '../models/report_model.dart';
@@ -58,7 +57,7 @@ class MonthlySummary extends StatelessWidget {
 }
 
 class _ClassItem extends StatelessWidget {
-  const _ClassItem({super.key, required this.model});
+  const _ClassItem({required this.model});
   final ScheduleModel model;
   @override
   Widget build(BuildContext context) {
@@ -74,7 +73,7 @@ class _ClassItem extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.grey.withAlpha(50),
             spreadRadius: 5,
             blurRadius: 7,
             offset: const Offset(0, 3),

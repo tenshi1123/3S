@@ -62,7 +62,34 @@ class AttendanceModel {
       id: json['event_checkin_off_id'] ?? '',
       nameTeacher: json['name_teacher'] ?? '',
       gvStatus: json['gv_status'] ?? '',
-      point: json['point'].toString(),
+      point: json['point'],
+    );
+  }
+}
+
+class BaiTapModel {
+  final String buoiHoc;
+  final String createdDate;
+  final String time;
+  final String timeStart;
+  String? point;
+  final String linkHomework;
+  BaiTapModel({
+    required this.buoiHoc,
+    required this.createdDate,
+    required this.time,
+    required this.timeStart,
+    this.point,
+    required this.linkHomework,
+  });
+  factory BaiTapModel.fromJson(Map<String, dynamic> json) {
+    return BaiTapModel(
+      buoiHoc: json['buoi_hoc'] ?? '',
+      createdDate: json['created_date'] ?? '',
+      time: json['time'] ?? '',
+      timeStart: json['time_start'] ?? '',
+      point: json['point'],
+      linkHomework: json['link_homework'] ?? '',
     );
   }
 }
@@ -78,13 +105,14 @@ class InfoClassModel {
   });
   factory InfoClassModel.fromJson(Map<String, dynamic> json) {
     return InfoClassModel(
-        //gvStatus: json["status"],
-        title: json['title'],
-        attributes: List<AttendanceModel>.from(
-          json['attendance'].map(
-            (e) => AttendanceModel.fromJson(e),
-          ),
-        ));
+      //gvStatus: json["status"],
+      title: json['title'],
+      attributes: List<AttendanceModel>.from(
+        json['attendance'].map(
+          (e) => AttendanceModel.fromJson(e),
+        ),
+      ),
+    );
   }
 }
 

@@ -1,6 +1,5 @@
 import 'dart:core';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +7,6 @@ import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
 import 'package:three_s/utils/constants/styles.dart';
-import 'package:d_chart/d_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:file_picker/file_picker.dart';
@@ -327,7 +325,7 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
 }
 
 class _DocumentItem extends StatelessWidget {
-  const _DocumentItem({super.key, required this.model});
+  const _DocumentItem({required this.model});
 
   final DocumentModel model;
   @override
@@ -345,7 +343,7 @@ class _DocumentItem extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Colors.grey.withAlpha(50),
               spreadRadius: 5,
               blurRadius: 7,
               offset: const Offset(0, 3),
@@ -410,72 +408,8 @@ class _DocumentItem extends StatelessWidget {
   }
 }
 
-class _PieChart extends StatelessWidget {
-  const _PieChart({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    List<OrdinalData> ordinalDataList = [
-      OrdinalData(domain: '1', measure: 90, color: const Color(0xff3A7DD4)),
-      OrdinalData(domain: '2', measure: 10, color: const Color(0xffd9d9d9)),
-      OrdinalData(domain: '3', measure: 33, color: Colors.white),
-    ];
-    return Stack(
-      children: [
-        AspectRatio(
-          aspectRatio: 26 / 16,
-          child: DChartPieO(
-            data: ordinalDataList,
-            customLabel: (ordinalData, index) {
-              return "";
-            },
-            configRenderPie: ConfigRenderPie(
-              arcLabelDecorator: ArcLabelDecorator(
-                labelPosition: ArcLabelPosition.auto,
-                leaderLineStyle: const ArcLabelLeaderLineStyle(
-                  color: Colors.transparent,
-                  length: 30,
-                  thickness: 0,
-                ),
-                showLeaderLines: true,
-              ),
-              arcLength: 2 * pi,
-              arcRatio: 0.2,
-              //arcWidth: 10,
-              startAngle: pi * 3 / 4,
-              strokeWidthPx: 0,
-            ),
-          ),
-        ),
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '9',
-                style: defaultText16.copyWith(
-                  fontSize: 48.sp,
-                  fontWeight: FontWeight.bold,
-                  color: primary500,
-                ),
-              ),
-              Text(
-                'Điểm số của bạn',
-                style: defaultText14.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: primary500,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _FeedbackItem extends StatelessWidget {
-  const _FeedbackItem({super.key, required this.model});
+  const _FeedbackItem({required this.model});
   final FeedbackModel model;
   @override
   Widget build(BuildContext context) {
@@ -539,7 +473,7 @@ class _FeedbackItem extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.grey.withAlpha(50),
                 spreadRadius: 5,
                 blurRadius: 7,
                 offset: const Offset(0, 3),
@@ -624,7 +558,7 @@ class _FeedbackItem extends StatelessWidget {
 }
 
 class _HomeworkItem extends StatelessWidget {
-  const _HomeworkItem({super.key, required this.model});
+  const _HomeworkItem({required this.model});
   final HomeWorkModel model;
   @override
   Widget build(BuildContext context) {
@@ -649,7 +583,7 @@ class _HomeworkItem extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Colors.grey.withAlpha(50),
               spreadRadius: 5,
               blurRadius: 7,
               offset: const Offset(0, 3),
@@ -751,7 +685,7 @@ class _HomeworkItem extends StatelessWidget {
             Text(
               model.notes,
               style: defaultText14.copyWith(
-                color: primary900.withOpacity(0.8),
+                color: primary900.withAlpha(80),
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -760,45 +694,4 @@ class _HomeworkItem extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<void> _dialogBuilder(
-  BuildContext context, {
-  required List<DetailHomeWorkModel> detail1,
-  required String title,
-}) {
-  return showDialog<void>(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(
-          title,
-          style: defaultText14.copyWith(
-            color: primary900.withOpacity(0.8),
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        content: Text(
-          detail1.isEmpty
-              ? 'Bạn chưa được chấm điểm'
-              : 'Điểm của bạn là : ${detail1[0].point}',
-          style: defaultText14.copyWith(
-            color: primary900.withOpacity(0.8),
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            style: TextButton.styleFrom(
-              textStyle: Theme.of(context).textTheme.labelLarge,
-            ),
-            child: const Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
 }

@@ -149,7 +149,7 @@ class CoureScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color: Colors.grey.withAlpha(50),
                     spreadRadius: 5,
                     blurRadius: 7,
                     offset: const Offset(0, 3),

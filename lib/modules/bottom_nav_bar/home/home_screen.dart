@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                   builder: ((context) => ListNoti(
-                                        ListNotifications: listNotifications,
+                                        listNotifications: listNotifications,
                                       )),
                                 ),
                               );
@@ -311,14 +311,16 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {
                         isLoading = false;
                       });
-                      pushWithoutNavBar(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ListClass(
-                            listClasses: listClass,
+                      if (context.mounted) {
+                        pushWithoutNavBar(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ListClass(
+                              listClasses: listClass,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }
                     } else {
                       setState(() {
                         isLoading = false;
@@ -452,17 +454,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     Container(
                                       height: 246.w,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                           color: Colors.white,
                                           gradient: LinearGradient(
                                               begin: FractionalOffset.topCenter,
                                               end:
                                                   FractionalOffset.bottomCenter,
                                               colors: [
-                                                Colors.grey.withOpacity(0.0),
+                                                Colors.grey,
                                                 Colors.black,
                                               ],
-                                              stops: const [
+                                              stops: [
                                                 0.0,
                                                 1.0
                                               ])),
@@ -599,14 +601,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Colors.white,
                                         borderRadius:
                                             BorderRadius.circular(16.r),
-                                        gradient: LinearGradient(
+                                        gradient: const LinearGradient(
                                             begin: FractionalOffset.topCenter,
                                             end: FractionalOffset.bottomCenter,
                                             colors: [
-                                              Colors.grey.withOpacity(0.0),
+                                              Colors.grey,
                                               Colors.black,
                                             ],
-                                            stops: const [
+                                            stops: [
                                               0.0,
                                               1.0
                                             ])),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
@@ -285,7 +284,9 @@ class _PersonerScreenState extends State<PersonerScreen> {
                 setState(() {
                   _isLoading = false;
                 });
-                _showBottomSheet(context, listChildrenModel: listChildModel);
+                if (context.mounted) {
+                  _showBottomSheet(context, listChildrenModel: listChildModel);
+                }
               },
               child: _isLoading
                   ? Center(

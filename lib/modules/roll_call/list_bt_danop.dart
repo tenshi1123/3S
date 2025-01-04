@@ -7,6 +7,8 @@ import '../../utils/constants/color.dart';
 import '../../utils/constants/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../utils/widget/fullscreen_image.dart';
+
 class ListBaiDaNop extends StatefulWidget {
   const ListBaiDaNop({super.key, required this.listBT});
   final List<BaiTapModel> listBT;
@@ -40,15 +42,26 @@ class _ListBaiDaNopState extends State<ListBaiDaNop> {
         ],
       ),
       body: SingleChildScrollView(
-        child: ListView.builder(
-            shrinkWrap: true,
-            physics: const ClampingScrollPhysics(),
-            itemCount: widget.listBT.length,
-            itemBuilder: (BuildContext context, int index) {
-              return _ClassItem(
-                model: widget.listBT[index],
-              );
-            }),
+        child: widget.listBT.isNotEmpty
+            ? ListView.builder(
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemCount: widget.listBT.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return _ClassItem(
+                    model: widget.listBT[index],
+                  );
+                })
+            : Center(
+                child: Text(
+                  'Chưa có bài tập nào được nộp',
+                  style: defaultText16.copyWith(
+                    color: keyBlack,
+                    fontWeight: FontWeight.w600,
+                    height: 2.h,
+                  ),
+                ),
+              ),
       ),
     );
   }
@@ -108,14 +121,6 @@ class _ClassItemState extends State<_ClassItem> {
                             style: defaultText14.copyWith(height: 1.8.h),
                           ),
                           Text(
-                            'Giờ đến lớp:',
-                            style: defaultText14.copyWith(height: 1.8.h),
-                          ),
-                          Text(
-                            'Giờ ra về:',
-                            style: defaultText14.copyWith(height: 1.8.h),
-                          ),
-                          Text(
                             'Giáo viên:',
                             style: defaultText14.copyWith(height: 1.8.h),
                           ),
@@ -147,7 +152,7 @@ class _ClassItemState extends State<_ClassItem> {
                             ),
                           ),
                           Text(
-                            widget.model.timeStart,
+                            widget.model.nameTeacher,
                             style: defaultText14.copyWith(
                               fontWeight: FontWeight.w600,
                               color: primary500,
@@ -166,6 +171,44 @@ class _ClassItemState extends State<_ClassItem> {
                       const Spacer(),
                     ],
                   ),
+                  Text(
+                    'Bài tập đã nộp',
+                    style: defaultText14.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: primary500,
+                        height: 1.8.h),
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: widget.model.linkHomework.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
+                          child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    opaque: false,
+                                    barrierColor: Colors.black,
+                                    pageBuilder: (BuildContext context, _, __) {
+                                      return FullScreenPage(
+                                        dark: true,
+                                        child: Image.network(
+                                          widget.model.linkHomework[index],
+                                          width: 100.w,
+                                          height: 90.h,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Image.network(
+                                  widget.model.linkHomework[index])),
+                        );
+                      }),
                   const Divider(),
                   SizedBox(
                     height: 10.h,

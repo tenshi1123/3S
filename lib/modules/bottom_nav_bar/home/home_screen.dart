@@ -299,7 +299,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() {
                       isLoading = true;
                     });
-
                     if (type == 0) {
                       List<ClassModel> listClass =
                           await ClassRepo().listClass();

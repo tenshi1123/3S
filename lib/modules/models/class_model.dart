@@ -73,13 +73,15 @@ class BaiTapModel {
   final String time;
   final String timeStart;
   String? point;
-  final String linkHomework;
+  final String nameTeacher;
+  final List<String> linkHomework;
   BaiTapModel({
     required this.buoiHoc,
     required this.createdDate,
     required this.time,
     required this.timeStart,
     this.point,
+    required this.nameTeacher,
     required this.linkHomework,
   });
   factory BaiTapModel.fromJson(Map<String, dynamic> json) {
@@ -89,7 +91,8 @@ class BaiTapModel {
       time: json['time'] ?? '',
       timeStart: json['time_start'] ?? '',
       point: json['point'],
-      linkHomework: json['link_homework'] ?? '',
+      nameTeacher: json['name_teacher'] ?? '',
+      linkHomework: json['link_homework'].toString().split('|||||'),
     );
   }
 }

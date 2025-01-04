@@ -10,6 +10,8 @@ import "package:three_s/modules/models/info_model.dart";
 import "package:three_s/utils/constants/color.dart";
 import 'package:flutter_svg/flutter_svg.dart';
 import "../../utils/onesignal.dart";
+import "../models/class_model.dart";
+import "../roll_call/list_class.dart";
 import "course_screen.dart";
 import "home/guess_screen.dart";
 import "home/home_screen.dart";
@@ -22,11 +24,13 @@ class BottomNavBar extends StatefulWidget {
     required this.categories,
     this.infoModel,
     this.upcommingModel,
+    this.listClasses,
   });
   final int type;
   final List<CategoryModel> categories;
   final InfoModel? infoModel;
   final List<UpcommingModel>? upcommingModel;
+  final List<ClassModel>? listClasses;
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -84,15 +88,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ),
         PersistentTabConfig(
-          screen: CourseScreen(
-            type: widget.type,
-          ),
+          screen: widget.listClasses != null
+              ? ListClass(
+                  listClasses: widget.listClasses!,
+                )
+              : CourseScreen(
+                  type: widget.type,
+                ),
           item: ItemConfig(
             icon: SvgPicture.asset(
               'assets/icons/course.svg',
             ),
             //icon: SvgPicture.asset('assets/icons/nav_bar2.svg'),
-            title: "Khóa học",
+            title: "Lớp học",
             activeForegroundColor: Colors.white,
             inactiveIcon: SvgPicture.asset(
               'assets/icons/inactive_course.svg',

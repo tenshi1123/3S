@@ -88,6 +88,9 @@ class _InfoClassState extends State<InfoClass> {
                     )
                   : const Text('Xem bài tập đã nộp'),
             ),
+            SizedBox(
+              height: 10.h,
+            ),
             ListView.builder(
                 shrinkWrap: true,
                 physics: const ClampingScrollPhysics(),

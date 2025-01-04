@@ -12,6 +12,9 @@ import 'package:three_s/repo/course_repo.dart';
 import 'package:three_s/repo/info_repo.dart';
 import 'package:three_s/repo/login_repo.dart';
 
+import '../../repo/class_repo.dart';
+import '../models/class_model.dart';
+
 class Splshscreen extends StatefulWidget {
   const Splshscreen({super.key});
   @override
@@ -29,11 +32,12 @@ class _SplshscreenState extends State<Splshscreen> {
       () async {
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         final String? token = prefs.getString('token');
-        checked = (token != null);
+        checked = (token != null && token != '');
         if (checked) {
           InfoModel infoModel = await InfoRepo().getInfo();
           List<UpcommingModel> upcommingModel =
               await CourseRepo().getUpcommingClass();
+          List<ClassModel> listClass = await ClassRepo().listClass();
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -42,6 +46,7 @@ class _SplshscreenState extends State<Splshscreen> {
                     categories: listCate,
                     infoModel: infoModel,
                     upcommingModel: upcommingModel,
+                    listClasses: listClass,
                   )),
             ),
           );

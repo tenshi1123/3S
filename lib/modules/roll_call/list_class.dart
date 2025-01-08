@@ -16,10 +16,10 @@ class ListClass extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+        //   onPressed: () => Navigator.of(context).pop(),
+        // ),
         title: const Text('Theo dõi lớp học'),
         actions: [
           SvgPicture.asset('assets/icons/calendar.svg'),

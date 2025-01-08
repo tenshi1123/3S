@@ -4,9 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:three_s/utils/constants/styles.dart';
 
 import '../../main.dart';
+import '../../repo/class_repo.dart';
 import '../../repo/course_repo.dart';
 import '../../repo/info_repo.dart';
 import '../bottom_nav_bar/bottom_nav_bar.dart';
+import '../models/class_model.dart';
 import '../models/course_model.dart';
 import '../models/info_model.dart';
 
@@ -72,6 +74,7 @@ class _AccountItemState extends State<_AccountItem> {
         InfoModel infoModel = await InfoRepo().getInfo();
         List<UpcommingModel> upcommingModel =
             await CourseRepo().getUpcommingClass();
+        List<ClassModel> listClass = await ClassRepo().listClass();
         //comment tam ti mo
         Navigator.push(
           context,
@@ -81,6 +84,7 @@ class _AccountItemState extends State<_AccountItem> {
                   categories: listCate,
                   infoModel: infoModel,
                   upcommingModel: upcommingModel,
+                  listClasses: listClass,
                 )),
           ),
         );

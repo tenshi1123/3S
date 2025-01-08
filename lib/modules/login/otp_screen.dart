@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,19 +13,17 @@ import '../../utils/constants/color.dart';
 class OtpScreen extends StatefulWidget {
   bool _isInit = true;
   String contact = '';
-
-  OtpScreen({super.key, required this.contact});
+  final String verificationId;
+  OtpScreen({super.key, required this.contact, required this.verificationId});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-  late String phoneNo;
-  late String smsOTP;
-  late String verificationId;
+  String? smsOTP;
   String errorMessage = '';
-  //final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final _otpPinFieldKey = GlobalKey<OtpPinFieldState>();
 
   //this is method is used to initialize data
@@ -32,7 +32,7 @@ class _OtpScreenState extends State<OtpScreen> {
     super.didChangeDependencies();
     // Load data only once after screen load
     if (widget._isInit) {
-      generateOtp(widget.contact);
+      //generateOtp(widget.contact);
       widget._isInit = false;
     }
   }
@@ -97,8 +97,8 @@ class _OtpScreenState extends State<OtpScreen> {
                   child: OtpPinField(
                     key: _otpPinFieldKey,
                     textInputAction: TextInputAction.done,
-                    maxLength: 4,
-                    fieldWidth: 50.dg,
+                    maxLength: 6,
+                    fieldWidth: 40.dg,
                     fieldHeight: 50.dg,
                     onSubmit: (text) {
                       smsOTP = text;
@@ -147,53 +147,44 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   //Method for generate otp from firebase
-  Future<void> generateOtp(String contact) async {
-    smsOTPSent(verId, forceResendingToken) {
-      verificationId = verId;
-    }
+  // Future<void> generateOtp(String contact) async {
+  //   // smsOTPSent(verId, forceResendingToken) {
+  //   //   verificationId = verId;
+  //   // }
 
-    try {
-      // await _auth.verifyPhoneNumber(
-      //   phoneNumber: contact.replaceAll(" ", ""),
-      //   codeAutoRetrievalTimeout: (String verId) {
-      //     verificationId = verId;
-      //   },
-      //   codeSent: smsOTPSent,
-      //   timeout: const Duration(seconds: 60),
-      //   //verificationCompleted: (AuthCredential phoneAuthCredential) {},
-      //   verificationFailed: (error) {
-      //     if (kDebugMode) {
-      //       print(error);
-      //     }
-      //   },
-      // );
-    } catch (e) {
-      handleError(e as PlatformException);
-    }
-  }
+  //   try {
+  //     final cred = PhoneAuthProvider.credential(
+  //         verificationId: verificationId, smsCode: smsOTP);
+  //   } catch (e) {
+  //     handleError(e as PlatformException);
+  //   }
+  // }
 
   //Method for verify otp entered by user
   Future<void> verifyOtp() async {
-    return showAlertDialog(context, 'Sai mã xác minh');
-    // if (smsOTP.isEmpty || smsOTP == '') {
-    //   showAlertDialog(context, 'xin mời nhập mã otp');
-    //   return;
-    // }
     // try {
-    //   // final AuthCredential credential = PhoneAuthProvider.credential(
-    //   //   verificationId: verificationId,
-    //   //   smsCode: smsOTP,
-    //   // );
-    //   // final UserCredential user = await _auth.signInWithCredential(credential);
-    //   // final User? currentUser = _auth.currentUser;
-    //   // assert(user.user?.uid == currentUser?.uid);
-    // } on PlatformException catch (e) {
-    //   handleError(e);
+    //   final cred = PhoneAuthProvider.credential(
+    //       verificationId: verificationId, smsCode: smsOTP,);
     // } catch (e) {
-    //   if (kDebugMode) {
-    //     print('error $e');
-    //   }
+    //   handleError(e as PlatformException);
     // }
+    if (smsOTP == null || smsOTP == '') {
+      showAlertDialog(context, 'xin mời nhập mã otp');
+      return;
+    }
+    try {
+      final AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: widget.verificationId,
+        smsCode: smsOTP ?? '',
+      );
+      final UserCredential user = await _auth.signInWithCredential(credential);
+      final User? currentUser = _auth.currentUser;
+      assert(user.user?.uid == currentUser?.uid);
+    } on PlatformException catch (e) {
+      handleError(e);
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   //Method for handle the errors

@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:three_s/modules/login/otp_screen.dart';
 import 'package:three_s/utils/constants/styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../utils/constants/color.dart';
+import 'dart:developer';
 
 class ForgotPassScreen extends StatefulWidget {
   const ForgotPassScreen({super.key});
@@ -12,9 +16,15 @@ class ForgotPassScreen extends StatefulWidget {
 
 class _ForgotPassScreenState extends State<ForgotPassScreen> {
   final _focusNode = FocusNode();
-  final _focusNode1 = FocusNode();
-  TextEditingController? passController = TextEditingController();
-  TextEditingController? studenIdController = TextEditingController();
+
+  TextEditingController phoneController = TextEditingController();
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +66,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   ),
                 ),
                 Text(
-                  'Nhập email đã đăng kí với trung tâm',
+                  'Nhập SĐT đã đăng kí với trung tâm',
                   textAlign: TextAlign.right,
                   style: TextStyle(
                     color: const Color(0xff999999),
@@ -93,9 +103,9 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   ),
                   child: TextField(
                     //keyboardType: const TextInputType.numberWithOptions(),
-                    controller: studenIdController,
+                    controller: phoneController,
                     style: defaultText16,
-                    focusNode: _focusNode1,
+                    focusNode: _focusNode,
                     scrollPadding: EdgeInsets.symmetric(
                         vertical: MediaQuery.of(context).viewInsets.bottom),
                     decoration: InputDecoration(
@@ -116,14 +126,26 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => OtpScreen(
-                              contact: studenIdController?.text ?? '',
-                            )),
-                      ),
-                    );
+                    FirebaseAuth.instance.verifyPhoneNumber(
+                        phoneNumber: '+84974225054',
+                        verificationCompleted: (PhoneAuthCredential) {},
+                        verificationFailed: (error) {
+                          log(error.toString());
+                        },
+                        codeSent: (verificationId, forceResendingToken) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: ((context) => OtpScreen(
+                                    contact: phoneController.text,
+                                    verificationId: verificationId,
+                                  )),
+                            ),
+                          );
+                        },
+                        codeAutoRetrievalTimeout: (verificationId) {
+                          log("Auto Retiveral timeout");
+                        });
                   },
                   child: Container(
                     height: 48.h,
@@ -145,7 +167,46 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 100.h,
+                  height: 30.h,
+                ),
+                Text(
+                  '(*) Lưu ý: bạn chỉ có thể nhận 2 mã otp trong ngày, nếu trang không phản hồi, xin vui lòng liên hệ hotline dưới',
+                  style: defaultText14.copyWith(
+                    color: const Color(0xffDF1111),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: 12.h,
+                ),
+                InkWell(
+                  onTap: () {
+                    _makePhoneCall('19008978');
+                  },
+                  child: Row(
+                    children: [
+                      const Spacer(),
+                      SvgPicture.asset(
+                        'assets/icons/hotline.svg',
+                        height: 20.h,
+                        width: 20.w,
+                      ),
+                      SizedBox(
+                        width: 10.w,
+                      ),
+                      Text(
+                        'Hotline',
+                        style: defaultText16.copyWith(
+                            color: const Color(0xff3C3C3C)),
+                      ),
+                      SizedBox(
+                        width: 16.w,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 12.h,
                 ),
                 GestureDetector(
                   onTap: () {

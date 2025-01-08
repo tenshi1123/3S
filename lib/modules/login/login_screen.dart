@@ -11,7 +11,9 @@ import 'package:three_s/repo/info_repo.dart';
 import 'package:three_s/repo/login_repo.dart';
 import 'package:three_s/utils/constants/color.dart';
 import '../../register/register.dart';
+import '../../repo/class_repo.dart';
 import '../../utils/constants/styles.dart';
+import '../models/class_model.dart';
 import 'chose_account.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -287,6 +289,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           InfoModel infoModel = await InfoRepo().getInfo();
                           List<UpcommingModel> upcommingModel =
                               await CourseRepo().getUpcommingClass();
+                          List<ClassModel> listClass =
+                              await ClassRepo().listClass();
                           //comment tam ti mo
                           setState(() {
                             _isLoading = false;
@@ -299,6 +303,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     categories: listCate,
                                     infoModel: infoModel,
                                     upcommingModel: upcommingModel,
+                                    listClasses: listClass,
                                   )),
                             ),
                           );

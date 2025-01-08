@@ -9,9 +9,11 @@ import 'package:three_s/utils/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../main.dart';
+import '../../../repo/class_repo.dart';
 import '../../../repo/course_repo.dart';
 import '../../../repo/info_repo.dart';
 import '../../../repo/login_repo.dart';
+import '../../models/class_model.dart';
 import '../../models/course_model.dart';
 import '../../splash/onboarding.dart';
 import '../bottom_nav_bar.dart';
@@ -454,6 +456,8 @@ void _showBottomSheet(BuildContext context,
                       InfoModel infoModel = await InfoRepo().getInfo();
                       List<UpcommingModel> upcommingModel =
                           await CourseRepo().getUpcommingClass();
+                      List<ClassModel> listClass =
+                          await ClassRepo().listClass();
                       //comment tam ti mo
                       Navigator.push(
                         context,
@@ -463,6 +467,7 @@ void _showBottomSheet(BuildContext context,
                                 categories: listCate,
                                 infoModel: infoModel,
                                 upcommingModel: upcommingModel,
+                                listClasses: listClass,
                               )),
                         ),
                       );

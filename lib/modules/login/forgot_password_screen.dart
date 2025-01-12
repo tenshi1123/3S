@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:three_s/modules/login/otp_screen.dart';
+import 'package:three_s/repo/info_repo.dart';
 import 'package:three_s/utils/constants/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../utils/constants/color.dart';
@@ -125,29 +126,62 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                   height: 30.h,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    FirebaseAuth.instance.verifyPhoneNumber(
-                        // phoneNumber: '+84974225054',
-                        phoneNumber:
-                            '+84${phoneController.text.replaceFirst(RegExp(r'0'), '')}',
-                        verificationCompleted: (PhoneAuthCredential) {},
-                        verificationFailed: (error) {
-                          log(error.toString());
-                        },
-                        codeSent: (verificationId, forceResendingToken) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: ((context) => OtpScreen(
-                                    contact: phoneController.text,
-                                    verificationId: verificationId,
-                                  )),
+                  onTap: () async {
+                    bool check =
+                        await InfoRepo().checkPhone(phoneController.text);
+                    if (check) {
+                      FirebaseAuth.instance.verifyPhoneNumber(
+                          // phoneNumber: '+84974225054',
+                          phoneNumber:
+                              '+84${phoneController.text.replaceFirst(RegExp(r'0'), '')}',
+                          verificationCompleted: (PhoneAuthCredential) {},
+                          verificationFailed: (error) {
+                            log(error.toString());
+                          },
+                          codeSent: (verificationId, forceResendingToken) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: ((context) => OtpScreen(
+                                      contact: phoneController.text,
+                                      verificationId: verificationId,
+                                    )),
+                              ),
+                            );
+                          },
+                          codeAutoRetrievalTimeout: (verificationId) {
+                            log("Auto Retiveral timeout");
+                          });
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(
+                              'Số điện thoại chưa có trên hệ thống',
+                              style: defaultText16.copyWith(
+                                color: const Color.fromARGB(255, 29, 29, 29),
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
+                            actionsPadding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(
+                                  'ok',
+                                  style: defaultText16.copyWith(
+                                      color: const Color(0xff3C3C3C)),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
                           );
                         },
-                        codeAutoRetrievalTimeout: (verificationId) {
-                          log("Auto Retiveral timeout");
-                        });
+                      );
+                    }
                   },
                   child: Container(
                     height: 48.h,

@@ -74,6 +74,7 @@ class InfoRepo {
   }
 
   Future forgotPassword(String phone, String pass, String rePass) async {
+    await saveOtp(phone);
     await dio.post(ApiPath.forgotPassword, data: {
       'phone': phone,
       'password': pass,
@@ -81,9 +82,17 @@ class InfoRepo {
     });
   }
 
-  Future checkPhone(String phone) async {
-    await dio.post(ApiPath.checkPhone, data: {
+  Future<bool> checkPhone(String phone) async {
+    Response response = await dio.post(ApiPath.checkPhone, data: {
       'phone': phone,
     });
+    return response.data['status'];
+  }
+
+  Future saveOtp(String phone) async {
+    await dio.post(
+      ApiPath.saveOtp,
+      data: {'phone': phone, 'otp': '123456123456'},
+    );
   }
 }

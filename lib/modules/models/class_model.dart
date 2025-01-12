@@ -1,8 +1,10 @@
+import 'package:intl/intl.dart';
+
 class ClassModel {
   final String id;
   final String img;
   final String courseName;
-  final String dateOpen;
+  final DateTime dateOpen;
   final String missed;
   final String finished;
   ClassModel({
@@ -18,7 +20,7 @@ class ClassModel {
       id: json['course_schedule_id'] ?? '',
       img: json['course_schedule_img'] ?? '',
       courseName: json['course_name'] ?? '',
-      dateOpen: json['date_open'] ?? '',
+      dateOpen: DateFormat("yyyy-MM-dd").parse(json['date_open'] ?? ''),
       missed: json['vang_mat'] ?? '',
       finished: json['hoan_thanh'] ?? '',
     );

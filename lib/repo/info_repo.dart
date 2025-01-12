@@ -72,4 +72,18 @@ class InfoRepo {
       return response.data['message'];
     }
   }
+
+  Future forgotPassword(String phone, String pass, String rePass) async {
+    await dio.post(ApiPath.forgotPassword, data: {
+      'phone': phone,
+      'password': pass,
+      're_password': rePass,
+    });
+  }
+
+  Future checkPhone(String phone) async {
+    await dio.post(ApiPath.checkPhone, data: {
+      'phone': phone,
+    });
+  }
 }

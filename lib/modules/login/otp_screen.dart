@@ -8,11 +8,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_pin_field/otp_pin_field.dart';
 
 import '../../utils/constants/color.dart';
+import 'forgot_pass2.dart';
 
 // ignore: must_be_immutable
 class OtpScreen extends StatefulWidget {
   bool _isInit = true;
-  String contact = '';
+  final String contact;
   final String verificationId;
   OtpScreen({super.key, required this.contact, required this.verificationId});
 
@@ -180,6 +181,14 @@ class _OtpScreenState extends State<OtpScreen> {
       final UserCredential user = await _auth.signInWithCredential(credential);
       final User? currentUser = _auth.currentUser;
       assert(user.user?.uid == currentUser?.uid);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => ForgotPass2(
+                contact: widget.contact,
+              )),
+        ),
+      );
     } on PlatformException catch (e) {
       handleError(e);
     } catch (e) {

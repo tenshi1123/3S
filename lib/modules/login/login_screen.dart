@@ -15,6 +15,9 @@ import '../../repo/class_repo.dart';
 import '../../utils/constants/styles.dart';
 import '../models/class_model.dart';
 import 'chose_account.dart';
+import 'package:three_s/modules/login/change_pass_screen.dart';
+
+import 'forgot_pass2.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.type});

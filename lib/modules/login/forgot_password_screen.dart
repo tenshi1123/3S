@@ -127,7 +127,9 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 GestureDetector(
                   onTap: () {
                     FirebaseAuth.instance.verifyPhoneNumber(
-                        phoneNumber: '+84974225054',
+                        // phoneNumber: '+84974225054',
+                        phoneNumber:
+                            '+84${phoneController.text.replaceFirst(RegExp(r'0'), '')}',
                         verificationCompleted: (PhoneAuthCredential) {},
                         verificationFailed: (error) {
                           log(error.toString());

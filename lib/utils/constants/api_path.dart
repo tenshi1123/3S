@@ -8,6 +8,7 @@ class ApiPath {
   static const String getlistChildren = '$baseUrl/parents/children';
   static const String register = '$baseUrl/register';
   static const String forgotPassword = '$baseUrl/forgot-password';
+  static const String checkPhone = '$baseUrl/check-phone';
   static const String refreshToken = '$baseUrl/refresh-token';
   // đăng ký tư vấn
   static const String learned = '$baseUrl/contact/learned/add';

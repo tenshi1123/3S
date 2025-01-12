@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:three_s/modules/models/class_model.dart';
 import 'package:three_s/repo/class_repo.dart';
 import 'package:three_s/modules/roll_call/info_class.dart';
@@ -178,7 +179,7 @@ class _ClassItem extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    text: model.dateOpen,
+                    text: DateFormat("dd-MM-yyyy").format(model.dateOpen),
                     style: defaultText14.copyWith(
                       fontWeight: FontWeight.w600,
                       color: primary500,

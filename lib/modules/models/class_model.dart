@@ -222,7 +222,7 @@ class FeedbackModel {
 
 class DetailHomeWorkModel {
   final String point;
-  final String linkHomework;
+  final List<String> linkHomework;
   DetailHomeWorkModel({
     required this.point,
     required this.linkHomework,
@@ -230,7 +230,7 @@ class DetailHomeWorkModel {
   factory DetailHomeWorkModel.fromJson(Map<String, dynamic> json) {
     return DetailHomeWorkModel(
       point: json['point'],
-      linkHomework: json['link_homework'],
+      linkHomework: json['link_homework'].toString().split('|||||'),
     );
   }
 }

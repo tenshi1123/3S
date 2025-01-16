@@ -11,6 +11,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:file_picker/file_picker.dart';
 
+import 'baitap_danop.dart';
+
 class DetailClassTabbar extends StatefulWidget {
   const DetailClassTabbar({super.key, required this.infoCheckinModel});
   final InfoCheckinModel infoCheckinModel;
@@ -130,18 +132,10 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
           labelPadding: EdgeInsets.only(left: 10.w),
           isScrollable: true,
           indicatorColor: primary600,
-          // indicator: BoxDecoration(
-          //   borderRadius: BorderRadius.circular(
-          //     25.0,
-          //   ),
-          //   color: const Color(0xff2F9CD3),
-          // ),
           indicatorSize: TabBarIndicatorSize.label,
           indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(width: 2.w), //hight of indicator
-            insets: EdgeInsets.symmetric(
-                horizontal:
-                    10.w), //give some padding to reduce the size of indicator
+            borderSide: BorderSide(width: 2.w),
+            insets: EdgeInsets.symmetric(horizontal: 10.w),
           ),
           labelStyle: defaultText14.copyWith(
             fontWeight: FontWeight.w700,
@@ -153,7 +147,6 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
             Tab(
               text: '     Bài tập     ',
             ),
-            // second tab [you can add an icon using the icon property]
             Tab(
               text: '     Tài liệu     ',
             ),
@@ -166,118 +159,126 @@ class _DetailClassTabbarState extends State<DetailClassTabbar>
           child: TabBarView(
             controller: _tabController,
             children: <Widget>[
-              //Bài tập
-              // SizedBox(
-              //   height: 160.dg,
-              //   width: 260.dg,
-              //   child: const _PieChart(),
-              // ),
-
               Column(
                 children: [
-                  _isLoading
-                      ? Center(
-                          child: SizedBox(
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 20)),
+                    onPressed: () async {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      List<DetailHomeWorkModel> listBT = await ClassRepo()
+                          .getDetailHomework(
+                              widget.infoCheckinModel.homeWork[0].id);
+                      setState(() {
+                        _isLoading = false;
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => BaiTapDaNop(
+                                listBT: listBT,
+                              )),
+                        ),
+                      );
+                    },
+                    child: _isLoading
+                        ? SizedBox(
                             width: 28.w,
                             height: 28.h,
                             child: const CircularProgressIndicator(),
-                          ),
-                        )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemCount: widget.infoCheckinModel.homeWork.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Column(
-                              children: [
-                                _HomeworkItem(
-                                  model:
-                                      widget.infoCheckinModel.homeWork[index],
-                                ),
-                                Text(
-                                  '(*) Lưu ý: bạn chỉ nộp 1 file hoặc ảnh',
-                                  style: defaultText14.copyWith(
-                                    color: const Color(0xffDF1111),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // setState(() {
-                                    //   _isLoading = true;
-                                    // });
-                                    // _pickImageFromGallery(widget
-                                    //     .infoCheckinModel
-                                    //     .homeWork[index]
-                                    //     .lessonDocumentId);
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text(
-                                            "Bạn muốn nộp bài ?",
-                                            style: defaultText16,
-                                          ),
-                                          content: Text(
-                                            "Vui lòng chọn nộp hình ảnh từ thư viện hoặc nộp file",
-                                            style: defaultText14,
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              child: const Text("nộp hình ảnh"),
-                                              onPressed: () {
-                                                _pickImageFromGallery(widget
-                                                    .infoCheckinModel
-                                                    .homeWork[index]
-                                                    .lessonDocumentId);
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: const Text("nộp file"),
-                                              onPressed: () {
-                                                _pickFile(widget
-                                                    .infoCheckinModel
-                                                    .homeWork[index]
-                                                    .lessonDocumentId);
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 343.w,
-                                    height: 52.h,
-                                    margin:
-                                        EdgeInsets.symmetric(vertical: 10.h),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(12.r),
+                          )
+                        : const Text('Xem bài tập đã nộp'),
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: widget.infoCheckinModel.homeWork.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            _HomeworkItem(
+                              model: widget.infoCheckinModel.homeWork[index],
+                            ),
+                            Text(
+                              '(*) Lưu ý: bạn chỉ nộp 1 file hoặc ảnh',
+                              style: defaultText14.copyWith(
+                                color: const Color(0xffDF1111),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        "Bạn muốn nộp bài ?",
+                                        style: defaultText16,
                                       ),
-                                      color: const Color(0xffF4F6F9),
-                                      border: Border.all(),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          'assets/icons/upload.svg',
+                                      content: Text(
+                                        "Vui lòng chọn nộp hình ảnh từ thư viện hoặc nộp file",
+                                        style: defaultText14,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          child: const Text("nộp hình ảnh"),
+                                          onPressed: () {
+                                            _pickImageFromGallery(widget
+                                                .infoCheckinModel
+                                                .homeWork[index]
+                                                .lessonDocumentId);
+                                          },
                                         ),
-                                        Text(
-                                          '  Upload bài tập',
-                                          style: defaultBoldText.copyWith(
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                                        TextButton(
+                                          child: const Text("nộp file"),
+                                          onPressed: () {
+                                            _pickFile(widget
+                                                .infoCheckinModel
+                                                .homeWork[index]
+                                                .lessonDocumentId);
+                                          },
                                         ),
                                       ],
-                                    ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                width: 343.w,
+                                height: 52.h,
+                                margin: EdgeInsets.symmetric(vertical: 10.h),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12.r),
                                   ),
+                                  color: const Color(0xffF4F6F9),
+                                  border: Border.all(),
                                 ),
-                              ],
-                            );
-                          }),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icons/upload.svg',
+                                    ),
+                                    Text(
+                                      '  Upload bài tập',
+                                      style: defaultBoldText.copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
                 ],
               ),
               //Tài liệu
@@ -511,22 +512,6 @@ class _FeedbackItem extends StatelessWidget {
                           );
                         }),
                   ),
-                  // const Icon(
-                  //   Icons.star,
-                  //   color: Color(0xffFFC400),
-                  //   size: 24.0,
-                  // ),
-                  // const Icon(
-                  //   Icons.star_border_outlined,
-                  //   color: Color(0xffFFC400),
-                  //   size: 24.0,
-                  // ),
-                  // Text(
-                  //   '  (Tốt)',
-                  //   style: defaultText14.copyWith(
-                  //     fontWeight: FontWeight.w400,
-                  //   ),
-                  // ),
                 ],
               ),
               Row(
@@ -567,13 +552,6 @@ class _HomeworkItem extends StatelessWidget {
         if (!await launchUrl(Uri.parse(model.image))) {
           throw Exception('Could not launch ');
         }
-        // List<DetailHomeWorkModel> detail1 =
-        //     await ClassRepo().getDetailHomework(model.id);
-        // _dialogBuilder(
-        //   context,
-        //   detail1: detail1,
-        //   title: model.name,
-        // );
       },
       child: Container(
         width: 343.w,
@@ -640,28 +618,6 @@ class _HomeworkItem extends StatelessWidget {
                 SvgPicture.asset(
                   'assets/icons/downloads.svg',
                 ),
-                // GestureDetector(
-                //   // onTap: () async {
-                //   //   // if (!await launchUrl(Uri.parse('https://hvg.edu.vn'))) {
-                //   //   //   throw Exception('Could not launch ');
-                //   //   // }
-                //   //   List<DetailHomeWorkModel> detail1 =
-                //   //       await ClassRepo().getDetailHomework(model.id);
-                //   //   if (detail1.isEmpty) {
-                //   //     if (!await launchUrl(Uri.parse(model.image))) {
-                //   //       throw Exception('Could not launch ');
-                //   //     }
-                //   //   } else {
-                //   //     if (!await launchUrl(
-                //   //         Uri.parse(detail1[0].linkHomework))) {
-                //   //       throw Exception('Could not launch ');
-                //   //     }
-                //   //   }
-                //   // },
-                //   child: SvgPicture.asset(
-                //     'assets/icons/downloads.svg',
-                //   ),
-                // ),
                 SizedBox(
                   width: 20.w,
                 ),

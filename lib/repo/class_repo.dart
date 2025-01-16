@@ -110,16 +110,4 @@ class ClassRepo {
     }
     await dio.post(ApiPath.uploadHomeWork, data: formData);
   }
-
-  Future showExcercise(String id, List<File> photo) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
-    dio.options.headers['Authorization'] = 'Bearer $token';
-    await dio.get(
-      ApiPath.detailHomework,
-      queryParameters: {
-        'course_schedule_id': id,
-      },
-    );
-  }
 }

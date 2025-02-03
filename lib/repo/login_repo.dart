@@ -23,8 +23,10 @@ class LoginRepo {
       return false;
     }
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', response.data['data']["refresh_token"]);
-    return response.data['data']["refresh_token"] != null;
+    await prefs.setString('token', response.data['data']["token"]);
+    await prefs.setString(
+        'refresh_token', response.data['data']["refresh_token"]);
+    return response.data['data']["token"] != null;
   }
 
   Future<bool> loginParent(String phone, String password) async {
@@ -66,7 +68,7 @@ class LoginRepo {
 
   Future<String> refreshToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
+    final String? token = prefs.getString('refresh_token');
     dio.options.headers['Authorization'] = 'Bearer $token';
     Response response;
     try {
@@ -74,8 +76,10 @@ class LoginRepo {
     } on DioException {
       return '';
     }
-    await prefs.setString('token', response.data['data']["refresh_token"]);
-    return response.data['data']["refresh_token"];
+    await prefs.setString('token', response.data['data']["token"]);
+    await prefs.setString(
+        'refresh_token', response.data['data']["refresh_token"]);
+    return response.data['data']["token"];
   }
 
   Future<String> contactLearned(String phone, String fullName) async {

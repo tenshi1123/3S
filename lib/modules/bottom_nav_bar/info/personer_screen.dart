@@ -160,7 +160,7 @@ class _PersonerScreenState extends State<PersonerScreen> {
             ),
             InkWell(
               onTap: () {
-                makePhoneCall('19008978');
+                makePhoneCall('0984688394');
               },
               child: Row(
                 children: [
@@ -182,7 +182,7 @@ class _PersonerScreenState extends State<PersonerScreen> {
                   ),
                   const Spacer(),
                   Text(
-                    '1900 6262',
+                    '0984688394',
                     style: defaultText16.copyWith(
                       color: const Color(0xFFDF1111),
                       fontWeight: FontWeight.w600,

@@ -217,7 +217,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    _makePhoneCall('19008978');
+                    _makePhoneCall('0984688394');
                   },
                   child: Row(
                     children: [
